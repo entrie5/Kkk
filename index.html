@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Acerus Software Solutions</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#030303] text-zinc-500 font-['DM_Sans',sans-serif] antialiased flex flex-col min-h-screen relative overflow-x-hidden font-extralight select-none [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/20" oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
+<noscript>JavaScript is required to view this content.</noscript>
+
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden flex justify-center">
+    <div class="absolute top-[-20%] w-full h-[70vh] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.015)_0%,transparent_60%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:24px_24px]" style="mask-image: linear-gradient(to bottom, black 0%, transparent 80%); -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 80%);"></div>
+</div>
+
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-3rem)] md:w-auto max-w-3xl bg-[#0a0a0a]/60 backdrop-blur-2xl border border-white/[0.04] rounded-full shadow-2xl transition-all duration-300">
+    <div class="px-2 py-1.5 flex items-center justify-between gap-4 md:gap-12">
+        <a href="#" onclick="ee('main'); return false;" class="pl-4 group relative flex items-center justify-center">
+            <span class="font-['Outfit',sans-serif] text-sm tracking-tighter font-extralight text-zinc-200 uppercase group-hover:text-white transition-colors duration-300">ACERUS</span>
+        </a>
+        <div class="hidden md:flex items-center gap-6">
+            <a href="#products" onclick="ee('main');" class="text-xs text-zinc-500 hover:text-zinc-200 transition-colors duration-300 font-extralight tracking-tight">Products</a>
+            <a href="#features" onclick="ee('main');" class="text-xs text-zinc-500 hover:text-zinc-200 transition-colors duration-300 font-extralight tracking-tight">Features</a>
+            <a href="#reviews" onclick="ee('main');" class="text-xs text-zinc-500 hover:text-zinc-200 transition-colors duration-300 font-extralight tracking-tight">Reviews</a>
+            <a href="#" onclick="ee('clips'); return false;" class="text-xs text-zinc-500 hover:text-zinc-200 transition-colors duration-300 font-extralight tracking-tight flex items-center gap-1.5">
+                Media
+            </a>
+        </div>
+        <div class="flex items-center gap-2 pr-1">
+            <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener noreferrer" class="h-8 px-4 bg-white/90 text-black text-xs font-light tracking-tight rounded-full transition-all duration-300 hover:bg-white flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(255,255,255,0.05)] active:scale-95">
+                <span>Discord</span>
+            </a>
+            <button onclick="tm()" class="md:hidden h-8 px-3 flex items-center justify-center bg-white/[0.02] border border-white/[0.05] rounded-full text-zinc-500 hover:text-zinc-200 transition-colors text-xs font-light">
+                Menu
+            </button>
+        </div>
+    </div>
+    <div id="mobile-menu" class="hidden absolute top-14 left-0 w-full bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/[0.04] rounded-2xl p-4 flex-col items-center gap-2 md:hidden shadow-2xl">
+        <a href="#products" onclick="ee('main'); tm();" class="text-xs text-zinc-400 hover:text-zinc-100 transition-colors duration-300 font-extralight tracking-tight w-full text-center py-2.5 rounded-lg hover:bg-white/[0.02]">Products</a>
+        <a href="#features" onclick="ee('main'); tm();" class="text-xs text-zinc-400 hover:text-zinc-100 transition-colors duration-300 font-extralight tracking-tight w-full text-center py-2.5 rounded-lg hover:bg-white/[0.02]">Features</a>
+        <a href="#reviews" onclick="ee('main'); tm();" class="text-xs text-zinc-400 hover:text-zinc-100 transition-colors duration-300 font-extralight tracking-tight w-full text-center py-2.5 rounded-lg hover:bg-white/[0.02]">Reviews</a>
+        <a href="#" onclick="ee('clips'); tm(); return false;" class="text-xs text-zinc-400 hover:text-zinc-100 transition-colors duration-300 font-extralight tracking-tight w-full text-center py-2.5 rounded-lg hover:bg-white/[0.02]">Media</a>
+    </div>
+</nav>
+
+<main id="view-main" class="relative z-10 flex-grow pt-40 md:pt-52 pb-24 px-6 transition-opacity duration-700">
+    <div class="max-w-5xl mx-auto text-center mb-32 flex flex-col items-center">
+        <div class="fade-el opacity-0 translate-y-4 transition-all duration-1000 ease-out inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-white/[0.04] bg-white/[0.01] backdrop-blur-md mb-8" style="transition-delay: 100ms;">
+            <span class="relative flex h-1.5 w-1.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400/50 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500/80"></span>
+            </span>
+            <span class="text-xs text-zinc-400 tracking-tight font-extralight">All Systems Operational</span>
+        </div>
+        
+        <h1 class="font-['Outfit',sans-serif] fade-el opacity-0 translate-y-4 transition-all duration-1000 ease-out text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter mb-8 leading-[1.05] text-zinc-100" style="transition-delay: 200ms;">
+            Unfair advantage.<br>
+            <span class="bg-gradient-to-br from-zinc-300 to-zinc-600 bg-clip-text text-transparent">Engineered perfectly.</span>
+        </h1>
+        
+        <p class="fade-el opacity-0 translate-y-4 transition-all duration-1000 ease-out text-sm md:text-base tracking-tight text-zinc-500 max-w-2xl mx-auto leading-relaxed font-extralight mb-10" style="transition-delay: 300ms;">
+            Premium software built for a clear advantage. Maximum performance with human-like accuracy and total security. Invisible to anti-cheats, visible in your rank.
+        </p>
+
+        <div class="fade-el opacity-0 translate-y-4 transition-all duration-1000 ease-out flex flex-col sm:flex-row items-center justify-center gap-3" style="transition-delay: 400ms;">
+            <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="w-full sm:w-auto h-11 px-8 bg-zinc-100 text-[#050505] text-xs font-light tracking-tight rounded-full transition-all duration-300 hover:bg-white flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.05)] active:scale-95">
+                Get Access Now
+            </a>
+            <button onclick="ee('clips')" class="w-full sm:w-auto h-11 px-8 bg-white/[0.02] border border-white/[0.05] text-zinc-300 text-xs font-light tracking-tight rounded-full transition-all duration-300 hover:bg-white/[0.04] flex items-center justify-center gap-2 active:scale-95 group">
+                Watch Media
+            </button>
+        </div>
+    </div>
+
+    <div class="fade-el opacity-0 translate-y-4 transition-all duration-1000 ease-out max-w-4xl mx-auto mb-40 border-y border-white/[0.02] py-8" style="transition-delay: 500ms;">
+        <p class="text-xs text-center text-zinc-600 uppercase tracking-widest mb-6 font-extralight">Tested & Verified Across Top Titles, Literally Works with any game with outlines</p>
+        <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 select-none">
+            <span class="px-4 py-2 rounded-full border border-white/[0.03] bg-white/[0.01] text-xs font-['Outfit',sans-serif] text-zinc-500 hover:text-zinc-300 hover:border-white/[0.08] hover:bg-white/[0.02] transition-all duration-500 tracking-tight font-extralight">VALORANT</span>
+            <span class="px-4 py-2 rounded-full border border-white/[0.03] bg-white/[0.01] text-xs font-['Outfit',sans-serif] text-zinc-500 hover:text-zinc-300 hover:border-white/[0.08] hover:bg-white/[0.02] transition-all duration-500 tracking-tight font-extralight">APEX LEGENDS</span>
+            <span class="px-4 py-2 rounded-full border border-white/[0.03] bg-white/[0.01] text-xs font-['Outfit',sans-serif] text-zinc-500 hover:text-zinc-300 hover:border-white/[0.08] hover:bg-white/[0.02] transition-all duration-500 tracking-tight font-extralight">MARVEL RIVALS</span>
+            <span class="px-4 py-2 rounded-full border border-white/[0.03] bg-white/[0.01] text-xs font-['Outfit',sans-serif] text-zinc-500 hover:text-zinc-300 hover:border-white/[0.08] hover:bg-white/[0.02] transition-all duration-500 tracking-tight font-extralight">FRAGPUNK</span>
+            <span class="px-4 py-2 rounded-full border border-white/[0.03] bg-white/[0.01] text-xs font-['Outfit',sans-serif] text-zinc-500 hover:text-zinc-300 hover:border-white/[0.08] hover:bg-white/[0.02] transition-all duration-500 tracking-tight font-extralight">STRINOVA</span>
+            <span class="px-4 py-2 rounded-full border border-white/[0.03] bg-white/[0.01] text-xs font-['Outfit',sans-serif] text-zinc-500 hover:text-zinc-300 hover:border-white/[0.08] hover:bg-white/[0.02] transition-all duration-500 tracking-tight font-extralight">OVERWATCH 2</span>
+        </div>
+    </div>
+
+    <div id="products" class="scroll-mt-32 max-w-5xl mx-auto flex flex-col gap-6 mb-32">
+        
+        <div class="group relative bg-[#080808] border border-white/[0.03] hover:border-white/[0.06] rounded-[2rem] p-8 md:p-12 transition-all duration-700 overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(59,130,246,0.02),transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+            
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10">
+                <div class="lg:col-span-5 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-['Outfit',sans-serif] text-3xl font-light text-zinc-100 tracking-tighter mb-4">Colorbot</h3>
+                        <p class="text-sm text-zinc-500 leading-relaxed font-extralight tracking-tight mb-8">
+                            Top-tier aim assist built with advanced humanized smoothing. Designed to look exactly like natural mouse movement while flawlessly locking onto targets.
+                        </p>
+                    </div>
+                    <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="w-full sm:w-fit h-10 px-6 bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.05] text-zinc-300 text-xs font-light transition-all duration-300 flex items-center justify-center gap-2 rounded-full active:scale-95 group/btn">
+                        Select Plan
+                    </a>
+                </div>
+                
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 bg-[#0a0a0a] p-8 rounded-3xl border border-white/[0.02]">
+                    <div>
+                        <div class="text-zinc-300 mb-5 font-light tracking-tight text-xs uppercase flex items-center gap-2">
+                            Aim Settings
+                        </div>
+                        <ul class="space-y-3.5 font-extralight text-zinc-500 text-xs">
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Humanized Smoothing</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Normal Aimbot & Triggerbot</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Advanced Recoil Control</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Aim Humanizer</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Silent Aim</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Flickbot (P100)</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Accel & Magnet Aim</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> 50+ More in server</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="text-zinc-300 mb-5 font-light tracking-tight text-xs uppercase flex items-center gap-2">
+                            Performance & Stealth
+                        </div>
+                        <ul class="space-y-3.5 font-extralight text-zinc-500 text-xs">
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> All-In-One Feature Set</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> 1000+ FPS Capture</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Streamproof & Hidden</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Web-based GUI</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Fully External (No Memory)</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Process Hiding & Hijacking</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Unique Build Per User</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Safest solution on market</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="group relative bg-[#080808] border border-white/[0.03] hover:border-white/[0.06] rounded-[2rem] p-8 md:p-12 transition-all duration-700 overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(16,185,129,0.02),transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+            
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10">
+                <div class="lg:col-span-5 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-['Outfit',sans-serif] text-3xl font-light text-zinc-100 tracking-tighter mb-4">Triggerbot</h3>
+                        <p class="text-sm text-zinc-500 leading-relaxed font-extralight tracking-tight mb-8">
+                            The fastest reaction time available. Built perfectly for holding angles and instantly firing when a target enters your pixel view.
+                        </p>
+                    </div>
+                    <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="w-full sm:w-fit h-10 px-6 bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.05] text-zinc-300 text-xs font-light transition-all duration-300 flex items-center justify-center gap-2 rounded-full active:scale-95 group/btn">
+                        Select Plan
+                    </a>
+                </div>
+                
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 bg-[#0a0a0a] p-8 rounded-3xl border border-white/[0.02]">
+                    <div>
+                        <div class="text-zinc-300 mb-5 font-light tracking-tight text-xs uppercase flex items-center gap-2">
+                            Combat Features
+                        </div>
+                        <ul class="space-y-3.5 font-extralight text-zinc-500 text-xs">
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Instant Fire Reaction</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Auto Strafe & Stop</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Humanized Clicks</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Anti Astra, Anti Clove</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Strafe Shot</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Multiple Humanized Modes</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Custom Dilation View</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> 50+ More in server</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="text-zinc-300 mb-5 font-light tracking-tight text-xs uppercase flex items-center gap-2">
+                            Safety & Stealth
+                        </div>
+                        <ul class="space-y-3.5 font-extralight text-zinc-500 text-xs">
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Blind & Flash Detection</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Nearsighted Avoidance</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Safest 1PC Solution</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Capturing At 20k+ FPS</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Performance & Stealth Modes</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Streamproof Architecture</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> #1 Click Method ON market</li>
+                            <li class="flex items-center gap-2.5"><div class="h-px w-2 bg-white/10"></div> Low PC Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="features" class="scroll-mt-32 max-w-5xl mx-auto mb-40 pt-20 border-t border-white/[0.02]">
+        <h2 class="font-['Outfit',sans-serif] text-3xl md:text-4xl font-light text-zinc-100 tracking-tighter mb-16 text-center">Engineered for dominance</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-transparent border border-white/[0.03] rounded-3xl p-8 hover:bg-white/[0.01] hover:border-white/[0.06] transition-all duration-500">
+                <h4 class="font-['Outfit',sans-serif] text-lg font-light text-zinc-200 mb-3 tracking-tight">Fully Undetected</h4>
+                <p class="text-xs text-zinc-500 leading-relaxed font-extralight">Runs entirely outside the game. Invisible to anti-cheats and stream capture software, keeping your account permanently safe.</p>
+            </div>
+            <div class="bg-transparent border border-white/[0.03] rounded-3xl p-8 hover:bg-white/[0.01] hover:border-white/[0.06] transition-all duration-500">
+                <h4 class="font-['Outfit',sans-serif] text-lg font-light text-zinc-200 mb-3 tracking-tight">High Performance</h4>
+                <p class="text-xs text-zinc-500 leading-relaxed font-extralight">Optimized to run smoothly on low-end hardware. Captures at over 1000 FPS ensuring zero latency and instantaneous reaction.</p>
+            </div>
+            <div class="bg-transparent border border-white/[0.03] rounded-3xl p-8 hover:bg-white/[0.01] hover:border-white/[0.06] transition-all duration-500">
+                <h4 class="font-['Outfit',sans-serif] text-lg font-light text-zinc-200 mb-3 tracking-tight">Web Interface</h4>
+                <p class="text-xs text-zinc-500 leading-relaxed font-extralight">Change your configs, colors, and settings instantly from your browser or mobile phone without tabbing out of your match.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="reviews" class="scroll-mt-32 max-w-6xl mx-auto mb-20">
+        <div class="flex flex-col items-center text-center mb-16">
+            <h2 class="font-['Outfit',sans-serif] text-3xl md:text-4xl font-light text-zinc-100 tracking-tighter mb-4">Trusted by the best</h2>
+            <p class="text-sm text-zinc-500 font-extralight mb-8">Real feedback from players dominating their respective ladders.</p>
+            <div class="inline-flex items-center gap-2 text-xs text-zinc-500 font-extralight bg-white/[0.02] px-4 py-1.5 rounded-full border border-white/[0.04]">
+                All reviews are from verified users
+            </div>
+        </div>
+
+        <div id="reviews-page-1" class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 transition-opacity duration-500">
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"The most refined colorbot available. The smoothing makes it look exactly like real mouse movement. It's essential for staying consistent."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">GD</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">GamerDoc</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Professional Paster</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Setup was instant. It runs silently in the background with no FPS drops. The micro-adjustments are so clean that replays look completely flawless, bypassed me in a second, ud for a year."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">DK</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">Vanguard</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Pasting Specialist</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Knowing my aim is always on point lets me focus entirely on calling strats and reading the enemy team. It just works perfectly."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">FN</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">Chief Keef</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Chicago Rapper</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Mechanics feel completely natural. The software doesn't force my crosshair, it just guides it perfectly when I need it to clutch rounds."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">TZ</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">TenZ</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Mechanics God</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Triggerbot is insanely fast. Best reaction time I've ever tested holding tight angles on defense. It literally does not miss."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">D1</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">Demon1</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Hitscan Expert</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"I've used many configs but the web interface and instant updates here are unmatched. Super responsive with zero impact on my frames, saved me from awps, and snipers."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">CH</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">Charlie Kirk</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Neck Contour</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="reviews-page-2" class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 transition-opacity duration-500 hidden">
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Security is top notch. Even when the game updates, the software stays completely hidden and safe to use."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">LS</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">Less</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Sentinel Anchor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Tracking targets feels amazing. It doesn't snap, it smoothly glides to the target. Best feel I've ever had with an aim assist."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">AS</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">Aspas</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Duelist Prodigy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Being able to use the same assist feel across different games is huge. It keeps my muscle memory consistent."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">S1</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">s1mple</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">AWP Specialist</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Flicking with the Operator is basically guaranteed. The magnetism stops exactly on the pixel every single time without fail."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">KK</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">ZmjjKK</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Sniper God</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"Consistency is everything at a high level. This runs silently and gives me the exact same feel every single match."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">AL</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">Alfajer</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Site Anchor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid bg-[#080808] border border-white/[0.03] rounded-3xl p-7 hover:border-white/[0.06] transition-all duration-500">
+                <p class="text-sm text-zinc-400 leading-relaxed font-extralight mb-8">"The recoil control feature alongside the humanized smoothing makes spraying incredibly reliable at any range. Fantastic work."</p>
+                <div class="flex items-center gap-3.5">
+                    <div class="h-9 w-9 rounded-full bg-[#111] border border-white/[0.05] flex items-center justify-center font-['Outfit',sans-serif] text-xs text-zinc-400 font-light">NK</div>
+                    <div>
+                        <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-200 tracking-tight">NiKo</h4>
+                        <p class="text-xs text-zinc-600 tracking-widest uppercase font-extralight">Rifler</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-center gap-5 mt-12">
+            <button id="prev-reviews" class="h-10 px-4 flex items-center justify-center bg-[#080808] border border-white/[0.05] text-zinc-500 hover:text-zinc-200 hover:bg-white/[0.02] text-xs font-light rounded-full transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed active:scale-95" disabled>
+                Prev
+            </button>
+            <span class="text-xs text-zinc-600 font-extralight tracking-tight" id="page-indicator">1 / 2</span>
+            <button id="next-reviews" class="h-10 px-4 flex items-center justify-center bg-[#080808] border border-white/[0.05] text-zinc-500 hover:text-zinc-200 hover:bg-white/[0.02] text-xs font-light rounded-full transition-all duration-300 active:scale-95">
+                Next
+            </button>
+        </div>
+    </div>
+</main>
+
+<section id="view-clips" class="hidden relative z-10 flex-grow pt-32 md:pt-40 pb-24 px-6 max-w-6xl mx-auto w-full transition-opacity duration-500">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-8">
+        <div class="text-center md:text-left">
+            <h2 class="font-['Outfit',sans-serif] text-3xl font-light tracking-tighter text-zinc-100 mb-3">Media Library</h2>
+            <p class="text-sm text-zinc-500 font-extralight">Unedited, raw footage recorded directly by our users.</p>
+        </div>
+        
+        <div class="flex items-center p-1 bg-[#0a0a0a] rounded-lg border border-white/[0.04] w-full md:w-auto overflow-x-auto" style="-ms-overflow-style:none;scrollbar-width:none;">
+            <button id="tab-val" onclick="Sct('val')" class="px-4 py-2 text-xs font-light tracking-tight rounded-md bg-[#1a1a1a] text-zinc-100 transition-all duration-300 whitespace-nowrap border border-white/[0.05] shadow-sm">Valorant</button>
+            <button id="tab-apex" onclick="Sct('apex')" class="px-4 py-2 text-xs font-extralight tracking-tight rounded-md text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02] transition-all duration-300 whitespace-nowrap border border-transparent">Apex Legends</button>
+            <button id="tab-frag" onclick="Sct('frag')" class="px-4 py-2 text-xs font-extralight tracking-tight rounded-md text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02] transition-all duration-300 whitespace-nowrap border border-transparent">FragPunk</button>
+            <button id="tab-stri" onclick="Sct('stri')" class="px-4 py-2 text-xs font-extralight tracking-tight rounded-md text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02] transition-all duration-300 whitespace-nowrap border border-transparent">Strinova</button>
+            <button id="tab-ow" onclick="Sct('ow')" class="px-4 py-2 text-xs font-extralight tracking-tight rounded-md text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02] transition-all duration-300 whitespace-nowrap border border-transparent">Overwatch 2</button>
+        </div>
+    </div>
+
+    <!-- Valorant Grid -->
+    <div id="grid-val" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <iframe src="https://streamable.com/e/bvr487?autoplay=0" loading="lazy" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0;top:0;overflow:hidden;"></iframe>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Silent aim</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">Streamable</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/2024-12-14_18-17-25_-_Trim_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Flickbot (old)</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • GG</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/greatesttb.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Triggerbot</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • High Quality</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.04.09_-_08.07.11.14.DVR_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Flickbot in action</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • GG</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.06.15_-_21.14.05.04.DVR.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Triggerbot</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MOV • High Quality</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.04.09_-_02.30.10.04.DVR_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Silent aim in asc</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/silent_aim.mov" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Silent aim</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.58.43.05.DVR_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Cb in rad</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • GG</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.40.56.03.DVR_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Colorbot in rad</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.02.03_-_15.48.37.03.DVR.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Tdm</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • High Quality</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="grid-apex" class="hidden gap-5">
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.34.55.02.DVR.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Apex Tracking #1</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.21.10.04.06.DVR.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Beamed out air</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • GG</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.02.47.25.411.DVR.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Smoothhhh</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.37.18.03.DVR.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Raped</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="grid-frag" class="hidden gap-5">
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.09.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Acerus</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.04.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Flicking</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-03.24.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Rage</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.29.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">p100 Tracking</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-19.18_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Rape session</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/unknown_replay_2025.04.17-02.28.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Snapping</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="grid-stri" class="hidden gap-5">
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.23.33.28.61.DVR.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Acerus</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.20.-.16.19.39.171.DVR.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Strinova Silent aim</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.02.44.51.177.DVR.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">p100 filtering</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.03.06.43.204.DVR.-.Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Session Replay #1</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Replay_2026.02.17-19.33_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Acerus</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="grid-ow" class="hidden gap-5">
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_-_Trim.1.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">P100 tracking</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.22-20.12_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Ow2 Silent aim</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_1_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">ACERUS OT</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <video controls preload="yes" playsinline class="absolute inset-0 w-full h-full object-cover outline-none"><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.03.15-00.09_-_Trim.mp4" type="video/mp4"></video>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">W flicks</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">MP4 • Raw Footage</p>
+            </div>
+        </div>
+        <div class="group flex flex-col bg-[#0a0a0a] border border-white/[0.04] rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/[0.08]">
+            <div class="aspect-video relative bg-[#050505] border-b border-white/[0.02] overflow-hidden">
+                <iframe src="https://streamable.com/e/78xwzm?autoplay=0" loading="lazy" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0;top:0;overflow:hidden;"></iframe>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h4 class="font-['Outfit',sans-serif] text-sm font-light text-zinc-300 tracking-tight mb-1">Rage</h4>
+                <p class="text-xs text-zinc-600 font-extralight tracking-widest uppercase">Streamable</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="max-w-7xl mx-auto border-t border-white/[0.02] pt-12 pb-12 flex flex-col md:flex-row justify-between items-center gap-6 w-full px-6 z-10 relative">
+    <div class="flex flex-col items-center md:items-start gap-2">
+        <span class="font-['Outfit',sans-serif] text-zinc-400 text-sm tracking-tighter font-extralight uppercase">ACERUS</span>
+        <p class="text-xs text-zinc-600 font-extralight tracking-tight">© 2026 Acerus Solutions. Engineered for dominance.</p>
+    </div>
+    <div class="flex gap-6">
+        <a href="#" class="text-xs text-zinc-600 hover:text-zinc-400 font-extralight tracking-tight transition-colors">Discord Community</a>
+        <a href="#" class="text-xs text-zinc-600 hover:text-zinc-400 font-extralight tracking-tight transition-colors">Terms of Service</a>
+        <a href="#" class="text-xs text-zinc-600 hover:text-zinc-400 font-extralight tracking-tight transition-colors flex items-center gap-1.5">
+            <div class="w-1.5 h-1.5 rounded-full bg-emerald-500/80"></div> System Status
+        </a>
+    </div>
+</footer>
+
+<script>
+    function tm() {
+        let m = document.getElementById("mobile-menu");
+        if(m.classList.contains("hidden")) {
+            m.classList.remove("hidden");
+            m.classList.add("flex");
+        } else {
+            m.classList.add("hidden");
+            m.classList.remove("flex");
+        }
+    }
+
+    function ee(e) {
+        let t = document.getElementById("view-main"), 
+            d = document.getElementById("view-clips");
+        
+        if(e === "clips") {
+            t.classList.add("hidden");
+            d.classList.remove("hidden");
+            window.scrollTo({top:0, behavior:"smooth"});
+        } else {
+            d.classList.add("hidden");
+            t.classList.remove("hidden");
+        }
+    }
+
+    function Sct(e) {
+        let tabs = ["val", "apex", "frag", "stri", "ow"];
+        tabs.forEach(t => {
+            let grid = document.getElementById("grid-" + t);
+            let btn = document.getElementById("tab-" + t);
+            
+            if(t === e) {
+                grid.classList.remove("hidden");
+                grid.classList.add("grid", "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3");
+                btn.className = "px-4 py-2 text-xs font-light tracking-tight rounded-md bg-[#1a1a1a] text-zinc-100 transition-all duration-300 whitespace-nowrap border border-white/[0.05] shadow-sm";
+            } else {
+                grid.classList.add("hidden");
+                grid.classList.remove("grid", "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3");
+                btn.className = "px-4 py-2 text-xs font-extralight tracking-tight rounded-md text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.02] transition-all duration-300 whitespace-nowrap border border-transparent";
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(() => {
+            document.querySelectorAll(".fade-el").forEach(e => {
+                e.classList.remove("opacity-0", "translate-y-4");
+            });
+        }, 100);
+
+        let p1 = document.getElementById("reviews-page-1"),
+            p2 = document.getElementById("reviews-page-2"),
+            btnNext = document.getElementById("next-reviews"),
+            btnPrev = document.getElementById("prev-reviews"),
+            indicator = document.getElementById("page-indicator"),
+            currentPage = 1;
+
+        if(btnNext && btnPrev) {
+            btnNext.addEventListener("click", () => {
+                if(currentPage === 1) {
+                    p1.classList.add("hidden");
+                    p2.classList.remove("hidden");
+                    currentPage = 2;
+                    btnPrev.disabled = false;
+                    btnNext.disabled = true;
+                    indicator.textContent = "2 / 2";
+                }
+            });
+
+            btnPrev.addEventListener("click", () => {
+                if(currentPage === 2) {
+                    p2.classList.add("hidden");
+                    p1.classList.remove("hidden");
+                    currentPage = 1;
+                    btnPrev.disabled = true;
+                    btnNext.disabled = false;
+                    indicator.textContent = "1 / 2";
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
