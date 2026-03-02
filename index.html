@@ -3,24 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Acerus Software Solutions</title>
+<title>Acerus Software</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #0c0c0e;
-  --bg2:      #111114;
-  --bg3:      #161619;
-  --bg4:      #1c1c21;
-  --border:   rgba(255,255,255,0.06);
-  --border2:  rgba(255,255,255,0.11);
-  --white:    #f5f5f7;
-  --off:      #a8a8b3;
-  --dim:      #5a5a6e;
-  --faint:    #2e2e38;
-  --accent:   #e8e8f0;
-  --glow:     rgba(232,232,240,0.06);
+  --bg:      #070709;
+  --bg2:     #0c0c0f;
+  --bg3:     #101013;
+  --bg4:     #151518;
+  --bg5:     #1a1a1e;
+  --surface: rgba(255,255,255,0.03);
+  --border:  rgba(255,255,255,0.055);
+  --border2: rgba(255,255,255,0.11);
+  --border3: rgba(255,255,255,0.2);
+  --white:   #f4f4f6;
+  --muted:   #7a7a8a;
+  --faint:   #3a3a48;
+  --dim:     #52525f;
+  --r:       #e8304a;
+  --r2:      #ff4d66;
+  --r3:      #ff6b80;
+  --r-glow:  rgba(232,48,74,0.18);
+  --r-soft:  rgba(232,48,74,0.08);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,14 +34,13 @@ html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
-  color: var(--off);
-  font-family: 'Instrument Sans', sans-serif;
-  font-weight: 300;
+  color: var(--muted);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
   overflow-x: hidden;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  cursor: default;
+  cursor: none;
   user-select: none;
 }
 
@@ -43,858 +48,283 @@ body::-webkit-scrollbar { width: 2px; }
 body::-webkit-scrollbar-track { background: transparent; }
 body::-webkit-scrollbar-thumb { background: var(--faint); border-radius: 99px; }
 
-#bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.4;
+#cur-ring {
+  position: fixed; width: 32px; height: 32px;
+  border: 1px solid rgba(232,48,74,0.55);
+  border-radius: 50%; pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width 0.3s cubic-bezier(.16,1,.3,1), height 0.3s cubic-bezier(.16,1,.3,1), border-color 0.3s, background 0.3s;
+}
+#cur-dot {
+  position: fixed; width: 5px; height: 5px;
+  background: var(--r); border-radius: 50%; pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%); box-shadow: 0 0 8px var(--r);
+}
+body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring {
+  width: 48px; height: 48px; border-color: var(--r2); background: rgba(232,48,74,0.06);
 }
 
+/* BACKGROUND */
+#bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 .grain {
-  position: fixed;
-  inset: -200%;
-  width: 400%;
-  height: 400%;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.022;
+  position: fixed; inset: -200%; width: 400%; height: 400%;
+  z-index: 1; pointer-events: none; opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain-move 8s steps(10) infinite;
+  animation: grain-drift 8s steps(10) infinite;
 }
-@keyframes grain-move {
-  0%   { transform: translate(0,0); }
-  10%  { transform: translate(-2%,-3%); }
-  20%  { transform: translate(3%,2%); }
-  30%  { transform: translate(-1%,4%); }
-  40%  { transform: translate(2%,-2%); }
-  50%  { transform: translate(-3%,1%); }
-  60%  { transform: translate(1%,3%); }
-  70%  { transform: translate(-2%,-1%); }
-  80%  { transform: translate(3%,-3%); }
-  90%  { transform: translate(-1%,2%); }
-  100% { transform: translate(0,0); }
+@keyframes grain-drift {
+  0%,100%{transform:translate(0,0)} 10%{transform:translate(-2%,-3%)} 20%{transform:translate(3%,2%)}
+  30%{transform:translate(-1%,4%)} 40%{transform:translate(2%,-2%)} 50%{transform:translate(-3%,1%)}
+  60%{transform:translate(1%,3%)} 70%{transform:translate(-2%,-1%)} 80%{transform:translate(3%,-3%)} 90%{transform:translate(-1%,2%)}
 }
-
-.orb {
-  position: fixed;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(120px);
-  animation: orb-drift 20s ease-in-out infinite;
-}
-.orb-1 {
-  width: 600px; height: 600px;
-  top: -200px; left: -100px;
-  background: radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 70%);
-  animation-duration: 25s;
-}
-.orb-2 {
-  width: 400px; height: 400px;
-  top: 40%; right: -100px;
-  background: radial-gradient(circle, rgba(200,200,220,0.02) 0%, transparent 70%);
-  animation-duration: 30s;
-  animation-delay: -10s;
-}
-.orb-3 {
-  width: 500px; height: 300px;
-  bottom: 10%; left: 20%;
-  background: radial-gradient(circle, rgba(255,255,255,0.018) 0%, transparent 70%);
-  animation-duration: 22s;
-  animation-delay: -5s;
-}
-@keyframes orb-drift {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  33%  { transform: translate(30px,-40px) scale(1.05); }
-  66%  { transform: translate(-20px,30px) scale(0.97); }
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(110px); animation: orb-float 24s ease-in-out infinite; }
+.orb-1 { width: 650px; height: 450px; top:-180px; left:-180px; background: radial-gradient(ellipse, rgba(232,48,74,0.09) 0%, transparent 70%); animation-duration: 30s; }
+.orb-2 { width: 450px; height: 450px; top:30%; right:-120px; background: radial-gradient(ellipse, rgba(232,48,74,0.055) 0%, transparent 70%); animation-duration: 36s; animation-delay:-15s; }
+.orb-3 { width: 500px; height: 300px; bottom:0; left:20%; background: radial-gradient(ellipse, rgba(232,48,74,0.045) 0%, transparent 70%); animation-duration: 26s; animation-delay:-8s; }
+@keyframes orb-float {
+  0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(35px,-45px) scale(1.05)} 66%{transform:translate(-22px,30px) scale(0.97)}
 }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
-              transform 0.9s cubic-bezier(0.16,1,0.3,1);
-}
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.85s cubic-bezier(.16,1,.3,1), transform 0.85s cubic-bezier(.16,1,.3,1); }
 .reveal.in { opacity: 1; transform: translateY(0); }
+.d1{transition-delay:.05s}.d2{transition-delay:.12s}.d3{transition-delay:.2s}.d4{transition-delay:.28s}.d5{transition-delay:.36s}.d6{transition-delay:.44s}
 
 nav {
-  position: fixed;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  width: calc(100% - 2.5rem);
-  max-width: 880px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  background: rgba(12,12,14,0.7);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 6px 8px 6px 20px;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 8px 40px rgba(0,0,0,0.5);
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
+  z-index: 200; width: calc(100% - 2rem); max-width: 940px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: rgba(7,7,9,0.82); backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid var(--border2); border-radius: 14px; padding: 7px 7px 7px 22px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 12px 50px rgba(0,0,0,0.65);
 }
-
 .nav-logo {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--white);
-  text-decoration: none;
+  font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 16px;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); text-decoration: none;
 }
-
-.nav-links {
-  display: flex;
-  gap: 28px;
-  align-items: center;
-}
+.nav-logo span { color: var(--r); }
+.nav-links { display: flex; gap: 28px; align-items: center; }
 @media (max-width: 680px) { .nav-links { display: none; } }
 .nav-links a {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--dim);
-  text-decoration: none;
-  transition: color 0.25s;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dim); text-decoration: none; transition: color 0.2s; position: relative; padding-bottom: 2px;
 }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--r); transition: width 0.3s cubic-bezier(.16,1,.3,1); }
 .nav-links a:hover { color: var(--white); }
-
+.nav-links a:hover::after { width: 100%; }
 .nav-right { display: flex; gap: 8px; align-items: center; }
 
-.btn-cta {
-  display: inline-flex;
-  align-items: center;
-  height: 34px;
-  padding: 0 18px;
-  background: var(--white);
-  color: var(--bg);
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.2s, box-shadow 0.3s;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 4px 20px rgba(0,0,0,0.4);
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 20px;
+  background: var(--r); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; border-radius: 8px; cursor: none; text-decoration: none; transition: all 0.2s;
+  box-shadow: 0 0 0 1px rgba(232,48,74,0.3), 0 4px 18px rgba(232,48,74,0.22); position: relative; overflow: hidden;
 }
-.btn-cta:hover {
-  background: #fff;
-  transform: scale(1.03);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 8px 30px rgba(255,255,255,0.08);
-}
-.btn-cta:active { transform: scale(0.97); }
+.btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent); border-radius: inherit; }
+.btn-primary:hover { background: var(--r2); transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(255,77,102,0.4), 0 8px 28px rgba(232,48,74,0.35); }
 
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  height: 34px;
-  padding: 0 18px;
-  background: transparent;
-  color: var(--off);
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid var(--border2);
-  border-radius: 999px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.25s;
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 18px;
+  background: transparent; color: var(--muted); font-family: 'Outfit', sans-serif; font-weight: 600;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid var(--border2); border-radius: 8px; cursor: none; text-decoration: none; transition: all 0.2s;
 }
-.btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: var(--white); background: rgba(255,255,255,0.04); }
+.btn-outline:hover { border-color: var(--border3); color: var(--white); background: var(--surface); }
 
 .btn-menu { display: none; }
 @media (max-width: 680px) { .btn-menu { display: flex; } }
-
 #mobile-menu {
-  display: none;
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0; right: 0;
-  background: rgba(12,12,14,0.97);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 10px;
-  flex-direction: column;
-  gap: 4px;
+  display: none; position: absolute; top: calc(100% + 10px); left: 0; right: 0;
+  background: rgba(7,7,9,0.98); backdrop-filter: blur(24px);
+  border: 1px solid var(--border2); border-radius: 12px; padding: 8px; flex-direction: column; gap: 2px;
 }
 #mobile-menu.open { display: flex; }
-#mobile-menu a {
-  font-size: 12px; color: var(--off); text-decoration: none;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  font-family: 'Bricolage Grotesque', sans-serif; font-weight: 500;
-  padding: 10px 16px; border-radius: 10px; text-align: center;
-  transition: all 0.2s;
-}
-#mobile-menu a:hover { background: rgba(255,255,255,0.04); color: var(--white); }
+#mobile-menu a { font-size: 12px; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 10px 16px; border-radius: 7px; text-align: center; transition: all 0.18s; }
+#mobile-menu a:hover { background: var(--r-soft); color: var(--white); }
 
-#view-main {
-  position: relative;
-  z-index: 10;
-  padding: 180px 24px 100px;
-  transition: opacity 0.4s;
-}
+#view-main { position: relative; z-index: 10; padding: 185px 24px 100px; }
 @media (min-width: 768px) { #view-main { padding-top: 220px; } }
 
-.hero {
-  max-width: 860px;
-  margin: 0 auto 110px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+.hero { max-width: 860px; margin: 0 auto 100px; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
 .status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 14px 5px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.09);
-  background: rgba(255,255,255,0.03);
-  margin-bottom: 36px;
+  display: inline-flex; align-items: center; gap: 9px; padding: 5px 14px 5px 10px;
+  border-radius: 999px; border: 1px solid var(--border2); background: var(--surface); margin-bottom: 38px;
 }
-.pulse-dot {
-  position: relative; width: 7px; height: 7px;
-}
-.pulse-dot::before {
-  content: ''; position: absolute; inset: 0; border-radius: 50%;
-  background: #4ade80; opacity: 0.5;
-  animation: pulse 2.5s cubic-bezier(0,0,0.2,1) infinite;
-}
-.pulse-dot::after {
-  content: ''; position: absolute; inset: 1px;
-  border-radius: 50%; background: #22c55e;
-}
-@keyframes pulse {
-  75%, 100% { transform: scale(2.5); opacity: 0; }
-}
-.status-pill span.label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: rgba(255,255,255,0.4);
-}
+.pulse-dot { position: relative; width: 6px; height: 6px; }
+.pulse-dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: #4ade80; opacity: 0.5; animation: pulse-ring 2.4s cubic-bezier(0,0,.2,1) infinite; }
+.pulse-dot::after { content: ''; position: absolute; inset: 1px; border-radius: 50%; background: #22c55e; }
+@keyframes pulse-ring { 75%,100%{ transform: scale(2.6); opacity: 0; } }
+.pill-text { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
 
-h1.hero-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 800;
-  font-size: clamp(44px, 8.5vw, 96px);
-  line-height: 1.0;
-  letter-spacing: -0.035em;
-  color: var(--white);
-  margin-bottom: 26px;
-}
-h1.hero-title .line2 {
-  display: block;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255,255,255,0.25);
-  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(180,180,200,0.5) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+.hero-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(48px, 9.5vw, 108px); line-height: 0.93; letter-spacing: -0.045em; margin-bottom: 28px; }
+.hero-title .t1 { display: block; color: var(--white); }
+.hero-title .t2 { display: block; color: var(--r); text-shadow: 0 0 80px rgba(232,48,74,0.22); }
 
-.hero-sub {
-  font-size: 15px;
-  color: var(--dim);
-  max-width: 500px;
-  line-height: 1.75;
-  font-weight: 300;
-  margin-bottom: 44px;
-  letter-spacing: 0.01em;
-}
+.hero-sub { font-size: 15px; color: var(--dim); max-width: 480px; line-height: 1.82; font-weight: 400; margin-bottom: 44px; }
+.hero-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 34px;
+  background: var(--r); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700;
+  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; border-radius: 10px; border: none; cursor: none; transition: all 0.22s;
+  box-shadow: 0 0 0 1px rgba(232,48,74,0.35), 0 6px 28px rgba(232,48,74,0.28); position: relative; overflow: hidden;
 }
+.btn-hero-primary::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.2); }
+.btn-hero-primary:hover { background: var(--r2); transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(255,77,102,0.4), 0 14px 40px rgba(232,48,74,0.38); }
+.btn-hero-primary svg { transition: transform 0.22s; }
+.btn-hero-primary:hover svg { transform: translateX(3px); }
 
-.btn-hero {
-  display: inline-flex;
-  align-items: center;
-  height: 50px;
-  padding: 0 36px;
-  background: var(--white);
-  color: #0c0c0e;
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s;
-  box-shadow: 0 0 40px rgba(255,255,255,0.1), 0 2px 20px rgba(0,0,0,0.5);
+.btn-hero-ghost {
+  display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 34px;
+  background: var(--surface); color: var(--muted); font-family: 'Outfit', sans-serif; font-weight: 600;
+  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid var(--border2); border-radius: 10px; cursor: none; transition: all 0.22s;
 }
-.btn-hero:hover {
-  background: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 0 60px rgba(255,255,255,0.18), 0 8px 30px rgba(0,0,0,0.4);
-}
-.btn-hero:active { transform: translateY(0); }
+.btn-hero-ghost:hover { border-color: var(--border3); color: var(--white); background: rgba(255,255,255,0.05); transform: translateY(-3px); }
 
-.btn-hero-outline {
-  display: inline-flex;
-  align-items: center;
-  height: 50px;
-  padding: 0 36px;
-  background: transparent;
-  color: var(--off);
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid var(--border2);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-.btn-hero-outline:hover {
-  border-color: rgba(255,255,255,0.25);
-  color: var(--white);
-  background: rgba(255,255,255,0.04);
-  transform: translateY(-2px);
-}
+.scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 56px; opacity: 0.28; }
+.scroll-hint span { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
+.scroll-bar { width: 1px; height: 42px; background: linear-gradient(to bottom, var(--r), transparent); animation: scroll-anim 2s ease-in-out infinite; }
+@keyframes scroll-anim { 0%,100%{opacity:.45;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.15) translateY(3px)} }
+  
+.marquee-wrap { max-width: 940px; margin: 0 auto 70px; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; }
+.marquee-track { display: flex; gap: 56px; white-space: nowrap; animation: marquee-scroll 24s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+@keyframes marquee-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.marquee-item { display: flex; align-items: center; gap: 11px; flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); }
+.m-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--r); opacity: 0.5; }
 
-.games-strip {
-  max-width: 820px;
-  margin: 0 auto 110px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 28px 0;
-}
-.games-eyebrow {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--faint);
-  text-align: center;
-  margin-bottom: 18px;
-}
-.games-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-.game-chip {
-  padding: 7px 16px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--dim);
-  text-transform: uppercase;
-  transition: all 0.35s;
-}
-.game-chip:hover {
-  background: var(--bg4);
-  border-color: var(--border2);
-  color: var(--white);
-  transform: translateY(-1px);
-}
+.games-strip { max-width: 860px; margin: 0 auto 70px; }
+.games-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--faint); text-align: center; margin-bottom: 18px; }
+.games-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.game-chip { padding: 7px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase; transition: all 0.28s; }
+.game-chip:hover { background: var(--bg4); border-color: var(--border2); color: var(--white); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
 
-.section-wrap {
-  max-width: 880px;
-  margin: 0 auto 110px;
-}
-
-.eyebrow {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--dim);
-  margin-bottom: 10px;
-}
-
-.s-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 800;
-  font-size: clamp(26px, 3.5vw, 42px);
-  letter-spacing: -0.025em;
-  color: var(--white);
-  line-height: 1.1;
-}
-
-.section-header { text-align: center; margin-bottom: 52px; }
-.section-header .eyebrow { display: block; }
+.stats-grid { max-width: 940px; margin: 0 auto 90px; display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+@media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4,1fr); } }
+.stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 26px 20px; text-align: center; position: relative; overflow: hidden; transition: all 0.3s; }
+.stat-card::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 50%; height: 1px; background: linear-gradient(90deg, transparent, var(--r), transparent); }
+.stat-card:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+.stat-num { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 38px; letter-spacing: -0.04em; line-height: 1; color: var(--white); margin-bottom: 7px; }
+.stat-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+  
+.section-wrap { max-width: 940px; margin: 0 auto 110px; padding: 0 24px; }
+.section-center { text-align: center; margin-bottom: 52px; }
+.eyebrow { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--r); margin-bottom: 14px; opacity: 0.85; }
+.section-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(28px, 4.5vw, 50px); letter-spacing: -0.03em; color: var(--white); line-height: 1.02; }
 
 .product-card {
-  position: relative;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 44px;
-  margin-bottom: 16px;
-  overflow: hidden;
-  transition: border-color 0.4s, box-shadow 0.4s;
+  position: relative; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 20px; padding: 44px; margin-bottom: 16px; overflow: hidden; transition: border-color 0.4s, box-shadow 0.4s;
 }
-.product-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-.product-card:hover { border-color: var(--border2); box-shadow: 0 0 60px rgba(255,255,255,0.03), 0 20px 80px rgba(0,0,0,0.4); }
-.product-card:hover::before { opacity: 1; }
-
-.product-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 70% 0%, rgba(255,255,255,0.025) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.5s;
-  pointer-events: none;
-}
+.product-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--r), transparent); opacity: 0; transition: opacity 0.45s; }
+.product-card:hover { border-color: var(--border2); box-shadow: 0 0 60px rgba(232,48,74,0.05), 0 24px 70px rgba(0,0,0,0.45); }
+.product-card:hover::before { opacity: 0.8; }
+.product-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 65% -5%, rgba(232,48,74,0.055) 0%, transparent 55%); opacity: 0; transition: opacity 0.5s; }
 .product-card:hover::after { opacity: 1; }
-
-.product-layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px;
-  position: relative;
-  z-index: 1;
-}
-@media (min-width: 900px) {
-  .product-layout { grid-template-columns: 5fr 7fr; align-items: start; }
-}
-
-.prod-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--dim);
-  border: 1px solid var(--border2);
-  border-radius: 999px;
-  padding: 4px 12px;
-  margin-bottom: 18px;
-  width: fit-content;
-}
-.prod-badge-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--off); opacity: 0.6;
-}
-
-.prod-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 800;
-  font-size: clamp(32px, 4.5vw, 52px);
-  letter-spacing: -0.03em;
-  line-height: 1.0;
-  color: var(--white);
-  margin-bottom: 16px;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-.prod-desc {
-  font-size: 14px;
-  color: var(--dim);
-  line-height: 1.75;
-  font-weight: 300;
-  margin-bottom: 32px;
-  max-width: 340px;
-}
-
-.btn-select {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  height: 42px;
-  padding: 0 26px;
-  background: var(--bg4);
-  border: 1px solid var(--border2);
-  color: var(--off);
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s;
-  width: fit-content;
-}
-.btn-select:hover {
-  background: var(--white);
-  color: var(--bg);
-  border-color: var(--white);
-  transform: translateX(4px);
-  box-shadow: 0 0 30px rgba(255,255,255,0.1);
-}
-.btn-select svg { transition: transform 0.3s; }
+.card-num { position: absolute; top: 44px; right: 44px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--faint); }
+.prod-layout { display: grid; grid-template-columns: 1fr; gap: 40px; position: relative; z-index: 1; }
+@media (min-width: 900px) { .prod-layout { grid-template-columns: 5fr 7fr; align-items: start; } }
+.prod-badge { display: inline-flex; align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--r); border: 1px solid rgba(232,48,74,0.22); border-radius: 5px; padding: 5px 13px; margin-bottom: 18px; width: fit-content; background: rgba(232,48,74,0.06); }
+.badge-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--r); }
+.prod-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(38px, 5.5vw, 62px); letter-spacing: -0.04em; line-height: 0.92; color: var(--white); margin-bottom: 16px; }
+.prod-desc { font-size: 14px; color: var(--dim); line-height: 1.78; margin-bottom: 34px; max-width: 330px; }
+.btn-select { display: inline-flex; align-items: center; gap: 9px; height: 44px; padding: 0 26px; background: var(--bg4); border: 1px solid var(--border2); color: var(--muted); font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; border-radius: 9px; text-decoration: none; cursor: none; transition: all 0.22s; width: fit-content; }
+.btn-select:hover { background: var(--r); color: #fff; border-color: var(--r); transform: translateX(4px); box-shadow: 0 0 24px rgba(232,48,74,0.28); }
+.btn-select svg { transition: transform 0.22s; }
 .btn-select:hover svg { transform: translateX(3px); }
+.feat-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.feat-col-lbl { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--r); opacity: 0.75; margin-bottom: 16px; }
+.feat-list { display: flex; flex-direction: column; gap: 10px; }
+.feat-row { display: flex; align-items: center; gap: 11px; font-size: 12px; color: var(--dim); font-weight: 400; }
+.feat-tick { width: 11px; height: 1px; background: var(--faint); flex-shrink: 0; transition: width 0.3s, background 0.3s; }
+.product-card:hover .feat-tick { width: 15px; background: rgba(232,48,74,0.4); }
 
-.feat-box {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 28px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-}
+/* FEATURE CARDS */
+.feats-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .feats-grid { grid-template-columns: repeat(3,1fr); } }
+.feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.38s; }
+.feat-card::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 1px; width: 0; background: var(--r); transition: width 0.38s; }
+.feat-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 20px 55px rgba(0,0,0,0.4); }
+.feat-card:hover::after { width: 65%; }
+.feat-icon { width: 44px; height: 44px; background: rgba(232,48,74,0.07); border: 1px solid rgba(232,48,74,0.16); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 20px; }
+.feat-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; color: var(--white); letter-spacing: -0.02em; margin-bottom: 10px; }
+.feat-desc { font-size: 13px; color: var(--dim); line-height: 1.72; }
 
-.feat-col-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 16px;
-}
+.hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--border2), transparent); margin: 0 auto 80px; max-width: 940px; }
 
-.feat-items { display: flex; flex-direction: column; gap: 10px; }
-.feat-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--dim);
-  font-weight: 300;
-  letter-spacing: 0.01em;
-}
-.feat-dash {
-  width: 12px; height: 1px;
-  background: var(--faint);
-  flex-shrink: 0;
-  transition: background 0.3s, width 0.3s;
-}
-.product-card:hover .feat-dash { background: var(--border2); width: 14px; }
-
-.feats-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-@media (min-width: 640px) { .feats-grid { grid-template-columns: repeat(3, 1fr); } }
-
-.feat-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 32px 28px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s;
-}
-.feat-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 0; height: 1px;
-  background: rgba(255,255,255,0.2);
-  transition: width 0.4s;
-}
-.feat-card:hover { border-color: var(--border2); transform: translateY(-3px); }
-.feat-card:hover::after { width: 80%; }
-
-.feat-card-icon {
-  width: 38px; height: 38px;
-  background: var(--bg4);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-.feat-card-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--white);
-  letter-spacing: -0.01em;
-  margin-bottom: 10px;
-}
-.feat-card-desc { font-size: 13px; color: var(--dim); line-height: 1.7; font-weight: 300; }
-
-.reviews-masonry {
-  columns: 1;
-  column-gap: 14px;
-}
-@media (min-width: 700px)  { .reviews-masonry { columns: 2; } }
+.reviews-masonry { columns: 1; column-gap: 14px; }
+@media (min-width: 700px) { .reviews-masonry { columns: 2; } }
 @media (min-width: 1000px) { .reviews-masonry { columns: 3; } }
+.review-card { break-inside: avoid; background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 14px; transition: all 0.3s; position: relative; overflow: hidden; }
+.review-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--r) 0%, transparent 100%); opacity: 0; transition: opacity 0.3s; }
+.review-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 10px 35px rgba(0,0,0,0.32); }
+.review-card:hover::before { opacity: 0.55; }
+.review-q { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 900; color: var(--r); line-height: 1; margin-bottom: 10px; opacity: 0.65; }
+.review-text { font-size: 13px; color: var(--muted); line-height: 1.78; margin-bottom: 20px; }
+.reviewer { display: flex; align-items: center; gap: 11px; }
+.reviewer-av { width: 34px; height: 34px; background: var(--bg4); border: 1px solid var(--border2); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--r); flex-shrink: 0; }
+.reviewer-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 13px; color: var(--white); }
+.reviewer-role { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 2px; }
 
-.review-card {
-  break-inside: avoid;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 26px;
-  margin-bottom: 14px;
-  transition: all 0.35s;
-  position: relative;
-  overflow: hidden;
-}
-.review-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0; width: 1px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 100%);
-  opacity: 0;
-  transition: opacity 0.35s;
-}
-.review-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-.review-card:hover::before { opacity: 1; }
-
-.review-text {
-  font-size: 13px;
-  color: var(--off);
-  line-height: 1.75;
-  font-weight: 300;
-  margin-bottom: 20px;
-  letter-spacing: 0.01em;
-}
-.review-text::before {
-  content: '\201C';
-  font-family: Georgia, serif;
-  font-size: 28px;
-  color: var(--faint);
-  display: block;
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.reviewer { display: flex; align-items: center; gap: 12px; }
-.reviewer-av {
-  width: 34px; height: 34px;
-  background: var(--bg4);
-  border: 1px solid var(--border2);
-  border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px; color: var(--dim);
-  flex-shrink: 0;
-}
-.reviewer-name {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 700; font-size: 13px;
-  color: var(--white); letter-spacing: -0.01em;
-}
-.reviewer-role {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--faint);
-  margin-top: 2px;
-}
-
-.pagination {
-  display: flex; align-items: center;
-  justify-content: center; gap: 16px;
-  margin-top: 44px;
-}
-.btn-page {
-  height: 40px; padding: 0 24px;
-  background: var(--bg2); border: 1px solid var(--border);
-  color: var(--dim);
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; border-radius: 999px; cursor: pointer;
-  transition: all 0.3s;
-}
-.btn-page:hover:not(:disabled) {
-  border-color: var(--border2); color: var(--white);
-  background: rgba(255,255,255,0.04);
-}
+.pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 44px; }
+.btn-page { height: 40px; padding: 0 24px; background: var(--bg2); border: 1px solid var(--border); color: var(--dim); font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; border-radius: 8px; cursor: none; transition: all 0.22s; }
+.btn-page:hover:not(:disabled) { border-color: var(--border2); color: var(--white); background: var(--surface); }
 .btn-page:disabled { opacity: 0.2; cursor: not-allowed; }
-.page-ind {
-  font-family: 'Geist Mono', monospace; font-size: 11px;
-  color: var(--faint); letter-spacing: 0.12em;
-}
+.page-ind { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--faint); letter-spacing: 0.14em; }
 
-#view-clips {
-  position: relative; z-index: 10;
-  padding: 120px 24px 100px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+.v-badge { display: inline-flex; align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); border: 1px solid var(--border); padding: 5px 13px; border-radius: 999px; margin-top: 14px; }
+.v-dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.55); }
 
-.clips-head {
-  display: flex; flex-direction: column; gap: 28px;
-  margin-bottom: 44px;
-}
-@media (min-width: 768px) {
-  .clips-head { flex-direction: row; align-items: center; justify-content: space-between; }
-}
-
-.clips-head h2 {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 800; font-size: 30px;
-  color: var(--white); letter-spacing: -0.02em; margin-bottom: 5px;
-}
-.clips-head p { font-size: 13px; color: var(--dim); font-weight: 300; }
-
-/* Tabs */
-.tab-strip {
-  display: flex; align-items: center; gap: 3px;
-  padding: 4px; background: var(--bg2);
-  border: 1px solid var(--border); border-radius: 12px;
-  overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;
-}
+#view-clips { position: relative; z-index: 10; padding: 120px 24px 100px; max-width: 1200px; margin: 0 auto; }
+.clips-head { display: flex; flex-direction: column; gap: 24px; margin-bottom: 44px; }
+@media (min-width: 768px) { .clips-head { flex-direction: row; align-items: center; justify-content: space-between; } }
+.clips-head h2 { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 30px; color: var(--white); letter-spacing: -0.025em; margin-bottom: 5px; }
+.clips-head p { font-size: 13px; color: var(--dim); }
+.tab-strip { display: flex; align-items: center; gap: 3px; padding: 4px; background: var(--bg2); border: 1px solid var(--border); border-radius: 11px; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; }
 .tab-strip::-webkit-scrollbar { display: none; }
-.tab-btn {
-  padding: 8px 15px;
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  border-radius: 8px; border: 1px solid transparent;
-  background: transparent; color: var(--dim);
-  cursor: pointer; transition: all 0.25s; white-space: nowrap;
-}
-.tab-btn:hover { color: var(--white); background: rgba(255,255,255,0.03); }
-.tab-btn.active {
-  background: var(--bg4); border-color: var(--border2); color: var(--white);
-}
+.tab-btn { padding: 8px 15px; font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; border-radius: 7px; border: 1px solid transparent; background: transparent; color: var(--dim); cursor: none; transition: all 0.2s; white-space: nowrap; }
+.tab-btn:hover { color: var(--white); background: var(--surface); }
+.tab-btn.active { background: var(--r-soft); border-color: rgba(232,48,74,0.2); color: var(--white); }
+.vid-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .vid-grid { grid-template-columns: repeat(2,1fr); } }
+@media (min-width: 1024px) { .vid-grid { grid-template-columns: repeat(3,1fr); } }
+.vid-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: all 0.3s; }
+.vid-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 18px 50px rgba(0,0,0,0.5); }
+.vid-thumb { aspect-ratio: 16/9; position: relative; background: #040406; border-bottom: 1px solid var(--border); overflow: hidden; }
+.vid-thumb iframe, .vid-thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vid-info { padding: 12px 14px; }
+.vid-name { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 13px; color: var(--white); letter-spacing: -0.01em; }
+.vid-meta { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 3px; }
 
-.vid-grid {
-  display: grid;
-  grid-template-columns: 1fr; gap: 14px;
-}
-@media (min-width: 640px)  { .vid-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .vid-grid { grid-template-columns: repeat(3, 1fr); } }
-
-.vid-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 14px; overflow: hidden;
-  transition: all 0.35s;
-}
-.vid-card:hover {
-  border-color: var(--border2);
-  transform: translateY(-3px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-}
-.vid-thumb {
-  aspect-ratio: 16/9; position: relative;
-  background: #08080a; border-bottom: 1px solid var(--border);
-  overflow: hidden;
-}
-.vid-thumb iframe,
-.vid-thumb video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-.vid-info { padding: 13px 15px; }
-.vid-name {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 600; font-size: 13px;
-  color: var(--white); letter-spacing: -0.01em;
-}
-.vid-meta {
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--faint);
-  margin-top: 3px;
-}
-
-footer {
-  position: relative; z-index: 10;
-  border-top: 1px solid var(--border);
-  padding: 44px 24px;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 20px;
-  max-width: 1200px; margin: 0 auto;
-}
-@media (min-width: 768px) {
-  footer { flex-direction: row; justify-content: space-between; }
-}
-.footer-logo {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 700; font-size: 13px;
-  letter-spacing: 0.15em; text-transform: uppercase; color: var(--white);
-}
-.footer-copy { font-size: 11px; color: var(--faint); margin-top: 4px; }
+footer { position: relative; z-index: 10; border-top: 1px solid var(--border); padding: 44px 24px; display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 1200px; margin: 0 auto; }
+@media (min-width: 768px) { footer { flex-direction: row; justify-content: space-between; } }
+.footer-brand p:first-child { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); }
+.footer-brand p:first-child span { color: var(--r); }
+.footer-copy { font-size: 11px; color: var(--faint); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; margin-top: 4px; }
 .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
-.footer-links a {
-  font-size: 11px; color: var(--dim); text-decoration: none;
-  letter-spacing: 0.05em; transition: color 0.25s;
-}
+.footer-links a { font-size: 12px; color: var(--dim); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
 .footer-links a:hover { color: var(--white); }
-.status-indicator {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 11px; color: var(--dim);
-}
-.status-dot-sm {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.5);
-}
+.status-ind { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--dim); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 9px rgba(34,197,94,0.65); }
 
 .hidden { display: none !important; }
-
-.cursor-glow {
-  position: fixed;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 2;
-  background: radial-gradient(circle, rgba(255,255,255,0.035) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  transition: left 0.08s, top 0.08s;
-  mix-blend-mode: screen;
-}
-
-.hr { border: none; border-top: 1px solid var(--border); margin: 0 auto 80px; max-width: 880px; }
-
-.v-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'Geist Mono', monospace; font-size: 9px;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--faint); border: 1px solid var(--border);
-  padding: 5px 13px; border-radius: 999px; margin-top: 14px;
-}
-.v-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--faint); }
-
-.d1 { transition-delay: 0.05s; }
-.d2 { transition-delay: 0.12s; }
-.d3 { transition-delay: 0.2s; }
-.d4 { transition-delay: 0.28s; }
-.d5 { transition-delay: 0.36s; }
 </style>
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
-<div class="cursor-glow" id="cg"></div>
-
+<div id="cur-ring"></div>
+<div id="cur-dot"></div>
 <canvas id="bg-canvas"></canvas>
-
 <div class="grain"></div>
-
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
 
 <nav>
-  <a href="#" onclick="showView('main');return false;" class="nav-logo">Acerus</a>
+  <a href="#" onclick="showView('main');return false;" class="nav-logo">ACE<span>R</span>US</a>
   <div class="nav-links">
     <a href="#products" onclick="showView('main');">Products</a>
     <a href="#features" onclick="showView('main');">Features</a>
@@ -902,8 +332,8 @@ footer {
     <a href="#" onclick="showView('clips');return false;">Media</a>
   </div>
   <div class="nav-right">
-    <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener" class="btn-cta">Discord</a>
-    <button onclick="toggleMenu()" class="btn-ghost btn-menu">Menu</button>
+    <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener" class="btn-primary">Join Discord</a>
+    <button onclick="toggleMenu()" class="btn-outline btn-menu">Menu</button>
   </div>
   <div id="mobile-menu">
     <a href="#products" onclick="showView('main');toggleMenu();">Products</a>
@@ -913,88 +343,95 @@ footer {
   </div>
 </nav>
 
-<div id="view-main" style="position:relative;z-index:10;">
-
+<div id="view-main">
   <section class="hero">
     <div class="status-pill reveal d1">
       <span class="pulse-dot"></span>
-      <span class="label">All Systems Operational</span>
+      <span class="pill-text">All Systems Operational</span>
     </div>
-
     <h1 class="hero-title reveal d2">
-      Unfair advantage.
-      <span class="line2">Engineered perfectly.</span>
+      <span class="t1">Unfair advantage.</span>
+      <span class="t2">Engineered perfectly.</span>
     </h1>
-
-    <p class="hero-sub reveal d3">
-      Premium software built for a clear advantage. Maximum performance with human-like accuracy and total security. Invisible to anti-cheats, visible in your rank.
-    </p>
-
-    <div class="hero-actions reveal d4">
-      <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-hero">Get Access Now</a>
-      <button onclick="showView('clips')" class="btn-hero-outline">Watch Media</button>
+    <p class="hero-sub reveal d3">Premium software built for a decisive edge. Maximum performance with human-like accuracy and absolute security. Invisible to anti-cheats — visible only in your rank.</p>
+    <div class="hero-btns reveal d4">
+      <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-hero-primary">
+        Get Access Now
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button onclick="showView('clips')" class="btn-hero-ghost">Watch Media</button>
+    </div>
+    <div class="scroll-hint reveal d5">
+      <span>Scroll</span>
+      <div class="scroll-bar"></div>
     </div>
   </section>
 
-  <div class="games-strip reveal d5" style="max-width:820px;margin-left:auto;margin-right:auto;margin-bottom:110px;">
-    <p class="games-eyebrow">Tested & verified — works with any game using outlines</p>
+  <div class="marquee-wrap reveal d6">
+    <div class="marquee-track" id="marquee"></div>
+  </div>
+
+  <div class="games-strip reveal" style="padding:0 24px;">
+    <p class="games-eyebrow">Works with any game using outlines — 30+ titles supported</p>
     <div class="games-row">
-      <span class="game-chip">Valorant</span>
-      <span class="game-chip">Apex Legends</span>
-      <span class="game-chip">Marvel Rivals</span>
-      <span class="game-chip">FragPunk</span>
-      <span class="game-chip">Strinova</span>
-      <span class="game-chip">Overwatch 2</span>
+      <span class="game-chip">Valorant</span><span class="game-chip">Apex Legends</span>
+      <span class="game-chip">Marvel Rivals</span><span class="game-chip">FragPunk</span>
+      <span class="game-chip">Strinova</span><span class="game-chip">Overwatch 2</span>
+      <span class="game-chip">The Finals</span><span class="game-chip">XDefiant</span>
+      <span class="game-chip">Rainbow Six Siege</span><span class="game-chip">Deadlock</span>
+      <span class="game-chip">Hyper Scape</span><span class="game-chip">+ 20 More</span>
     </div>
   </div>
 
+  <div class="stats-grid reveal" style="padding:0 24px;margin-top:70px;">
+    <div class="stat-card"><div class="stat-num">20k+</div><div class="stat-label">FPS Capture</div></div>
+    <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Undetected Rate</div></div>
+    <div class="stat-card"><div class="stat-num">0ms</div><div class="stat-label">Reaction Time</div></div>
+    <div class="stat-card"><div class="stat-num">30+</div><div class="stat-label">Games Supported</div></div>
+  </div>
+
   <section id="products" style="scroll-margin-top:100px;" class="section-wrap">
-    <div class="section-header reveal">
-      <span class="eyebrow">Acerus</span>
-      <h2 class="s-title">Choose your cheat</h2>
+    <div class="section-center reveal">
+      <span class="eyebrow">Acerus Cheats</span>
+      <h2 class="section-title">Choose your cheat</h2>
     </div>
 
     <div class="product-card reveal">
-      <div class="product-layout">
-        <div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;">
+      <span class="card-num">01</span>
+      <div class="prod-layout">
+        <div style="display:flex;flex-direction:column;justify-content:space-between;gap:26px;">
           <div>
-            <div class="prod-badge">
-              <span class="prod-badge-dot"></span>
-              Colorbot
-            </div>
+            <div class="prod-badge"><span class="badge-dot"></span>Colorbot</div>
             <h3 class="prod-title">Colorbot</h3>
             <p class="prod-desc">Top-tier aim assist built with advanced humanized smoothing. Designed to look exactly like natural mouse movement while flawlessly locking onto targets.</p>
           </div>
-          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-select">
-            Select Plan
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-select">Select Plan <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
         <div class="feat-box">
           <div>
-            <p class="feat-col-label">Aim Settings</p>
-            <div class="feat-items">
-              <div class="feat-item"><span class="feat-dash"></span>Humanized Smoothing</div>
-              <div class="feat-item"><span class="feat-dash"></span>Normal Aimbot &amp; Triggerbot</div>
-              <div class="feat-item"><span class="feat-dash"></span>Advanced Recoil Control</div>
-              <div class="feat-item"><span class="feat-dash"></span>Aim Humanizer</div>
-              <div class="feat-item"><span class="feat-dash"></span>Silent Aim</div>
-              <div class="feat-item"><span class="feat-dash"></span>Flickbot (P100)</div>
-              <div class="feat-item"><span class="feat-dash"></span>Accel &amp; Magnet Aim</div>
-              <div class="feat-item"><span class="feat-dash"></span>50+ More in server</div>
+            <p class="feat-col-lbl">Aim Settings</p>
+            <div class="feat-list">
+              <div class="feat-row"><span class="feat-tick"></span>Humanized Smoothing</div>
+              <div class="feat-row"><span class="feat-tick"></span>Normal Aimbot &amp; Triggerbot</div>
+              <div class="feat-row"><span class="feat-tick"></span>Advanced Recoil Control</div>
+              <div class="feat-row"><span class="feat-tick"></span>Aim Humanizer</div>
+              <div class="feat-row"><span class="feat-tick"></span>Silent Aim</div>
+              <div class="feat-row"><span class="feat-tick"></span>Flickbot (P100)</div>
+              <div class="feat-row"><span class="feat-tick"></span>Accel &amp; Magnet Aim</div>
+              <div class="feat-row"><span class="feat-tick"></span>50+ More in server</div>
             </div>
           </div>
           <div>
-            <p class="feat-col-label">Performance &amp; Stealth</p>
-            <div class="feat-items">
-              <div class="feat-item"><span class="feat-dash"></span>All-In-One Feature Set</div>
-              <div class="feat-item"><span class="feat-dash"></span>1000+ FPS Capture</div>
-              <div class="feat-item"><span class="feat-dash"></span>Streamproof &amp; Hidden</div>
-              <div class="feat-item"><span class="feat-dash"></span>Web-based GUI</div>
-              <div class="feat-item"><span class="feat-dash"></span>Fully External (No Memory)</div>
-              <div class="feat-item"><span class="feat-dash"></span>Process Hiding &amp; Hijacking</div>
-              <div class="feat-item"><span class="feat-dash"></span>Unique Build Per User</div>
-              <div class="feat-item"><span class="feat-dash"></span>Safest solution on market</div>
+            <p class="feat-col-lbl">Performance &amp; Stealth</p>
+            <div class="feat-list">
+              <div class="feat-row"><span class="feat-tick"></span>All-In-One Feature Set</div>
+              <div class="feat-row"><span class="feat-tick"></span>1000+ FPS Capture</div>
+              <div class="feat-row"><span class="feat-tick"></span>Streamproof &amp; Hidden</div>
+              <div class="feat-row"><span class="feat-tick"></span>Web-based GUI</div>
+              <div class="feat-row"><span class="feat-tick"></span>Fully External (No Memory)</div>
+              <div class="feat-row"><span class="feat-tick"></span>Process Hiding &amp; Hijacking</div>
+              <div class="feat-row"><span class="feat-tick"></span>Unique Build Per User</div>
+              <div class="feat-row"><span class="feat-tick"></span>Safest solution on market</div>
             </div>
           </div>
         </div>
@@ -1002,46 +439,41 @@ footer {
     </div>
 
     <div class="product-card reveal">
-      <div class="product-layout">
-        <div style="display:flex;flex-direction:column;justify-content:space-between;gap:24px;">
+      <span class="card-num">02</span>
+      <div class="prod-layout">
+        <div style="display:flex;flex-direction:column;justify-content:space-between;gap:26px;">
           <div>
-            <div class="prod-badge">
-              <span class="prod-badge-dot"></span>
-              Triggerbot
-            </div>
+            <div class="prod-badge"><span class="badge-dot"></span>Triggerbot</div>
             <h3 class="prod-title">Triggerbot</h3>
             <p class="prod-desc">The fastest reaction time available. Built perfectly for holding angles and instantly firing when a target enters your pixel view.</p>
           </div>
-          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-select">
-            Select Plan
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-select">Select Plan <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
         <div class="feat-box">
           <div>
-            <p class="feat-col-label">Combat Features</p>
-            <div class="feat-items">
-              <div class="feat-item"><span class="feat-dash"></span>Instant Fire Reaction</div>
-              <div class="feat-item"><span class="feat-dash"></span>Auto Strafe &amp; Stop</div>
-              <div class="feat-item"><span class="feat-dash"></span>Humanized Clicks</div>
-              <div class="feat-item"><span class="feat-dash"></span>Anti Astra, Anti Clove</div>
-              <div class="feat-item"><span class="feat-dash"></span>Strafe Shot</div>
-              <div class="feat-item"><span class="feat-dash"></span>Multiple Humanized Modes</div>
-              <div class="feat-item"><span class="feat-dash"></span>Custom Dilation View</div>
-              <div class="feat-item"><span class="feat-dash"></span>50+ More in server</div>
+            <p class="feat-col-lbl">Combat Features</p>
+            <div class="feat-list">
+              <div class="feat-row"><span class="feat-tick"></span>Instant Fire Reaction</div>
+              <div class="feat-row"><span class="feat-tick"></span>Auto Strafe &amp; Stop</div>
+              <div class="feat-row"><span class="feat-tick"></span>Humanized Clicks</div>
+              <div class="feat-row"><span class="feat-tick"></span>Anti Astra, Anti Clove</div>
+              <div class="feat-row"><span class="feat-tick"></span>Strafe Shot</div>
+              <div class="feat-row"><span class="feat-tick"></span>Multiple Humanized Modes</div>
+              <div class="feat-row"><span class="feat-tick"></span>Custom Dilation View</div>
+              <div class="feat-row"><span class="feat-tick"></span>50+ More in server</div>
             </div>
           </div>
           <div>
-            <p class="feat-col-label">Safety &amp; Stealth</p>
-            <div class="feat-items">
-              <div class="feat-item"><span class="feat-dash"></span>Blind &amp; Flash Detection</div>
-              <div class="feat-item"><span class="feat-dash"></span>Nearsighted Avoidance</div>
-              <div class="feat-item"><span class="feat-dash"></span>Safest 1PC Solution</div>
-              <div class="feat-item"><span class="feat-dash"></span>Capturing At 20k+ FPS</div>
-              <div class="feat-item"><span class="feat-dash"></span>Performance &amp; Stealth Modes</div>
-              <div class="feat-item"><span class="feat-dash"></span>Streamproof Architecture</div>
-              <div class="feat-item"><span class="feat-dash"></span>#1 Click Method on market</div>
-              <div class="feat-item"><span class="feat-dash"></span>Low PC Optimization</div>
+            <p class="feat-col-lbl">Safety &amp; Stealth</p>
+            <div class="feat-list">
+              <div class="feat-row"><span class="feat-tick"></span>Blind &amp; Flash Detection</div>
+              <div class="feat-row"><span class="feat-tick"></span>Nearsighted Avoidance</div>
+              <div class="feat-row"><span class="feat-tick"></span>Safest 1PC Solution</div>
+              <div class="feat-row"><span class="feat-tick"></span>Capturing At 20k+ FPS</div>
+              <div class="feat-row"><span class="feat-tick"></span>Performance &amp; Stealth Modes</div>
+              <div class="feat-row"><span class="feat-tick"></span>Streamproof Architecture</div>
+              <div class="feat-row"><span class="feat-tick"></span>#1 Click Method on market</div>
+              <div class="feat-row"><span class="feat-tick"></span>Low PC Optimization</div>
             </div>
           </div>
         </div>
@@ -1049,80 +481,62 @@ footer {
     </div>
   </section>
 
+  <div class="hr"></div>
+
   <section id="features" style="scroll-margin-top:100px;" class="section-wrap">
-    <div class="section-header reveal">
+    <div class="section-center reveal">
       <span class="eyebrow">Built different</span>
-      <h2 class="s-title">Engineered for dominance</h2>
+      <h2 class="section-title">Engineered for dominance</h2>
     </div>
     <div class="feats-grid">
-      <div class="feat-card reveal d1">
-        <div class="feat-card-icon">🛡</div>
-        <p class="feat-card-title">Fully Undetected</p>
-        <p class="feat-card-desc">Runs entirely outside the game. Invisible to anti-cheats and stream capture software, keeping your account permanently safe.</p>
-      </div>
-      <div class="feat-card reveal d2">
-        <div class="feat-card-icon">⚡</div>
-        <p class="feat-card-title">High Performance</p>
-        <p class="feat-card-desc">Optimized to run smoothly on low-end hardware. Captures at over 1000 FPS ensuring zero latency and instantaneous reaction.</p>
-      </div>
-      <div class="feat-card reveal d3">
-        <div class="feat-card-icon">🌐</div>
-        <p class="feat-card-title">Web Interface</p>
-        <p class="feat-card-desc">Change your configs, colors, and settings instantly from your browser or mobile phone without tabbing out of your match.</p>
-      </div>
+      <div class="feat-card reveal d1"><div class="feat-icon">🛡</div><p class="feat-title">Fully Undetected</p><p class="feat-desc">Runs entirely outside the game. Invisible to anti-cheats and stream capture software, keeping your account permanently safe.</p></div>
+      <div class="feat-card reveal d2"><div class="feat-icon">⚡</div><p class="feat-title">High Performance</p><p class="feat-desc">Optimized to run smoothly on low-end hardware. Captures at over 1000 FPS ensuring zero latency and instantaneous reaction.</p></div>
+      <div class="feat-card reveal d3"><div class="feat-icon">🌐</div><p class="feat-title">Web Interface</p><p class="feat-desc">Change your configs, colors, and settings instantly from your browser or mobile phone without tabbing out of your match.</p></div>
     </div>
   </section>
 
   <section id="reviews" style="scroll-margin-top:100px;max-width:1100px;margin:0 auto 80px;padding:0 24px;">
-    <div class="section-header reveal">
+    <div class="section-center reveal">
       <span class="eyebrow">Testimonials</span>
-      <h2 class="s-title">Trusted by the best</h2>
-      <p style="font-size:13px;color:var(--dim);margin-top:10px;">Real feedback from players dominating their respective ladders.</p>
+      <h2 class="section-title">Trusted by the best</h2>
+      <p style="font-size:13px;color:var(--dim);margin-top:12px;">Real feedback from players dominating their respective ladders.</p>
       <div class="v-badge"><span class="v-dot"></span>All reviews are from verified users</div>
     </div>
-
     <div id="reviews-page-1" class="reviews-masonry">
-      <div class="review-card reveal"><p class="review-text">The most refined colorbot available. The smoothing makes it look exactly like real mouse movement. It's essential for staying consistent.</p><div class="reviewer"><div class="reviewer-av">GD</div><div><p class="reviewer-name">GamerDoc</p><p class="reviewer-role">Professional Paster</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">Setup was instant. It runs silently in the background with no FPS drops. The micro-adjustments are so clean that replays look completely flawless, bypassed me in a second, ud for a year.</p><div class="reviewer"><div class="reviewer-av">DK</div><div><p class="reviewer-name">Vanguard</p><p class="reviewer-role">Pasting Specialist</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">Knowing my aim is always on point lets me focus entirely on calling strats and reading the enemy team. It just works perfectly.</p><div class="reviewer"><div class="reviewer-av">FN</div><div><p class="reviewer-name">Chief Keef</p><p class="reviewer-role">Chicago Rapper</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">Mechanics feel completely natural. The software doesn't force my crosshair, it just guides it perfectly when I need it to clutch rounds.</p><div class="reviewer"><div class="reviewer-av">TZ</div><div><p class="reviewer-name">TenZ</p><p class="reviewer-role">Mechanics God</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">Triggerbot is insanely fast. Best reaction time I've ever tested holding tight angles on defense. It literally does not miss, back in my days this shit was peak.</p><div class="reviewer"><div class="reviewer-av">D1</div><div><p class="reviewer-name">Jeffrey Epstein</p><p class="reviewer-role">RICH JEW</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">I've used many configs but the web interface and instant updates here are unmatched. Super responsive with zero impact on my frames, saved me from awps, and snipers.</p><div class="reviewer"><div class="reviewer-av">CH</div><div><p class="reviewer-name">Charlie Kirk</p><p class="reviewer-role">Neck Contour</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">The most refined colorbot available. The smoothing makes it look exactly like real mouse movement. It's essential for staying consistent.</p><div class="reviewer"><div class="reviewer-av">GD</div><div><p class="reviewer-name">GamerDoc</p><p class="reviewer-role">Professional Paster</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Setup was instant. It runs silently in the background with no FPS drops. The micro-adjustments are so clean that replays look completely flawless, bypassed me in a second, ud for a year.</p><div class="reviewer"><div class="reviewer-av">DK</div><div><p class="reviewer-name">Vanguard</p><p class="reviewer-role">Pasting Specialist</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Knowing my aim is always on point lets me focus entirely on calling strats and reading the enemy team. It just works perfectly.</p><div class="reviewer"><div class="reviewer-av">FN</div><div><p class="reviewer-name">Chief Keef</p><p class="reviewer-role">Chicago Rapper</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Mechanics feel completely natural. The software doesn't force my crosshair, it just guides it perfectly when I need it to clutch rounds.</p><div class="reviewer"><div class="reviewer-av">TZ</div><div><p class="reviewer-name">TenZ</p><p class="reviewer-role">Mechanics God</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Triggerbot is insanely fast. Best reaction time I've ever tested holding tight angles on defense. It literally does not miss, back in my days this shit was peak.</p><div class="reviewer"><div class="reviewer-av">D1</div><div><p class="reviewer-name">Jeffrey Epstein</p><p class="reviewer-role">RICH JEW</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">I've used many configs but the web interface and instant updates here are unmatched. Super responsive with zero impact on my frames, saved me from awps, and snipers.</p><div class="reviewer"><div class="reviewer-av">CH</div><div><p class="reviewer-name">Charlie Kirk</p><p class="reviewer-role">Neck Contour</p></div></div></div>
     </div>
-
     <div id="reviews-page-2" class="reviews-masonry hidden">
-      <div class="review-card reveal"><p class="review-text">Security is top notch. Even when the game updates, the software stays completely hidden and safe to use.</p><div class="reviewer"><div class="reviewer-av">LS</div><div><p class="reviewer-name">Less</p><p class="reviewer-role">Sentinel Anchor</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">Tracking targets feels amazing. It doesn't snap, it smoothly glides to the target. Best feel I've ever had with an aim assist.</p><div class="reviewer"><div class="reviewer-av">AS</div><div><p class="reviewer-name">Aspas</p><p class="reviewer-role">Duelist Prodigy</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">Being able to use the same assist feel across different games is huge. It keeps my muscle memory consistent.</p><div class="reviewer"><div class="reviewer-av">S1</div><div><p class="reviewer-name">s1mple</p><p class="reviewer-role">AWP Specialist</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">Flicking with the Operator is basically guaranteed. The magnetism stops exactly on the pixel every single time without fail.</p><div class="reviewer"><div class="reviewer-av">KK</div><div><p class="reviewer-name">ZmjjKK</p><p class="reviewer-role">Sniper God</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">Consistency is everything at a high level. This runs silently and gives me the exact same feel every single match.</p><div class="reviewer"><div class="reviewer-av">AL</div><div><p class="reviewer-name">Alfajer</p><p class="reviewer-role">Site Anchor</p></div></div></div>
-      <div class="review-card reveal"><p class="review-text">The recoil control feature alongside the humanized smoothing makes spraying incredibly reliable at any range. Fantastic work.</p><div class="reviewer"><div class="reviewer-av">NK</div><div><p class="reviewer-name">NiKo</p><p class="reviewer-role">Rifler</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Security is top notch. Even when the game updates, the software stays completely hidden and safe to use.</p><div class="reviewer"><div class="reviewer-av">LS</div><div><p class="reviewer-name">Less</p><p class="reviewer-role">Sentinel Anchor</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Tracking targets feels amazing. It doesn't snap, it smoothly glides to the target. Best feel I've ever had with an aim assist.</p><div class="reviewer"><div class="reviewer-av">AS</div><div><p class="reviewer-name">Aspas</p><p class="reviewer-role">Duelist Prodigy</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Being able to use the same assist feel across different games is huge. It keeps my muscle memory consistent.</p><div class="reviewer"><div class="reviewer-av">S1</div><div><p class="reviewer-name">s1mple</p><p class="reviewer-role">AWP Specialist</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Flicking with the Operator is basically guaranteed. The magnetism stops exactly on the pixel every single time without fail.</p><div class="reviewer"><div class="reviewer-av">KK</div><div><p class="reviewer-name">ZmjjKK</p><p class="reviewer-role">Sniper God</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">Consistency is everything at a high level. This runs silently and gives me the exact same feel every single match.</p><div class="reviewer"><div class="reviewer-av">AL</div><div><p class="reviewer-name">Alfajer</p><p class="reviewer-role">Site Anchor</p></div></div></div>
+      <div class="review-card reveal"><div class="review-q">"</div><p class="review-text">The recoil control feature alongside the humanized smoothing makes spraying incredibly reliable at any range. Fantastic work.</p><div class="reviewer"><div class="reviewer-av">NK</div><div><p class="reviewer-name">NiKo</p><p class="reviewer-role">Rifler</p></div></div></div>
     </div>
-
     <div class="pagination">
       <button id="prev-btn" class="btn-page" disabled>← Prev</button>
       <span class="page-ind" id="page-ind">01 / 02</span>
       <button id="next-btn" class="btn-page">Next →</button>
     </div>
   </section>
-
 </div>
 
 <div id="view-clips" class="hidden" style="position:relative;z-index:10;">
   <div class="clips-head">
-    <div>
-      <h2>Media Library</h2>
-      <p>Unedited, raw footage recorded directly by our users.</p>
-    </div>
+    <div><h2>Media Library</h2><p>Unedited, raw footage recorded directly by our users.</p></div>
     <div class="tab-strip">
-      <button id="tab-val"  class="tab-btn active" onclick="switchTab('val')">Valorant</button>
+      <button id="tab-val" class="tab-btn active" onclick="switchTab('val')">Valorant</button>
       <button id="tab-apex" class="tab-btn" onclick="switchTab('apex')">Apex Legends</button>
       <button id="tab-frag" class="tab-btn" onclick="switchTab('frag')">FragPunk</button>
       <button id="tab-stri" class="tab-btn" onclick="switchTab('stri')">Strinova</button>
-      <button id="tab-ow"   class="tab-btn" onclick="switchTab('ow')">Overwatch 2</button>
+      <button id="tab-ow" class="tab-btn" onclick="switchTab('ow')">Overwatch 2</button>
     </div>
   </div>
-
   <div id="grid-val" class="vid-grid">
     <div class="vid-card"><div class="vid-thumb"><iframe src="https://streamable.com/e/bvr487?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe></div><div class="vid-info"><p class="vid-name">Silent Aim</p><p class="vid-meta">Streamable</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/2024-12-14_18-17-25_-_Trim_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Flickbot (old)</p><p class="vid-meta">MP4 · GG</p></div></div>
@@ -1135,14 +549,12 @@ footer {
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.40.56.03.DVR_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Colorbot in Radiant</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.02.03_-_15.48.37.03.DVR.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">TDM Session</p><p class="vid-meta">MP4 · High Quality</p></div></div>
   </div>
-
   <div id="grid-apex" class="vid-grid hidden">
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.34.55.02.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Apex Tracking #1</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.21.10.04.06.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Beamed Out Air</p><p class="vid-meta">MP4 · GG</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.02.47.25.411.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Smoothhhh</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.37.18.03.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Beamed</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
   </div>
-
   <div id="grid-frag" class="vid-grid hidden">
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.09.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.04.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Flicking</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
@@ -1151,7 +563,6 @@ footer {
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-19.18_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Session</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/unknown_replay_2025.04.17-02.28.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Snapping</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
   </div>
-
   <div id="grid-stri" class="vid-grid hidden">
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.23.33.28.61.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.20.-.16.19.39.171.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Strinova Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
@@ -1159,7 +570,6 @@ footer {
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.03.06.43.204.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Session Replay #1</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Replay_2026.02.17-19.33_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
   </div>
-
   <div id="grid-ow" class="vid-grid hidden">
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_-_Trim.1.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">P100 Tracking</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
     <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.22-20.12_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">OW2 Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
@@ -1170,141 +580,66 @@ footer {
 </div>
 
 <footer>
-  <div>
-    <p class="footer-logo">Acerus</p>
+  <div class="footer-brand">
+    <p>ACE<span>R</span>US</p>
     <p class="footer-copy">© 2026 Acerus Solutions. Engineered for dominance.</p>
   </div>
   <div class="footer-links">
-    <a href="#">Discord Community</a>
+    <a href="https://discord.gg/Wdghr2n5yr" target="_blank">Discord Community</a>
     <a href="#">Terms of Service</a>
-    <div class="status-indicator">
-      <span class="status-dot-sm"></span>
-      System Status
-    </div>
+    <div class="status-ind"><span class="status-dot"></span>All Systems Operational</div>
   </div>
 </footer>
 
 <script>
-const cg = document.getElementById('cg');
-document.addEventListener('mousemove', e => {
-  cg.style.left = e.clientX + 'px';
-  cg.style.top  = e.clientY + 'px';
-});
+const ring=document.getElementById('cur-ring'),dot=document.getElementById('cur-dot');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(loop);})();
 
-(function() {
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
-
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+(function(){
+  const c=document.getElementById('bg-canvas'),ctx=c.getContext('2d');
+  let W,H,pts=[];
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
+  resize();addEventListener('resize',resize);
+  class P{
+    reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.2+0.2;this.a=Math.random()*0.2+0.04;this.vx=(Math.random()-.5)*0.09;this.vy=(Math.random()-.5)*0.09;this.life=0;this.max=Math.random()*550+350;this.red=Math.random()<0.2;}
+    constructor(){this.reset();this.life=Math.random()*this.max;}
+    draw(){this.life++;const p=this.life/this.max,f=p<.1?p/.1:p>.8?(1-p)/.2:1;ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=this.red?`rgba(232,48,74,${this.a*f*0.65})`:`rgba(255,255,255,${this.a*f*0.38})`;ctx.fill();this.x+=this.vx;this.y+=this.vy;if(this.life>this.max)this.reset();}
   }
-  resize();
-  window.addEventListener('resize', resize);
-
-  class P {
-    constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * W;
-      this.y = Math.random() * H;
-      this.r = Math.random() * 1.2 + 0.2;
-      this.a = Math.random() * 0.18 + 0.04;
-      this.vx = (Math.random() - 0.5) * 0.12;
-      this.vy = (Math.random() - 0.5) * 0.12;
-      this.life = 0;
-      this.maxLife = Math.random() * 500 + 300;
-    }
-    draw() {
-      this.life++;
-      const progress = this.life / this.maxLife;
-      const fade = progress < 0.1 ? progress / 0.1 : progress > 0.8 ? (1 - progress) / 0.2 : 1;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(220,220,235,${this.a * fade})`;
-      ctx.fill();
-      this.x += this.vx;
-      this.y += this.vy;
-      if (this.life > this.maxLife) this.reset();
-    }
-  }
-
-  for (let i = 0; i < 80; i++) particles.push(new P());
-
-  function animate() {
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => p.draw());
-    requestAnimationFrame(animate);
-  }
-  animate();
+  for(let i=0;i<90;i++)pts.push(new P());
+  (function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>p.draw());requestAnimationFrame(draw);})();
 })();
 
-const revealEls = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-revealEls.forEach(el => obs.observe(el));
+const els=document.querySelectorAll('.reveal');
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+els.forEach(el=>io.observe(el));
+document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{els.forEach(el=>{if(el.getBoundingClientRect().top<innerHeight)el.classList.add('in');});},60);});
 
-function toggleMenu() {
-  document.getElementById('mobile-menu').classList.toggle('open');
+function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open');}
+
+function showView(v){
+  const m=document.getElementById('view-main'),c=document.getElementById('view-clips');
+  if(v==='clips'){m.classList.add('hidden');c.classList.remove('hidden');c.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));scrollTo({top:0,behavior:'smooth'});}
+  else{c.classList.add('hidden');m.classList.remove('hidden');}
 }
 
-function showView(v) {
-  const main  = document.getElementById('view-main');
-  const clips = document.getElementById('view-clips');
-  if (v === 'clips') {
-    main.classList.add('hidden');
-    clips.classList.remove('hidden');
-    clips.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else {
-    clips.classList.add('hidden');
-    main.classList.remove('hidden');
-  }
-}
-
-function switchTab(id) {
-  ['val','apex','frag','stri','ow'].forEach(t => {
-    document.getElementById('grid-' + t).classList.toggle('hidden', t !== id);
-    document.getElementById('tab-'  + t).classList.toggle('active', t === id);
+function switchTab(id){
+  ['val','apex','frag','stri','ow'].forEach(t=>{
+    document.getElementById('grid-'+t).classList.toggle('hidden',t!==id);
+    document.getElementById('tab-'+t).classList.toggle('active',t===id);
   });
 }
 
-const p1 = document.getElementById('reviews-page-1');
-const p2 = document.getElementById('reviews-page-2');
-const btnNext = document.getElementById('next-btn');
-const btnPrev = document.getElementById('prev-btn');
-const ind  = document.getElementById('page-ind');
-let cur = 1;
+const p1=document.getElementById('reviews-page-1'),p2=document.getElementById('reviews-page-2');
+const nxt=document.getElementById('next-btn'),prv=document.getElementById('prev-btn'),ind=document.getElementById('page-ind');
+let cur=1;
+nxt.addEventListener('click',()=>{if(cur===1){p1.classList.add('hidden');p2.classList.remove('hidden');p2.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));cur=2;prv.disabled=false;nxt.disabled=true;ind.textContent='02 / 02';}});
+prv.addEventListener('click',()=>{if(cur===2){p2.classList.add('hidden');p1.classList.remove('hidden');cur=1;prv.disabled=true;nxt.disabled=false;ind.textContent='01 / 02';}});
 
-btnNext.addEventListener('click', () => {
-  if (cur === 1) {
-    p1.classList.add('hidden');
-    p2.classList.remove('hidden');
-    p2.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-    cur = 2; btnPrev.disabled = false; btnNext.disabled = true;
-    ind.textContent = '02 / 02';
-  }
-});
-btnPrev.addEventListener('click', () => {
-  if (cur === 2) {
-    p2.classList.add('hidden');
-    p1.classList.remove('hidden');
-    cur = 1; btnPrev.disabled = true; btnNext.disabled = false;
-    ind.textContent = '01 / 02';
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    revealEls.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight) el.classList.add('in');
-    });
-  }, 60);
-});
+const items=['Valorant','Apex Legends','Marvel Rivals','FragPunk','Strinova','Overwatch 2','Colorbot','Triggerbot','Silent Aim','Flickbot','20k+ FPS','Streamproof'];
+const track=document.getElementById('marquee');
+track.innerHTML=[...items,...items].map(i=>`<span class="marquee-item"><span class="m-dot"></span>${i}</span>`).join('');
 </script>
 </body>
 </html>
