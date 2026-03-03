@@ -64,7 +64,6 @@ body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring {
   width: 48px; height: 48px; border-color: var(--r2); background: rgba(232,48,74,0.06);
 }
 
-/* BACKGROUND */
 #bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 .grain {
   position: fixed; inset: -200%; width: 400%; height: 400%;
@@ -242,7 +241,6 @@ nav {
 .feat-tick { width: 11px; height: 1px; background: var(--faint); flex-shrink: 0; transition: width 0.3s, background 0.3s; }
 .product-card:hover .feat-tick { width: 15px; background: rgba(232,48,74,0.4); }
 
-/* FEATURE CARDS */
 .feats-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 @media (min-width: 640px) { .feats-grid { grid-template-columns: repeat(3,1fr); } }
 .feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.38s; }
@@ -293,8 +291,97 @@ nav {
 @media (min-width: 1024px) { .vid-grid { grid-template-columns: repeat(3,1fr); } }
 .vid-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: all 0.3s; }
 .vid-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 18px 50px rgba(0,0,0,0.5); }
-.vid-thumb { aspect-ratio: 16/9; position: relative; background: #040406; border-bottom: 1px solid var(--border); overflow: hidden; }
-.vid-thumb iframe, .vid-thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.vid-thumb {
+  aspect-ratio: 16/9;
+  position: relative;
+  background: #040406;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.vid-lazy {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #040406;
+}
+.vid-lazy video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none; /* hidden until loaded */
+}
+.vid-lazy.loaded video { display: block; }
+
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(4,4,6,0.65);
+  transition: opacity 0.3s;
+  z-index: 2;
+}
+.vid-lazy.loaded .play-overlay { display: none; }
+.play-btn-circle {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 8px rgba(232,48,74,0.15), 0 4px 24px rgba(232,48,74,0.35);
+  transition: transform 0.22s, box-shadow 0.22s;
+}
+.vid-thumb:hover .play-btn-circle {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 12px rgba(232,48,74,0.2), 0 6px 32px rgba(232,48,74,0.5);
+}
+.play-btn-circle svg { margin-left: 3px; }
+.play-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+.vid-spinner {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+.vid-lazy.loading .vid-spinner { display: flex; }
+.vid-lazy.loading .play-overlay { opacity: 0.3; }
+.spinner-ring {
+  width: 32px; height: 32px;
+  border: 2px solid rgba(232,48,74,0.2);
+  border-top-color: var(--r);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.vid-thumb iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 .vid-info { padding: 12px 14px; }
 .vid-name { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 13px; color: var(--white); letter-spacing: -0.01em; }
 .vid-meta { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 3px; }
@@ -537,45 +624,310 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
       <button id="tab-ow" class="tab-btn" onclick="switchTab('ow')">Overwatch 2</button>
     </div>
   </div>
+
   <div id="grid-val" class="vid-grid">
-    <div class="vid-card"><div class="vid-thumb"><iframe src="https://streamable.com/e/bvr487?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe></div><div class="vid-info"><p class="vid-name">Silent Aim</p><p class="vid-meta">Streamable</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/2024-12-14_18-17-25_-_Trim_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Flickbot (old)</p><p class="vid-meta">MP4 · GG</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/greatesttb.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Triggerbot</p><p class="vid-meta">MP4 · High Quality</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.04.09_-_08.07.11.14.DVR_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Flickbot in Action</p><p class="vid-meta">MP4 · GG</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.06.15_-_21.14.05.04.DVR.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Triggerbot</p><p class="vid-meta">MOV · High Quality</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.04.09_-_02.30.10.04.DVR_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Silent Aim in ASC</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/silent_aim.mov" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.58.43.05.DVR_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">CB in Radiant</p><p class="vid-meta">MP4 · GG</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.40.56.03.DVR_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Colorbot in Radiant</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.02.03_-_15.48.37.03.DVR.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">TDM Session</p><p class="vid-meta">MP4 · High Quality</p></div></div>
+    <div class="vid-card">
+      <div class="vid-thumb"><iframe src="https://streamable.com/e/bvr487?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe></div>
+      <div class="vid-info"><p class="vid-name">Silent Aim</p><p class="vid-meta">Streamable</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/2024-12-14_18-17-25_-_Trim_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Flickbot (old)</p><p class="vid-meta">MP4 · GG</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/greatesttb.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Triggerbot</p><p class="vid-meta">MP4 · High Quality</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.04.09_-_08.07.11.14.DVR_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Flickbot in Action</p><p class="vid-meta">MP4 · GG</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.06.15_-_21.14.05.04.DVR.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Triggerbot</p><p class="vid-meta">MOV · High Quality</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.04.09_-_02.30.10.04.DVR_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="none"/><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Silent Aim in ASC</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/silent_aim.mov">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.58.43.05.DVR_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">CB in Radiant</p><p class="vid-meta">MP4 · GG</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.40.56.03.DVR_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Colorbot in Radiant</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.02.03_-_15.48.37.03.DVR.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">TDM Session</p><p class="vid-meta">MP4 · High Quality</p></div>
+    </div>
   </div>
+
   <div id="grid-apex" class="vid-grid hidden">
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.34.55.02.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Apex Tracking #1</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.21.10.04.06.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Beamed Out Air</p><p class="vid-meta">MP4 · GG</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.02.47.25.411.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Smoothhhh</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.37.18.03.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Beamed</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.34.55.02.DVR.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Apex Tracking #1</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.21.10.04.06.DVR.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Beamed Out Air</p><p class="vid-meta">MP4 · GG</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.02.47.25.411.DVR.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Smoothhhh</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.37.18.03.DVR.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Beamed</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
   </div>
+
+  <!-- FRAGPUNK -->
   <div id="grid-frag" class="vid-grid hidden">
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.09.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.04.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Flicking</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-03.24.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Rage</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.29.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">P100 Tracking</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-19.18_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Session</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/unknown_replay_2025.04.17-02.28.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Snapping</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.09.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.04.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Flicking</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-03.24.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Rage</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.29.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">P100 Tracking</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-19.18_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Session</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/unknown_replay_2025.04.17-02.28.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Snapping</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
   </div>
+
+  <!-- STRINOVA -->
   <div id="grid-stri" class="vid-grid hidden">
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.23.33.28.61.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.20.-.16.19.39.171.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Strinova Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.02.44.51.177.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">P100 Filtering</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.03.06.43.204.DVR.-.Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Session Replay #1</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Replay_2026.02.17-19.33_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.23.33.28.61.DVR.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.20.-.16.19.39.171.DVR.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Strinova Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.02.44.51.177.DVR.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">P100 Filtering</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.03.06.43.204.DVR.-.Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Session Replay #1</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Replay_2026.02.17-19.33_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
   </div>
+
   <div id="grid-ow" class="vid-grid hidden">
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_-_Trim.1.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">P100 Tracking</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.22-20.12_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">OW2 Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_1_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">Acerus OT</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><video controls preload="yes" playsinline><source src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.03.15-00.09_-_Trim.mp4" type="video/mp4"></video></div><div class="vid-info"><p class="vid-name">W Flicks</p><p class="vid-meta">MP4 · Raw Footage</p></div></div>
-    <div class="vid-card"><div class="vid-thumb"><iframe src="https://streamable.com/e/78xwzm?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe></div><div class="vid-info"><p class="vid-name">Rage</p><p class="vid-meta">Streamable</p></div></div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_-_Trim.1.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">P100 Tracking</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.22-20.12_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">OW2 Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_1_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">Acerus OT</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb" onclick="loadVid(this)">
+        <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.03.15-00.09_-_Trim.mp4">
+          <video preload="none" controls playsinline></video>
+          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <div class="vid-spinner"><div class="spinner-ring"></div></div>
+        </div>
+      </div>
+      <div class="vid-info"><p class="vid-name">W Flicks</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+    </div>
+    <div class="vid-card">
+      <div class="vid-thumb"><iframe src="https://streamable.com/e/78xwzm?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe></div>
+      <div class="vid-info"><p class="vid-name">Rage</p><p class="vid-meta">Streamable</p></div>
+    </div>
   </div>
 </div>
 
@@ -592,6 +944,7 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
 </footer>
 
 <script>
+
 const ring=document.getElementById('cur-ring'),dot=document.getElementById('cur-dot');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
@@ -620,8 +973,14 @@ function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('o
 
 function showView(v){
   const m=document.getElementById('view-main'),c=document.getElementById('view-clips');
-  if(v==='clips'){m.classList.add('hidden');c.classList.remove('hidden');c.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));scrollTo({top:0,behavior:'smooth'});}
-  else{c.classList.add('hidden');m.classList.remove('hidden');}
+  if(v==='clips'){
+    m.classList.add('hidden');c.classList.remove('hidden');
+    c.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+    scrollTo({top:0,behavior:'smooth'});
+  } else {
+    document.querySelectorAll('.vid-lazy video').forEach(v=>{ v.pause(); });
+    c.classList.add('hidden');m.classList.remove('hidden');
+  }
 }
 
 function switchTab(id){
@@ -629,6 +988,38 @@ function switchTab(id){
     document.getElementById('grid-'+t).classList.toggle('hidden',t!==id);
     document.getElementById('tab-'+t).classList.toggle('active',t===id);
   });
+  document.querySelectorAll('.vid-lazy video').forEach(v=>{ v.pause(); });
+}
+
+function loadVid(thumb) {
+  const lazy = thumb.querySelector('.vid-lazy');
+  if (!lazy || lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
+
+  const src = lazy.dataset.src;
+  const video = lazy.querySelector('video');
+  if (!src || !video) return;
+
+  lazy.classList.add('loading');
+
+  video.src = src;
+  video.load();
+
+  video.addEventListener('canplay', function onCanPlay() {
+    video.removeEventListener('canplay', onCanPlay);
+    lazy.classList.remove('loading');
+    lazy.classList.add('loaded');
+    video.play().catch(()=>{}); 
+  }, { once: true });
+
+  video.addEventListener('error', function onErr() {
+    video.removeEventListener('error', onErr);
+    lazy.classList.remove('loading');
+
+    const lbl = lazy.querySelector('.play-label');
+    if (lbl) lbl.textContent = 'Failed — try direct link';
+    const circle = lazy.querySelector('.play-btn-circle');
+    if (circle) circle.style.background = '#555';
+  }, { once: true });
 }
 
 const p1=document.getElementById('reviews-page-1'),p2=document.getElementById('reviews-page-2');
@@ -636,6 +1027,7 @@ const nxt=document.getElementById('next-btn'),prv=document.getElementById('prev-
 let cur=1;
 nxt.addEventListener('click',()=>{if(cur===1){p1.classList.add('hidden');p2.classList.remove('hidden');p2.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));cur=2;prv.disabled=false;nxt.disabled=true;ind.textContent='02 / 02';}});
 prv.addEventListener('click',()=>{if(cur===2){p2.classList.add('hidden');p1.classList.remove('hidden');cur=1;prv.disabled=true;nxt.disabled=false;ind.textContent='01 / 02';}});
+
 
 const items=['Valorant','Apex Legends','Marvel Rivals','FragPunk','Strinova','Overwatch 2','Colorbot','Triggerbot','Silent Aim','Flickbot','20k+ FPS','Streamproof'];
 const track=document.getElementById('marquee');
