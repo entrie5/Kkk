@@ -218,8 +218,8 @@ nav {
 #mobile-menu a { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 400; padding: 12px 16px; border-radius: 9px; text-align: center; transition: all 0.18s; }
 #mobile-menu a:hover { background: var(--g-soft); color: var(--white); }
 
-#view-main { position: relative; z-index: 10; padding: 190px 24px 100px; }
-@media (min-width: 768px) { #view-main { padding-top: 230px; } }
+#view-main { position: relative; z-index: 10; padding: 130px 24px 100px; }
+@media (min-width: 768px) { #view-main { padding-top: 200px; } }
 
 .hero { max-width: 880px; margin: 0 auto 110px; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
@@ -484,6 +484,10 @@ nav {
   width: 12px; height: 1px;
   background: rgba(74,127,255,0.3);
 }
+@media (pointer: coarse) {
+  .play-label::before, .play-label::after { display: none; }
+  .play-btn-ring::before { animation: none; }
+}
 .error-label {
   font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
   text-transform: uppercase; color: rgba(255,80,80,0.7); display: none;
@@ -531,12 +535,42 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
 
 .hidden { display: none !important; }
 
-@media (max-width: 600px) {
-  .product-card { padding: 28px 20px; }
-  .card-num { top: 28px; right: 20px; }
-  .feat-box { grid-template-columns: 1fr; gap: 20px; }
-  .prod-title { font-size: 44px; }
-  #view-clips { padding-top: 100px; }
+@media (max-width: 768px) {
+  #view-main { padding: 110px 16px 80px; }
+  #view-clips { padding: 100px 16px 80px; }
+  .hero { margin-bottom: 70px; }
+  .hero-title { font-size: clamp(38px, 11vw, 72px); }
+  .hero-sub { font-size: 14px; }
+  .btn-hero-primary, .btn-hero-ghost { height: 48px; padding: 0 24px; font-size: 11px; }
+  .marquee-wrap { margin-bottom: 50px; }
+  .games-strip { padding: 0 !important; margin-bottom: 50px; }
+  .stats-grid { padding: 0 !important; margin-top: 50px !important; margin-bottom: 70px; }
+  .stat-num { font-size: 32px; }
+  .section-wrap { padding: 0 16px; margin-bottom: 70px; }
+  .section-title { font-size: clamp(24px, 7vw, 38px); }
+  .product-card { padding: 24px 18px; }
+  .card-num { top: 24px; right: 18px; }
+  .prod-layout { gap: 28px; }
+  .prod-title { font-size: 40px; }
+  .prod-desc { font-size: 13px; }
+  .feat-box { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+  .feats-grid { grid-template-columns: 1fr; }
+  .feat-card { padding: 26px 22px; }
+  #reviews { padding: 0 16px !important; margin-bottom: 60px !important; }
+  .review-card { padding: 22px; }
+  .clips-head { gap: 16px; }
+  .clips-head h2 { font-size: 24px; }
+  .tab-strip { width: 100%; }
+  .tab-btn { padding: 8px 12px; font-size: 10px; }
+  .vid-grid { grid-template-columns: 1fr; }
+  nav { padding: 7px 7px 7px 16px; }
+  .nav-logo { font-size: 14px; letter-spacing: 0.22em; }
+  .btn-primary { padding: 0 14px; font-size: 10px; height: 34px; }
+  footer { padding: 32px 16px; text-align: center; }
+  .footer-links { justify-content: center; }
+  .hr { margin-bottom: 60px; }
+  .scroll-hint { margin-top: 40px; }
+  .status-pill { margin-bottom: 28px; }
 }
 </style>
 </head>
@@ -1495,53 +1529,54 @@ function pauseAllVideos() {
   document.querySelectorAll('.vid-lazy video').forEach(v => { try { v.pause(); } catch(e){} });
 }
 
-function loadVid(lazy) {
-  if(!lazy || lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
+const isMobile = window.matchMedia('(pointer: coarse)').matches;
 
-  const src   = lazy.dataset.src;
+function loadVid(lazy) {
+  if(!lazy) return;
+  const src = lazy.dataset.src;
+  if(!src) return;
+
+  if(isMobile) {
+    window.open(src, '_blank');
+    return;
+  }
+
+  if(lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
+
   const video = lazy.querySelector('video');
-  if(!src || !video) return;
+  if(!video) return;
 
   lazy.classList.add('loading');
-  video.src   = src;
-  video.muted = true;            
+  video.src = src;
+  video.muted = true;
   video.load();
 
-  video.addEventListener('canplay', function onCanPlay() {
-    video.removeEventListener('canplay', onCanPlay);
+  video.addEventListener('canplay', () => {
     lazy.classList.remove('loading');
     lazy.classList.add('loaded');
-    video.play().catch(() => {});
+    video.play().catch(()=>{});
   }, { once: true });
 
-  video.addEventListener('error', function onErr() {
-    video.removeEventListener('error', onErr);
+  video.addEventListener('error', () => {
     lazy.classList.remove('loading');
     lazy.classList.add('error');
   }, { once: true });
 
-  
   setTimeout(() => {
     if(lazy.classList.contains('loading')) {
       lazy.classList.remove('loading');
       lazy.classList.add('error');
     }
-  }, 15000);
+  }, 20000);
 }
 
 function initVideoTiles() {
   document.querySelectorAll('.vid-lazy').forEach(lazy => {
-    const handler = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      loadVid(lazy);
-    };
-    lazy.addEventListener('click',      handler, { passive: false });
-    lazy.addEventListener('touchstart', handler, { passive: false });
+    lazy.addEventListener('click', () => loadVid(lazy));
   });
 }
 document.addEventListener('DOMContentLoaded', initVideoTiles);
-initVideoTiles(); 
+initVideoTiles();
 
 const p1=document.getElementById('reviews-page-1'), p2=document.getElementById('reviews-page-2');
 const nxt=document.getElementById('next-btn'), prv=document.getElementById('prev-btn'), ind=document.getElementById('page-ind');
