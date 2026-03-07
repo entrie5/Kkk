@@ -1529,38 +1529,44 @@ function pauseAllVideos() {
   document.querySelectorAll('.vid-lazy video').forEach(v => { try { v.pause(); } catch(e){} });
 }
 
-function loadVid(lazy) {
+async function loadVid(lazy) {
   if(!lazy || lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
   const src = lazy.dataset.src;
   const video = lazy.querySelector('video');
   if(!src || !video) return;
 
   lazy.classList.add('loading');
-  video.setAttribute('playsinline', '');
-  video.setAttribute('muted', '');
+
+  let finalUrl = src;
+  try {
+    const res = await fetch(src, { method: 'HEAD', redirect: 'follow' });
+    if(res.url && res.url !== src) finalUrl = res.url;
+  } catch(e) {}
+
+  video.src = finalUrl;
   video.muted = true;
   video.playsInline = true;
   video.controls = true;
-  video.src = src;
   video.load();
 
-  video.addEventListener('canplay', () => {
+  const onPlay = () => {
     lazy.classList.remove('loading');
     lazy.classList.add('loaded');
-    video.play().catch(()=>{});
-  }, { once: true });
-
-  video.addEventListener('error', () => {
+  };
+  const onErr = () => {
     lazy.classList.remove('loading');
     lazy.classList.add('error');
-  }, { once: true });
+  };
+
+  video.addEventListener('canplay', onPlay, { once: true });
+  video.addEventListener('error', onErr, { once: true });
 
   setTimeout(() => {
     if(lazy.classList.contains('loading')) {
       lazy.classList.remove('loading');
       lazy.classList.add('error');
     }
-  }, 20000);
+  }, 25000);
 }
 
 function initVideoTiles() {
