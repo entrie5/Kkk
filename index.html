@@ -1531,6 +1531,20 @@ function pauseAllVideos() {
   document.querySelectorAll('.vid-lazy video').forEach(v => { try { v.pause(); } catch(e){} });
 }
 
+async function resolveUrl(src) {
+  try {
+    const res = await fetch(src, {
+      method: 'GET',
+      headers: { 'Range': 'bytes=0-1' },
+      redirect: 'follow'
+    });
+    await res.body.cancel();
+    return res.url || src;
+  } catch(e) {
+    return src;
+  }
+}
+
 async function loadVid(lazy) {
   if(!lazy || lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
   const src = lazy.dataset.src;
@@ -1539,44 +1553,50 @@ async function loadVid(lazy) {
 
   lazy.classList.add('loading');
 
-  try {
-    const res = await fetch(src);
-    if(!res.ok) throw new Error('fetch failed');
-    const blob = await res.blob();
-    const blobUrl = URL.createObjectURL(blob);
+  const finalUrl = await resolveUrl(src);
 
-    video.src = blobUrl;
-    video.muted = true;
-    video.playsInline = true;
-    video.controls = true;
+  video.src = finalUrl;
+  video.muted = true;
+  video.controls = true;
+  video.setAttribute('playsinline','');
+  video.setAttribute('webkit-playsinline','');
+  video.preload = 'metadata';
 
+  video.addEventListener('canplay', () => {
+    lazy.classList.remove('loading');
+    lazy.classList.add('loaded');
+    video.play().catch(()=>{});
+  }, { once: true });
+
+  video.addEventListener('error', async () => {
+    const proxy = 'https://corsproxy.io/?' + encodeURIComponent(src);
+    video.src = proxy;
+    video.load();
     video.addEventListener('canplay', () => {
       lazy.classList.remove('loading');
       lazy.classList.add('loaded');
       video.play().catch(()=>{});
     }, { once: true });
-
     video.addEventListener('error', () => {
-      URL.revokeObjectURL(blobUrl);
       lazy.classList.remove('loading');
       lazy.classList.add('error');
     }, { once: true });
+  }, { once: true });
 
-    video.load();
-  } catch(e) {
-    lazy.classList.remove('loading');
-    lazy.classList.add('error');
-  }
+  video.load();
 }
 
 function initVideoTiles() {
   document.querySelectorAll('.vid-lazy').forEach(lazy => {
-    lazy.addEventListener('click', () => loadVid(lazy));
-    lazy.addEventListener('touchend', e => { e.preventDefault(); loadVid(lazy); }, { passive: false });
+    ['click','touchend'].forEach(ev => {
+      lazy.addEventListener(ev, e => {
+        e.preventDefault();
+        loadVid(lazy);
+      }, { passive: false });
+    });
   });
 }
 document.addEventListener('DOMContentLoaded', initVideoTiles);
-initVideoTiles();
 
 const p1=document.getElementById('reviews-page-1'), p2=document.getElementById('reviews-page-2');
 const nxt=document.getElementById('next-btn'), prv=document.getElementById('prev-btn'), ind=document.getElementById('page-ind');
