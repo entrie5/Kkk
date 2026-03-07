@@ -1216,19 +1216,19 @@ function pauseAllVideos(){
   document.querySelectorAll('.vid-lazy video').forEach(v=>{ try{v.pause();}catch(e){} });
 }
 
-async function resolveRedirect(src){
-  try{
-    const res=await fetch(src,{method:'GET',redirect:'follow',mode:'cors'});
-    const url=res.url;
-    try{await res.body.cancel();}catch(e){}
-    return (url&&url!==src)?url:src;
-  }catch(e){
-    return src;
-  }
+function getRedirectUrl(url){
+  return new Promise(resolve=>{
+    const xhr=new XMLHttpRequest();
+    xhr.open('HEAD',url,true);
+    xhr.timeout=8000;
+    xhr.onload=function(){ resolve(this.responseURL||url); };
+    xhr.onerror=function(){ resolve(url); };
+    xhr.ontimeout=function(){ resolve(url); };
+    xhr.send();
+  });
 }
 
-function applyVideoSrc(lazy,url){
-  const video=lazy.querySelector('video');
+function setVideoSrc(lazy,video,url,isFallback){
   video.setAttribute('playsinline','');
   video.setAttribute('webkit-playsinline','');
   video.muted=true;
@@ -1236,17 +1236,25 @@ function applyVideoSrc(lazy,url){
   video.controls=true;
   video.src=url;
 
-  video.addEventListener('canplay',()=>{
+  video.addEventListener('canplay',function onOk(){
+    video.removeEventListener('error',onErr);
     lazy.classList.remove('loading');
     lazy.classList.add('loaded');
     video.play().catch(()=>{});
   },{once:true});
 
-  video.addEventListener('error',()=>{
-    lazy.classList.remove('loading');
-    lazy.classList.add('error');
-  },{once:true});
+  function onErr(){
+    video.removeEventListener('canplay',()=>{});
+    if(!isFallback){
+      const proxy='https://corsproxy.io/?'+encodeURIComponent(lazy.dataset.src);
+      setVideoSrc(lazy,video,proxy,true);
+    } else {
+      lazy.classList.remove('loading');
+      lazy.classList.add('error');
+    }
+  }
 
+  video.addEventListener('error',onErr,{once:true});
   video.load();
 }
 
@@ -1258,8 +1266,8 @@ async function loadVid(lazy){
 
   lazy.classList.add('loading');
 
-  const finalUrl=await resolveRedirect(src);
-  applyVideoSrc(lazy,finalUrl);
+  const finalUrl=await getRedirectUrl(src);
+  setVideoSrc(lazy,video,finalUrl,false);
 }
 
 function initVideoTiles(){
