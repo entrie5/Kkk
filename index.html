@@ -1216,20 +1216,25 @@ function pauseAllVideos(){
   document.querySelectorAll('.vid-lazy video').forEach(v=>{ try{v.pause();}catch(e){} });
 }
 
-function loadVid(lazy){
-  if(!lazy||lazy.classList.contains('loaded')||lazy.classList.contains('loading')) return;
-  const src=lazy.dataset.src;
+async function resolveRedirect(src){
+  try{
+    const res=await fetch(src,{method:'GET',redirect:'follow',mode:'cors'});
+    const url=res.url;
+    try{await res.body.cancel();}catch(e){}
+    return (url&&url!==src)?url:src;
+  }catch(e){
+    return src;
+  }
+}
+
+function applyVideoSrc(lazy,url){
   const video=lazy.querySelector('video');
-  if(!src||!video) return;
-
-  lazy.classList.add('loading');
-
   video.setAttribute('playsinline','');
   video.setAttribute('webkit-playsinline','');
   video.muted=true;
   video.preload='auto';
   video.controls=true;
-  video.src=src;
+  video.src=url;
 
   video.addEventListener('canplay',()=>{
     lazy.classList.remove('loading');
@@ -1243,6 +1248,18 @@ function loadVid(lazy){
   },{once:true});
 
   video.load();
+}
+
+async function loadVid(lazy){
+  if(!lazy||lazy.classList.contains('loaded')||lazy.classList.contains('loading')) return;
+  const src=lazy.dataset.src;
+  const video=lazy.querySelector('video');
+  if(!src||!video) return;
+
+  lazy.classList.add('loading');
+
+  const finalUrl=await resolveRedirect(src);
+  applyVideoSrc(lazy,finalUrl);
 }
 
 function initVideoTiles(){
