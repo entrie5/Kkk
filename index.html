@@ -6,27 +6,29 @@
 <title>Acerus Software</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:      #070709;
-  --bg2:     #0c0c0f;
-  --bg3:     #101013;
-  --bg4:     #151518;
-  --bg5:     #1a1a1e;
-  --surface: rgba(255,255,255,0.03);
-  --border:  rgba(255,255,255,0.055);
-  --border2: rgba(255,255,255,0.11);
-  --border3: rgba(255,255,255,0.2);
-  --white:   #f4f4f6;
-  --muted:   #7a7a8a;
-  --faint:   #3a3a48;
-  --dim:     #52525f;
-  --r:       #e8304a;
-  --r2:      #ff4d66;
-  --r3:      #ff6b80;
-  --r-glow:  rgba(232,48,74,0.18);
-  --r-soft:  rgba(232,48,74,0.08);
+  --bg:       #03060a;
+  --bg2:      #060c12;
+  --bg3:      #091118;
+  --bg4:      #0d1820;
+  --bg5:      #112030;
+  --surface:  rgba(255,255,255,0.03);
+  --border:   rgba(255,255,255,0.055);
+  --border2:  rgba(255,255,255,0.11);
+  --border3:  rgba(255,255,255,0.22);
+  --white:    #eef4ff;
+  --muted:    #6a7d96;
+  --faint:    #243040;
+  --dim:      #4a6074;
+
+  --g:        #4a7fff;
+  --g2:       #6b9fff;
+  --g3:       #90b8ff;
+  --g-glow:   rgba(74,127,255,0.18);
+  --g-soft:   rgba(74,127,255,0.07);
+  --g-mid:    rgba(74,127,255,0.12);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,39 +37,105 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--muted);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 400;
   overflow-x: hidden;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  cursor: none;
-  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (pointer: coarse) {
+  #cursor-wrap { display: none !important; }
+}
+@media (pointer: fine) {
+  body { cursor: none; }
+  body * { cursor: none !important; }
 }
 
 body::-webkit-scrollbar { width: 2px; }
 body::-webkit-scrollbar-track { background: transparent; }
 body::-webkit-scrollbar-thumb { background: var(--faint); border-radius: 99px; }
 
-#cur-ring {
-  position: fixed; width: 32px; height: 32px;
-  border: 1px solid rgba(232,48,74,0.55);
-  border-radius: 50%; pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width 0.3s cubic-bezier(.16,1,.3,1), height 0.3s cubic-bezier(.16,1,.3,1), border-color 0.3s, background 0.3s;
+#cursor-wrap {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999;
 }
+
 #cur-dot {
-  position: fixed; width: 5px; height: 5px;
-  background: var(--r); border-radius: 50%; pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%); box-shadow: 0 0 8px var(--r);
+  position: absolute;
+  width: 4px; height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px rgba(74,127,255,1), 0 0 14px rgba(74,127,255,0.6);
+  will-change: transform;
+  transition: opacity .2s, width .2s, height .2s;
 }
-body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring {
-  width: 48px; height: 48px; border-color: var(--r2); background: rgba(232,48,74,0.06);
+
+#cur-ring {
+  position: absolute;
+  width: 30px; height: 30px;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: width .35s cubic-bezier(.16,1,.3,1), height .35s cubic-bezier(.16,1,.3,1);
 }
+
+#cur-ring::before, #cur-ring::after,
+#cur-ring .c3, #cur-ring .c4 {
+  content: '';
+  position: absolute;
+  width: 7px; height: 7px;
+  border-color: rgba(74,127,255,0.75);
+  border-style: solid;
+  transition: border-color .25s, width .35s cubic-bezier(.16,1,.3,1), height .35s cubic-bezier(.16,1,.3,1);
+}
+#cur-ring::before { top:0; left:0; border-width: 1.5px 0 0 1.5px; }
+#cur-ring::after  { top:0; right:0; border-width: 1.5px 1.5px 0 0; }
+
+#cr-tl::before { top:0; left:0; border-width: 1.5px 0 0 1.5px; }
+#cr-tr::after  { top:0; right:0; border-width: 1.5px 1.5px 0 0; }
+
+#cur-scan {
+  position: absolute;
+  width: 10px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(74,127,255,0.6), transparent);
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  opacity: 0.7;
+}
+
+#cur-svg {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 32px; height: 32px;
+  will-change: transform;
+  transition: width .38s cubic-bezier(.16,1,.3,1), height .38s cubic-bezier(.16,1,.3,1), opacity .25s;
+  overflow: visible;
+}
+#cur-svg .bracket {
+  stroke: rgba(74,127,255,0.72);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: square;
+  transition: stroke .25s;
+}
+#cur-svg .center-cross {
+  stroke: rgba(74,127,255,0.3);
+  stroke-width: 1;
+  fill: none;
+}
+
+body.cur-hover #cur-svg { width: 44px; height: 44px; }
+body.cur-hover #cur-svg .bracket { stroke: rgba(74,127,255,1); }
+body.cur-hover #cur-dot { width: 3px; height: 3px; background: var(--g); }
+body.cur-hover #cur-scan { opacity: 0; }
+
+#cur-ring { display: none; }
 
 #bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 .grain {
   position: fixed; inset: -200%; width: 400%; height: 400%;
-  z-index: 1; pointer-events: none; opacity: 0.025;
+  z-index: 1; pointer-events: none; opacity: 0.018;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grain-drift 8s steps(10) infinite;
 }
@@ -76,336 +144,426 @@ body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring {
   30%{transform:translate(-1%,4%)} 40%{transform:translate(2%,-2%)} 50%{transform:translate(-3%,1%)}
   60%{transform:translate(1%,3%)} 70%{transform:translate(-2%,-1%)} 80%{transform:translate(3%,-3%)} 90%{transform:translate(-1%,2%)}
 }
-.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(110px); animation: orb-float 24s ease-in-out infinite; }
-.orb-1 { width: 650px; height: 450px; top:-180px; left:-180px; background: radial-gradient(ellipse, rgba(232,48,74,0.09) 0%, transparent 70%); animation-duration: 30s; }
-.orb-2 { width: 450px; height: 450px; top:30%; right:-120px; background: radial-gradient(ellipse, rgba(232,48,74,0.055) 0%, transparent 70%); animation-duration: 36s; animation-delay:-15s; }
-.orb-3 { width: 500px; height: 300px; bottom:0; left:20%; background: radial-gradient(ellipse, rgba(232,48,74,0.045) 0%, transparent 70%); animation-duration: 26s; animation-delay:-8s; }
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; filter: blur(120px); animation: orb-float 28s ease-in-out infinite; }
+.orb-1 { width: 700px; height: 500px; top: -220px; left: -200px; background: radial-gradient(ellipse, rgba(74,127,255,0.07) 0%, transparent 65%); animation-duration: 32s; }
+.orb-2 { width: 500px; height: 500px; top: 35%; right: -160px; background: radial-gradient(ellipse, rgba(74,127,255,0.04) 0%, transparent 65%); animation-duration: 40s; animation-delay:-18s; }
+.orb-3 { width: 550px; height: 350px; bottom: 5%; left: 15%; background: radial-gradient(ellipse, rgba(74,127,255,0.04) 0%, transparent 65%); animation-duration: 28s; animation-delay:-9s; }
 @keyframes orb-float {
-  0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(35px,-45px) scale(1.05)} 66%{transform:translate(-22px,30px) scale(0.97)}
+  0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-50px) scale(1.05)} 66%{transform:translate(-25px,32px) scale(0.97)}
 }
 
-.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.85s cubic-bezier(.16,1,.3,1), transform 0.85s cubic-bezier(.16,1,.3,1); }
+.grid-overlay {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(74,127,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,127,255,0.018) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 80%);
+}
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1); }
 .reveal.in { opacity: 1; transform: translateY(0); }
-.d1{transition-delay:.05s}.d2{transition-delay:.12s}.d3{transition-delay:.2s}.d4{transition-delay:.28s}.d5{transition-delay:.36s}.d6{transition-delay:.44s}
+.d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.21s}.d4{transition-delay:.30s}.d5{transition-delay:.39s}.d6{transition-delay:.48s}
 
 nav {
-  position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
-  z-index: 200; width: calc(100% - 2rem); max-width: 940px;
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 200; width: calc(100% - 1.5rem); max-width: 960px;
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  background: rgba(7,7,9,0.82); backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%);
-  border: 1px solid var(--border2); border-radius: 14px; padding: 7px 7px 7px 22px;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 12px 50px rgba(0,0,0,0.65);
+  background: rgba(3,6,10,0.85); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid var(--border2); border-radius: 16px; padding: 8px 8px 8px 24px;
+  box-shadow: 0 0 0 1px rgba(74,127,255,0.04) inset, 0 16px 60px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.03) inset;
 }
 .nav-logo {
-  font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 16px;
-  letter-spacing: 0.28em; text-transform: uppercase; color: var(--white); text-decoration: none;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px;
+  letter-spacing: 0.32em; text-transform: uppercase; color: var(--white); text-decoration: none;
 }
-.nav-logo span { color: var(--r); }
-.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-logo span { color: var(--g); }
+.nav-links { display: flex; gap: 30px; align-items: center; }
 @media (max-width: 680px) { .nav-links { display: none; } }
 .nav-links a {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--dim); text-decoration: none; transition: color 0.2s; position: relative; padding-bottom: 2px;
+  font-family: 'DM Mono', monospace; font-size: 10.5px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--dim); text-decoration: none; transition: color 0.22s; position: relative; padding-bottom: 3px;
 }
-.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--r); transition: width 0.3s cubic-bezier(.16,1,.3,1); }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--g); transition: width 0.35s cubic-bezier(.16,1,.3,1); }
 .nav-links a:hover { color: var(--white); }
 .nav-links a:hover::after { width: 100%; }
 .nav-right { display: flex; gap: 8px; align-items: center; }
 
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 20px;
-  background: var(--r); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 20px;
+  background: var(--g); color: #fff; font-family: 'Syne', sans-serif; font-weight: 700;
   font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-  border: none; border-radius: 8px; cursor: none; text-decoration: none; transition: all 0.2s;
-  box-shadow: 0 0 0 1px rgba(232,48,74,0.3), 0 4px 18px rgba(232,48,74,0.22); position: relative; overflow: hidden;
+  border: none; border-radius: 10px; cursor: pointer; text-decoration: none; transition: all 0.22s;
+  box-shadow: 0 0 0 1px rgba(74,127,255,0.3), 0 4px 20px rgba(74,127,255,0.22); position: relative; overflow: hidden;
 }
-.btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,0.1), transparent); border-radius: inherit; }
-.btn-primary:hover { background: var(--r2); transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(255,77,102,0.4), 0 8px 28px rgba(232,48,74,0.35); }
+.btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent); border-radius: inherit; }
+.btn-primary:hover { background: var(--g2); transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(0,255,179,0.4), 0 8px 30px rgba(74,127,255,0.38); }
 
 .btn-outline {
-  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 18px;
-  background: transparent; color: var(--muted); font-family: 'Outfit', sans-serif; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 18px;
+  background: transparent; color: var(--muted); font-family: 'Syne', sans-serif; font-weight: 600;
   font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-  border: 1px solid var(--border2); border-radius: 8px; cursor: none; text-decoration: none; transition: all 0.2s;
+  border: 1px solid var(--border2); border-radius: 10px; cursor: pointer; text-decoration: none; transition: all 0.22s;
 }
 .btn-outline:hover { border-color: var(--border3); color: var(--white); background: var(--surface); }
 
 .btn-menu { display: none; }
 @media (max-width: 680px) { .btn-menu { display: flex; } }
 #mobile-menu {
-  display: none; position: absolute; top: calc(100% + 10px); left: 0; right: 0;
-  background: rgba(7,7,9,0.98); backdrop-filter: blur(24px);
-  border: 1px solid var(--border2); border-radius: 12px; padding: 8px; flex-direction: column; gap: 2px;
+  display: none; position: absolute; top: calc(100% + 12px); left: 0; right: 0;
+  background: rgba(3,6,10,0.98); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+  border: 1px solid var(--border2); border-radius: 14px; padding: 8px; flex-direction: column; gap: 2px;
 }
 #mobile-menu.open { display: flex; }
-#mobile-menu a { font-size: 12px; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 10px 16px; border-radius: 7px; text-align: center; transition: all 0.18s; }
-#mobile-menu a:hover { background: var(--r-soft); color: var(--white); }
+#mobile-menu a { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 400; padding: 12px 16px; border-radius: 9px; text-align: center; transition: all 0.18s; }
+#mobile-menu a:hover { background: var(--g-soft); color: var(--white); }
 
-#view-main { position: relative; z-index: 10; padding: 185px 24px 100px; }
-@media (min-width: 768px) { #view-main { padding-top: 220px; } }
+#view-main { position: relative; z-index: 10; padding: 190px 24px 100px; }
+@media (min-width: 768px) { #view-main { padding-top: 230px; } }
 
-.hero { max-width: 860px; margin: 0 auto 100px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.hero { max-width: 880px; margin: 0 auto 110px; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
 .status-pill {
-  display: inline-flex; align-items: center; gap: 9px; padding: 5px 14px 5px 10px;
-  border-radius: 999px; border: 1px solid var(--border2); background: var(--surface); margin-bottom: 38px;
+  display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px 6px 12px;
+  border-radius: 999px; border: 1px solid rgba(74,127,255,0.18); background: rgba(74,127,255,0.05); margin-bottom: 40px;
 }
-.pulse-dot { position: relative; width: 6px; height: 6px; }
-.pulse-dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: #4ade80; opacity: 0.5; animation: pulse-ring 2.4s cubic-bezier(0,0,.2,1) infinite; }
-.pulse-dot::after { content: ''; position: absolute; inset: 1px; border-radius: 50%; background: #22c55e; }
-@keyframes pulse-ring { 75%,100%{ transform: scale(2.6); opacity: 0; } }
-.pill-text { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+.pulse-dot { position: relative; width: 7px; height: 7px; flex-shrink: 0; }
+.pulse-dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: rgba(74,127,255,0.4); animation: pulse-ring 2.6s cubic-bezier(0,0,.2,1) infinite; }
+.pulse-dot::after { content: ''; position: absolute; inset: 1px; border-radius: 50%; background: var(--g); }
+@keyframes pulse-ring { 75%,100%{ transform: scale(2.8); opacity: 0; } }
+.pill-text { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(74,127,255,0.7); }
 
-.hero-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(48px, 9.5vw, 108px); line-height: 0.93; letter-spacing: -0.045em; margin-bottom: 28px; }
+.hero-title {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(50px, 10vw, 112px); line-height: 0.92; letter-spacing: -0.04em; margin-bottom: 30px;
+}
 .hero-title .t1 { display: block; color: var(--white); }
-.hero-title .t2 { display: block; color: var(--r); text-shadow: 0 0 80px rgba(232,48,74,0.22); }
+.hero-title .t2 { display: block; color: var(--g); text-shadow: 0 0 100px rgba(74,127,255,0.2); }
 
-.hero-sub { font-size: 15px; color: var(--dim); max-width: 480px; line-height: 1.82; font-weight: 400; margin-bottom: 44px; }
+.hero-sub { font-size: 15.5px; color: var(--dim); max-width: 500px; line-height: 1.85; font-weight: 400; margin-bottom: 46px; }
 .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
 .btn-hero-primary {
-  display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 34px;
-  background: var(--r); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700;
-  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
-  text-decoration: none; border-radius: 10px; border: none; cursor: none; transition: all 0.22s;
-  box-shadow: 0 0 0 1px rgba(232,48,74,0.35), 0 6px 28px rgba(232,48,74,0.28); position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 36px;
+  background: var(--g); color: #fff; font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; border-radius: 12px; border: none; cursor: pointer; transition: all 0.25s;
+  box-shadow: 0 0 0 1px rgba(74,127,255,0.35), 0 6px 30px rgba(74,127,255,0.3); position: relative; overflow: hidden;
 }
-.btn-hero-primary::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.2); }
-.btn-hero-primary:hover { background: var(--r2); transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(255,77,102,0.4), 0 14px 40px rgba(232,48,74,0.38); }
-.btn-hero-primary svg { transition: transform 0.22s; }
-.btn-hero-primary:hover svg { transform: translateX(3px); }
+.btn-hero-primary::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.25); }
+.btn-hero-primary:hover { background: var(--g2); transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(0,255,179,0.45), 0 14px 45px rgba(74,127,255,0.42); }
+.btn-hero-primary svg { transition: transform 0.25s; }
+.btn-hero-primary:hover svg { transform: translateX(4px); }
 
 .btn-hero-ghost {
-  display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 34px;
-  background: var(--surface); color: var(--muted); font-family: 'Outfit', sans-serif; font-weight: 600;
-  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
-  border: 1px solid var(--border2); border-radius: 10px; cursor: none; transition: all 0.22s;
+  display: inline-flex; align-items: center; gap: 9px; height: 54px; padding: 0 36px;
+  background: rgba(255,255,255,0.03); color: var(--muted); font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid var(--border2); border-radius: 12px; cursor: pointer; transition: all 0.25s; text-decoration: none;
 }
-.btn-hero-ghost:hover { border-color: var(--border3); color: var(--white); background: rgba(255,255,255,0.05); transform: translateY(-3px); }
+.btn-hero-ghost:hover { border-color: rgba(74,127,255,0.22); color: var(--white); background: rgba(74,127,255,0.04); transform: translateY(-3px); }
 
-.scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 56px; opacity: 0.28; }
-.scroll-hint span { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
-.scroll-bar { width: 1px; height: 42px; background: linear-gradient(to bottom, var(--r), transparent); animation: scroll-anim 2s ease-in-out infinite; }
-@keyframes scroll-anim { 0%,100%{opacity:.45;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.15) translateY(3px)} }
-  
-.marquee-wrap { max-width: 940px; margin: 0 auto 70px; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 16px 0; }
-.marquee-track { display: flex; gap: 56px; white-space: nowrap; animation: marquee-scroll 24s linear infinite; }
+.scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 9px; margin-top: 60px; opacity: 0.25; }
+.scroll-hint span { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--dim); }
+.scroll-bar { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--g), transparent); animation: scroll-anim 2.2s ease-in-out infinite; }
+@keyframes scroll-anim { 0%,100%{opacity:.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.18) translateY(4px)} }
+
+.marquee-wrap { max-width: 960px; margin: 0 auto 76px; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 14px 0; }
+.marquee-track { display: flex; gap: 52px; white-space: nowrap; animation: marquee-scroll 26s linear infinite; }
 .marquee-track:hover { animation-play-state: paused; }
 @keyframes marquee-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-.marquee-item { display: flex; align-items: center; gap: 11px; flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); }
-.m-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--r); opacity: 0.5; }
+.marquee-item { display: flex; align-items: center; gap: 12px; flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); }
+.m-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--g); opacity: 0.45; }
 
-.games-strip { max-width: 860px; margin: 0 auto 70px; }
-.games-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--faint); text-align: center; margin-bottom: 18px; }
+.games-strip { max-width: 880px; margin: 0 auto 76px; }
+.games-eyebrow { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--faint); text-align: center; margin-bottom: 18px; }
 .games-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.game-chip { padding: 7px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase; transition: all 0.28s; }
-.game-chip:hover { background: var(--bg4); border-color: var(--border2); color: var(--white); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.game-chip {
+  padding: 8px 18px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px;
+  font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(.16,1,.3,1);
+}
+.game-chip:hover { background: var(--bg4); border-color: rgba(74,127,255,0.2); color: var(--g); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(74,127,255,0.08); }
 
-.stats-grid { max-width: 940px; margin: 0 auto 90px; display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+.stats-grid { max-width: 960px; margin: 0 auto 100px; display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; padding: 0 24px; }
 @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4,1fr); } }
-.stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 26px 20px; text-align: center; position: relative; overflow: hidden; transition: all 0.3s; }
-.stat-card::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 50%; height: 1px; background: linear-gradient(90deg, transparent, var(--r), transparent); }
-.stat-card:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
-.stat-num { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 38px; letter-spacing: -0.04em; line-height: 1; color: var(--white); margin-bottom: 7px; }
-.stat-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
-  
-.section-wrap { max-width: 940px; margin: 0 auto 110px; padding: 0 24px; }
-.section-center { text-align: center; margin-bottom: 52px; }
-.eyebrow { display: block; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--r); margin-bottom: 14px; opacity: 0.85; }
-.section-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(28px, 4.5vw, 50px); letter-spacing: -0.03em; color: var(--white); line-height: 1.02; }
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 30px 20px; text-align: center;
+  position: relative; overflow: hidden; transition: all 0.35s;
+}
+.stat-card::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background: linear-gradient(90deg, transparent, var(--g), transparent); opacity: 0.5; }
+.stat-card:hover { border-color: rgba(74,127,255,0.15); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 40px rgba(74,127,255,0.04); }
+.stat-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 42px; letter-spacing: -0.04em; line-height: 1; color: var(--white); margin-bottom: 8px; }
+.stat-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); }
+
+.section-wrap { max-width: 960px; margin: 0 auto 120px; padding: 0 24px; }
+.section-center { text-align: center; margin-bottom: 56px; }
+.eyebrow { display: block; font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--g); margin-bottom: 14px; opacity: 0.8; }
+.section-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 54px); letter-spacing: -0.03em; color: var(--white); line-height: 1; }
 
 .product-card {
   position: relative; background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 20px; padding: 44px; margin-bottom: 16px; overflow: hidden; transition: border-color 0.4s, box-shadow 0.4s;
+  border-radius: 22px; padding: 48px; margin-bottom: 16px; overflow: hidden; transition: border-color 0.45s, box-shadow 0.45s;
 }
-.product-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--r), transparent); opacity: 0; transition: opacity 0.45s; }
-.product-card:hover { border-color: var(--border2); box-shadow: 0 0 60px rgba(232,48,74,0.05), 0 24px 70px rgba(0,0,0,0.45); }
-.product-card:hover::before { opacity: 0.8; }
-.product-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 65% -5%, rgba(232,48,74,0.055) 0%, transparent 55%); opacity: 0; transition: opacity 0.5s; }
+.product-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent 10%, var(--g) 50%, transparent 90%); opacity: 0; transition: opacity 0.5s; }
+.product-card:hover { border-color: rgba(74,127,255,0.12); box-shadow: 0 0 80px rgba(74,127,255,0.04), 0 28px 80px rgba(0,0,0,0.5); }
+.product-card:hover::before { opacity: 0.7; }
+.product-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 70% -10%, rgba(74,127,255,0.04) 0%, transparent 55%); opacity: 0; transition: opacity 0.55s; }
 .product-card:hover::after { opacity: 1; }
-.card-num { position: absolute; top: 44px; right: 44px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--faint); }
-.prod-layout { display: grid; grid-template-columns: 1fr; gap: 40px; position: relative; z-index: 1; }
+.card-num { position: absolute; top: 48px; right: 48px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--faint); }
+.prod-layout { display: grid; grid-template-columns: 1fr; gap: 42px; position: relative; z-index: 1; }
 @media (min-width: 900px) { .prod-layout { grid-template-columns: 5fr 7fr; align-items: start; } }
-.prod-badge { display: inline-flex; align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--r); border: 1px solid rgba(232,48,74,0.22); border-radius: 5px; padding: 5px 13px; margin-bottom: 18px; width: fit-content; background: rgba(232,48,74,0.06); }
-.badge-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--r); }
-.prod-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(38px, 5.5vw, 62px); letter-spacing: -0.04em; line-height: 0.92; color: var(--white); margin-bottom: 16px; }
-.prod-desc { font-size: 14px; color: var(--dim); line-height: 1.78; margin-bottom: 34px; max-width: 330px; }
-.btn-select { display: inline-flex; align-items: center; gap: 9px; height: 44px; padding: 0 26px; background: var(--bg4); border: 1px solid var(--border2); color: var(--muted); font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; border-radius: 9px; text-decoration: none; cursor: none; transition: all 0.22s; width: fit-content; }
-.btn-select:hover { background: var(--r); color: #fff; border-color: var(--r); transform: translateX(4px); box-shadow: 0 0 24px rgba(232,48,74,0.28); }
-.btn-select svg { transition: transform 0.22s; }
+.prod-badge { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--g); border: 1px solid rgba(74,127,255,0.2); border-radius: 6px; padding: 5px 14px; margin-bottom: 18px; width: fit-content; background: rgba(74,127,255,0.05); }
+.badge-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--g); box-shadow: 0 0 6px var(--g); }
+.prod-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(40px, 6vw, 66px); letter-spacing: -0.04em; line-height: 0.91; color: var(--white); margin-bottom: 18px; }
+.prod-desc { font-size: 14px; color: var(--dim); line-height: 1.8; margin-bottom: 36px; max-width: 340px; }
+.btn-select {
+  display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 28px;
+  background: var(--bg4); border: 1px solid var(--border2); color: var(--muted); font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 10px; text-decoration: none; cursor: pointer; transition: all 0.25s; width: fit-content;
+}
+.btn-select:hover { background: var(--g); color: #fff; border-color: var(--g); transform: translateX(5px); box-shadow: 0 0 28px rgba(74,127,255,0.3); }
+.btn-select svg { transition: transform 0.25s; }
 .btn-select:hover svg { transform: translateX(3px); }
-.feat-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-.feat-col-lbl { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--r); opacity: 0.75; margin-bottom: 16px; }
-.feat-list { display: flex; flex-direction: column; gap: 10px; }
-.feat-row { display: flex; align-items: center; gap: 11px; font-size: 12px; color: var(--dim); font-weight: 400; }
-.feat-tick { width: 11px; height: 1px; background: var(--faint); flex-shrink: 0; transition: width 0.3s, background 0.3s; }
-.product-card:hover .feat-tick { width: 15px; background: rgba(232,48,74,0.4); }
+.feat-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.feat-col-lbl { font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--g); opacity: 0.7; margin-bottom: 16px; }
+.feat-list { display: flex; flex-direction: column; gap: 11px; }
+.feat-row { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--dim); font-weight: 400; }
+.feat-tick { width: 10px; height: 1px; background: var(--faint); flex-shrink: 0; transition: width 0.35s, background 0.35s; }
+.product-card:hover .feat-tick { width: 14px; background: rgba(74,127,255,0.35); }
 
 .feats-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 @media (min-width: 640px) { .feats-grid { grid-template-columns: repeat(3,1fr); } }
-.feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 18px; padding: 32px 28px; position: relative; overflow: hidden; transition: all 0.38s; }
-.feat-card::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 1px; width: 0; background: var(--r); transition: width 0.38s; }
-.feat-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 20px 55px rgba(0,0,0,0.4); }
-.feat-card:hover::after { width: 65%; }
-.feat-icon { width: 44px; height: 44px; background: rgba(232,48,74,0.07); border: 1px solid rgba(232,48,74,0.16); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 19px; margin-bottom: 20px; }
-.feat-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; color: var(--white); letter-spacing: -0.02em; margin-bottom: 10px; }
-.feat-desc { font-size: 13px; color: var(--dim); line-height: 1.72; }
+.feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 34px 30px; position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(.16,1,.3,1); }
+.feat-card::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 1px; width: 0; background: var(--g); transition: width 0.4s; }
+.feat-card:hover { border-color: rgba(74,127,255,0.12); transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.feat-card:hover::after { width: 60%; }
+.feat-icon { width: 48px; height: 48px; background: rgba(74,127,255,0.06); border: 1px solid rgba(74,127,255,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 22px; }
+.feat-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: var(--white); letter-spacing: -0.02em; margin-bottom: 10px; }
+.feat-desc { font-size: 13px; color: var(--dim); line-height: 1.75; }
 
-.hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--border2), transparent); margin: 0 auto 80px; max-width: 940px; }
+.hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--border2), transparent); margin: 0 auto 90px; max-width: 960px; }
 
 .reviews-masonry { columns: 1; column-gap: 14px; }
 @media (min-width: 700px) { .reviews-masonry { columns: 2; } }
 @media (min-width: 1000px) { .reviews-masonry { columns: 3; } }
-.review-card { break-inside: avoid; background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 26px; margin-bottom: 14px; transition: all 0.3s; position: relative; overflow: hidden; }
-.review-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--r) 0%, transparent 100%); opacity: 0; transition: opacity 0.3s; }
-.review-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 10px 35px rgba(0,0,0,0.32); }
-.review-card:hover::before { opacity: 0.55; }
-.review-q { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 900; color: var(--r); line-height: 1; margin-bottom: 10px; opacity: 0.65; }
-.review-text { font-size: 13px; color: var(--muted); line-height: 1.78; margin-bottom: 20px; }
-.reviewer { display: flex; align-items: center; gap: 11px; }
-.reviewer-av { width: 34px; height: 34px; background: var(--bg4); border: 1px solid var(--border2); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--r); flex-shrink: 0; }
-.reviewer-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 13px; color: var(--white); }
-.reviewer-role { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 2px; }
+.review-card { break-inside: avoid; background: var(--bg2); border: 1px solid var(--border); border-radius: 18px; padding: 28px; margin-bottom: 14px; transition: all 0.3s; position: relative; overflow: hidden; }
+.review-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--g) 0%, transparent 100%); opacity: 0; transition: opacity 0.3s; }
+.review-card:hover { border-color: rgba(74,127,255,0.1); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.36); }
+.review-card:hover::before { opacity: 0.5; }
+.review-q { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--g); line-height: 1; margin-bottom: 10px; opacity: 0.5; }
+.review-text { font-size: 13px; color: var(--muted); line-height: 1.8; margin-bottom: 22px; }
+.reviewer { display: flex; align-items: center; gap: 12px; }
+.reviewer-av { width: 36px; height: 36px; background: var(--bg4); border: 1px solid var(--border2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--g); flex-shrink: 0; }
+.reviewer-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--white); }
+.reviewer-role { font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 2px; }
 
-.pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 44px; }
-.btn-page { height: 40px; padding: 0 24px; background: var(--bg2); border: 1px solid var(--border); color: var(--dim); font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; border-radius: 8px; cursor: none; transition: all 0.22s; }
-.btn-page:hover:not(:disabled) { border-color: var(--border2); color: var(--white); background: var(--surface); }
+.pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 48px; }
+.btn-page { height: 42px; padding: 0 26px; background: var(--bg2); border: 1px solid var(--border); color: var(--dim); font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; border-radius: 10px; cursor: pointer; transition: all 0.22s; }
+.btn-page:hover:not(:disabled) { border-color: rgba(74,127,255,0.2); color: var(--white); background: var(--surface); }
 .btn-page:disabled { opacity: 0.2; cursor: not-allowed; }
-.page-ind { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--faint); letter-spacing: 0.14em; }
+.page-ind { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--faint); letter-spacing: 0.16em; }
 
-.v-badge { display: inline-flex; align-items: center; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); border: 1px solid var(--border); padding: 5px 13px; border-radius: 999px; margin-top: 14px; }
+.v-badge { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); border: 1px solid var(--border); padding: 6px 14px; border-radius: 999px; margin-top: 16px; }
 .v-dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.55); }
 
 #view-clips { position: relative; z-index: 10; padding: 120px 24px 100px; max-width: 1200px; margin: 0 auto; }
-.clips-head { display: flex; flex-direction: column; gap: 24px; margin-bottom: 44px; }
+.clips-head { display: flex; flex-direction: column; gap: 24px; margin-bottom: 48px; }
 @media (min-width: 768px) { .clips-head { flex-direction: row; align-items: center; justify-content: space-between; } }
-.clips-head h2 { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 30px; color: var(--white); letter-spacing: -0.025em; margin-bottom: 5px; }
+.clips-head h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 32px; color: var(--white); letter-spacing: -0.03em; margin-bottom: 6px; }
 .clips-head p { font-size: 13px; color: var(--dim); }
-.tab-strip { display: flex; align-items: center; gap: 3px; padding: 4px; background: var(--bg2); border: 1px solid var(--border); border-radius: 11px; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; }
+.tab-strip { display: flex; align-items: center; gap: 3px; padding: 4px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; flex-shrink: 0; }
 .tab-strip::-webkit-scrollbar { display: none; }
-.tab-btn { padding: 8px 15px; font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; border-radius: 7px; border: 1px solid transparent; background: transparent; color: var(--dim); cursor: none; transition: all 0.2s; white-space: nowrap; }
+.tab-btn { padding: 9px 16px; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; border-radius: 8px; border: 1px solid transparent; background: transparent; color: var(--dim); cursor: pointer; transition: all 0.22s; white-space: nowrap; }
 .tab-btn:hover { color: var(--white); background: var(--surface); }
-.tab-btn.active { background: var(--r-soft); border-color: rgba(232,48,74,0.2); color: var(--white); }
+.tab-btn.active { background: var(--g-soft); border-color: rgba(74,127,255,0.18); color: var(--white); }
+
 .vid-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 @media (min-width: 640px) { .vid-grid { grid-template-columns: repeat(2,1fr); } }
 @media (min-width: 1024px) { .vid-grid { grid-template-columns: repeat(3,1fr); } }
-.vid-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: all 0.3s; }
-.vid-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 18px 50px rgba(0,0,0,0.5); }
+
+.vid-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.35s; }
+.vid-card:hover { border-color: rgba(74,127,255,0.12); transform: translateY(-4px); box-shadow: 0 20px 55px rgba(0,0,0,0.55); }
 
 .vid-thumb {
-  aspect-ratio: 16/9;
-  position: relative;
-  background: #040406;
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-  cursor: pointer;
+  aspect-ratio: 16/9; position: relative; background: #020810;
+  border-bottom: 1px solid var(--border); overflow: hidden;
 }
 
 .vid-lazy {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #040406;
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center; background: #020810;
+  touch-action: manipulation;
 }
 .vid-lazy video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: none; /* hidden until loaded */
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: none;
 }
 .vid-lazy.loaded video { display: block; }
+.vid-lazy.error video { display: none; }
 
 .play-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: rgba(4,4,6,0.65);
-  transition: opacity 0.3s;
-  z-index: 2;
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  background: linear-gradient(160deg, rgba(4,10,22,0.45) 0%, rgba(2,6,14,0.65) 100%);
+  backdrop-filter: blur(2px);
+  transition: opacity 0.3s, background 0.3s; z-index: 2;
+  touch-action: manipulation; cursor: pointer;
 }
 .vid-lazy.loaded .play-overlay { display: none; }
-.play-btn-circle {
-  width: 52px; height: 52px;
-  border-radius: 50%;
-  background: var(--r);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 0 8px rgba(232,48,74,0.15), 0 4px 24px rgba(232,48,74,0.35);
-  transition: transform 0.22s, box-shadow 0.22s;
-}
-.vid-thumb:hover .play-btn-circle {
-  transform: scale(1.1);
-  box-shadow: 0 0 0 12px rgba(232,48,74,0.2), 0 6px 32px rgba(232,48,74,0.5);
-}
-.play-btn-circle svg { margin-left: 3px; }
-.play-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
+.vid-lazy.error .play-overlay { background: rgba(2,8,16,0.85); }
+
+.play-btn-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
 
-.vid-spinner {
+.play-btn-ring {
+  position: relative;
+  width: 68px; height: 68px;
+  display: flex; align-items: center; justify-content: center;
+}
+.play-btn-ring::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(74,127,255,0.25);
+  animation: play-pulse 2.4s ease-in-out infinite;
+}
+.play-btn-ring::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
+  inset: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(74,127,255,0.12);
+}
+@keyframes play-pulse {
+  0%, 100% { transform: scale(1);   opacity: 0.6; }
+  50%       { transform: scale(1.2); opacity: 0; }
+}
+
+.play-btn-circle {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(10,18,40,0.75);
+  border: 1px solid rgba(74,127,255,0.45);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow:
+    0 0 0 1px rgba(74,127,255,0.08) inset,
+    0 0 24px rgba(74,127,255,0.2),
+    0 8px 32px rgba(0,0,0,0.5);
+  transition: transform 0.28s cubic-bezier(.16,1,.3,1), box-shadow 0.28s, border-color 0.28s, background 0.28s;
+  position: relative; z-index: 1; overflow: hidden;
+}
+.play-btn-circle::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.07), transparent);
+  border-radius: 50% 50% 0 0;
+}
+.vid-thumb:hover .play-btn-circle,
+.vid-thumb:active .play-btn-circle {
+  transform: scale(1.08);
+  background: rgba(74,127,255,0.18);
+  border-color: rgba(74,127,255,0.75);
+  box-shadow:
+    0 0 0 1px rgba(74,127,255,0.15) inset,
+    0 0 40px rgba(74,127,255,0.35),
+    0 12px 40px rgba(0,0,0,0.6);
+}
+.play-btn-circle svg { position: relative; z-index: 1; margin-left: 3px; }
+
+.play-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  display: flex; align-items: center; gap: 7px;
+}
+.play-label::before, .play-label::after {
+  content: '';
+  display: inline-block;
+  width: 12px; height: 1px;
+  background: rgba(74,127,255,0.3);
+}
+.error-label {
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(255,80,80,0.7); display: none;
+}
+.vid-lazy.error .play-label { display: none; }
+.vid-lazy.error .error-label { display: block; }
+.vid-lazy.error .play-btn-circle {
+  background: rgba(30,30,30,0.6); border-color: rgba(255,255,255,0.1);
+  box-shadow: none;
+}
+.vid-lazy.error .play-btn-ring::before { animation: none; border-color: rgba(255,80,80,0.2); }
+
+.vid-spinner {
+  position: absolute; inset: 0; display: none;
+  align-items: center; justify-content: center; z-index: 3;
 }
 .vid-lazy.loading .vid-spinner { display: flex; }
-.vid-lazy.loading .play-overlay { opacity: 0.3; }
+.vid-lazy.loading .play-overlay { opacity: 0.2; }
 .spinner-ring {
-  width: 32px; height: 32px;
-  border: 2px solid rgba(232,48,74,0.2);
-  border-top-color: var(--r);
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(74,127,255,0.15);
+  border-top-color: var(--g);
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .vid-thumb iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
+  position: absolute; inset: 0; width: 100%; height: 100%; border: none;
 }
+.vid-info { padding: 14px 16px; }
+.vid-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13.5px; color: var(--white); letter-spacing: -0.01em; }
+.vid-meta { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 4px; }
 
-.vid-info { padding: 12px 14px; }
-.vid-name { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 13px; color: var(--white); letter-spacing: -0.01em; }
-.vid-meta { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-top: 3px; }
-
-footer { position: relative; z-index: 10; border-top: 1px solid var(--border); padding: 44px 24px; display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 1200px; margin: 0 auto; }
+footer { position: relative; z-index: 10; border-top: 1px solid var(--border); padding: 48px 24px; display: flex; flex-direction: column; align-items: center; gap: 22px; max-width: 1200px; margin: 0 auto; }
 @media (min-width: 768px) { footer { flex-direction: row; justify-content: space-between; } }
-.footer-brand p:first-child { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 15px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); }
-.footer-brand p:first-child span { color: var(--r); }
-.footer-copy { font-size: 11px; color: var(--faint); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; margin-top: 4px; }
-.footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
-.footer-links a { font-size: 12px; color: var(--dim); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+.footer-brand p:first-child { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--white); }
+.footer-brand p:first-child span { color: var(--g); }
+.footer-copy { font-size: 11px; color: var(--faint); font-family: 'DM Mono', monospace; letter-spacing: 0.05em; margin-top: 5px; }
+.footer-links { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+.footer-links a { font-size: 12px; color: var(--dim); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; font-family: 'DM Sans', sans-serif; }
 .footer-links a:hover { color: var(--white); }
-.status-ind { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--dim); }
-.status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 9px rgba(34,197,94,0.65); }
+.status-ind { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--dim); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 10px rgba(34,197,94,0.65); }
 
 .hidden { display: none !important; }
+
+@media (max-width: 600px) {
+  .product-card { padding: 28px 20px; }
+  .card-num { top: 28px; right: 20px; }
+  .feat-box { grid-template-columns: 1fr; gap: 20px; }
+  .prod-title { font-size: 44px; }
+  #view-clips { padding-top: 100px; }
+}
 </style>
 </head>
 <body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
 
-<div id="cur-ring"></div>
-<div id="cur-dot"></div>
+<div id="cursor-wrap">
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+  <div id="cur-scan"></div>
+  
+  <svg id="cur-svg" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    
+    <polyline class="bracket" points="8,2 2,2 2,8"/>
+    
+    <polyline class="bracket" points="24,2 30,2 30,8"/>
+    
+    <polyline class="bracket" points="8,30 2,30 2,24"/>
+    
+    <polyline class="bracket" points="24,30 30,30 30,24"/>
+    
+    <line class="center-cross" x1="16" y1="13" x2="16" y2="19"/>
+    <line class="center-cross" x1="13" y1="16" x2="19" y2="16"/>
+  </svg>
+</div>
 <canvas id="bg-canvas"></canvas>
 <div class="grain"></div>
+<div class="grid-overlay"></div>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
@@ -420,7 +578,7 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
   </div>
   <div class="nav-right">
     <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener" class="btn-primary">Join Discord</a>
-    <button onclick="toggleMenu()" class="btn-outline btn-menu">Menu</button>
+    <button onclick="toggleMenu()" class="btn-outline btn-menu" style="cursor:pointer;">Menu</button>
   </div>
   <div id="mobile-menu">
     <a href="#products" onclick="showView('main');toggleMenu();">Products</a>
@@ -444,7 +602,7 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     <div class="hero-btns reveal d4">
       <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-hero-primary">
         Get Access Now
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
       <button onclick="showView('clips')" class="btn-hero-ghost">Watch Media</button>
     </div>
@@ -470,7 +628,7 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     </div>
   </div>
 
-  <div class="stats-grid reveal" style="padding:0 24px;margin-top:70px;">
+  <div class="stats-grid reveal" style="margin-top:80px;">
     <div class="stat-card"><div class="stat-num">20k+</div><div class="stat-label">FPS Capture</div></div>
     <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Undetected Rate</div></div>
     <div class="stat-card"><div class="stat-num">0ms</div><div class="stat-label">Reaction Time</div></div>
@@ -486,13 +644,13 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     <div class="product-card reveal">
       <span class="card-num">01</span>
       <div class="prod-layout">
-        <div style="display:flex;flex-direction:column;justify-content:space-between;gap:26px;">
+        <div style="display:flex;flex-direction:column;justify-content:space-between;gap:28px;">
           <div>
             <div class="prod-badge"><span class="badge-dot"></span>Colorbot</div>
             <h3 class="prod-title">Colorbot</h3>
             <p class="prod-desc">Top-tier aim assist built with advanced humanized smoothing. Designed to look exactly like natural mouse movement while flawlessly locking onto targets.</p>
           </div>
-          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-select">Select Plan <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-select">Select Plan <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
         <div class="feat-box">
           <div>
@@ -528,13 +686,13 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     <div class="product-card reveal">
       <span class="card-num">02</span>
       <div class="prod-layout">
-        <div style="display:flex;flex-direction:column;justify-content:space-between;gap:26px;">
+        <div style="display:flex;flex-direction:column;justify-content:space-between;gap:28px;">
           <div>
             <div class="prod-badge"><span class="badge-dot"></span>Triggerbot</div>
             <h3 class="prod-title">Triggerbot</h3>
             <p class="prod-desc">The fastest reaction time available. Built perfectly for holding angles and instantly firing when a target enters your pixel view.</p>
           </div>
-          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-select">Select Plan <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-select">Select Plan <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
         <div class="feat-box">
           <div>
@@ -582,11 +740,11 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     </div>
   </section>
 
-  <section id="reviews" style="scroll-margin-top:100px;max-width:1100px;margin:0 auto 80px;padding:0 24px;">
+  <section id="reviews" style="scroll-margin-top:100px;max-width:1100px;margin:0 auto 90px;padding:0 24px;">
     <div class="section-center reveal">
       <span class="eyebrow">Testimonials</span>
       <h2 class="section-title">Trusted by the best</h2>
-      <p style="font-size:13px;color:var(--dim);margin-top:12px;">Real feedback from players dominating their respective ladders.</p>
+      <p style="font-size:13px;color:var(--dim);margin-top:14px;font-family:'DM Sans',sans-serif;">Real feedback from players dominating their respective ladders.</p>
       <div class="v-badge"><span class="v-dot"></span>All reviews are from verified users</div>
     </div>
     <div id="reviews-page-1" class="reviews-masonry">
@@ -625,96 +783,187 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     </div>
   </div>
 
+  
   <div id="grid-val" class="vid-grid">
     <div class="vid-card">
       <div class="vid-thumb"><iframe src="https://streamable.com/e/bvr487?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe></div>
       <div class="vid-info"><p class="vid-name">Silent Aim</p><p class="vid-meta">Streamable</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/2024-12-14_18-17-25_-_Trim_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Flickbot (old)</p><p class="vid-meta">MP4 · GG</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/greatesttb.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Triggerbot</p><p class="vid-meta">MP4 · High Quality</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.04.09_-_08.07.11.14.DVR_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Flickbot in Action</p><p class="vid-meta">MP4 · GG</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.06.15_-_21.14.05.04.DVR.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Triggerbot</p><p class="vid-meta">MOV · High Quality</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2025.04.09_-_02.30.10.04.DVR_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="none"/><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Silent Aim in ASC</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/silent_aim.mov">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
-      <div class="vid-info"><p class="vid-name">Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div>
+      <div class="vid-info"><p class="vid-name">Silent Aim</p><p class="vid-meta">MOV · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.58.43.05.DVR_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">CB in Radiant</p><p class="vid-meta">MP4 · GG</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.01.28_-_20.40.56.03.DVR_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Colorbot in Radiant</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Valorant_2026.02.03_-_15.48.37.03.DVR.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
@@ -722,42 +971,83 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     </div>
   </div>
 
+  
   <div id="grid-apex" class="vid-grid hidden">
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.34.55.02.DVR.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Apex Tracking #1</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.21.10.04.06.DVR.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Beamed Out Air</p><p class="vid-meta">MP4 · GG</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.02.47.25.411.DVR.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Smoothhhh</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Apex.Legends.2026.02.18.-.20.37.18.03.DVR.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
@@ -765,63 +1055,123 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     </div>
   </div>
 
-  <!-- FRAGPUNK -->
+  
   <div id="grid-frag" class="vid-grid hidden">
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.09.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.04.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Flicking</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-03.24.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Rage</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-05.29.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">P100 Tracking</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/FragPunk_replay_2025.04.17-19.18_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Session</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/unknown_replay_2025.04.17-02.28.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
@@ -829,53 +1179,103 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     </div>
   </div>
 
-  <!-- STRINOVA -->
+  
   <div id="grid-stri" class="vid-grid hidden">
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.23.33.28.61.DVR.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Acerus</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.20.-.16.19.39.171.DVR.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Strinova Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.02.44.51.177.DVR.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">P100 Filtering</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Strinova.2026.02.17.-.03.06.43.204.DVR.-.Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Session Replay #1</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Replay_2026.02.17-19.33_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
@@ -883,42 +1283,83 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
     </div>
   </div>
 
+  
   <div id="grid-ow" class="vid-grid hidden">
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_-_Trim.1.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">P100 Tracking</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.22-20.12_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">OW2 Silent Aim</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.02.21-09.59_1_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
       <div class="vid-info"><p class="vid-name">Acerus OT</p><p class="vid-meta">MP4 · Raw Footage</p></div>
     </div>
     <div class="vid-card">
-      <div class="vid-thumb" onclick="loadVid(this)">
+      <div class="vid-thumb">
         <div class="vid-lazy" data-src="https://github.com/xgshgsovxdjxsfixv/ye/releases/download/F/Overwatch_2_replay_2024.03.15-00.09_-_Trim.mp4">
-          <video preload="none" controls playsinline></video>
-          <div class="play-overlay"><div class="play-btn-circle"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 4l9 5-9 5V4z" fill="white"/></svg></div><span class="play-label">Click to load</span></div>
+          <video preload="none" controls playsinline muted></video>
+          <div class="play-overlay">
+          <div class="play-btn-wrap">
+            <div class="play-btn-ring">
+              <div class="play-btn-circle">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3.5l8 4.5-8 4.5V3.5z" fill="rgba(74,127,255,0.95)"/></svg>
+              </div>
+            </div>
+            <span class="play-label">Play</span>
+            <span class="error-label">Load failed</span>
+          </div>
+        </div>
           <div class="vid-spinner"><div class="spinner-ring"></div></div>
         </div>
       </div>
@@ -945,89 +1386,172 @@ footer { position: relative; z-index: 10; border-top: 1px solid var(--border); p
 
 <script>
 
-const ring=document.getElementById('cur-ring'),dot=document.getElementById('cur-dot');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(loop);})();
-
 (function(){
-  const c=document.getElementById('bg-canvas'),ctx=c.getContext('2d');
-  let W,H,pts=[];
-  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
-  resize();addEventListener('resize',resize);
-  class P{
-    reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.2+0.2;this.a=Math.random()*0.2+0.04;this.vx=(Math.random()-.5)*0.09;this.vy=(Math.random()-.5)*0.09;this.life=0;this.max=Math.random()*550+350;this.red=Math.random()<0.2;}
-    constructor(){this.reset();this.life=Math.random()*this.max;}
-    draw(){this.life++;const p=this.life/this.max,f=p<.1?p/.1:p>.8?(1-p)/.2:1;ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=this.red?`rgba(232,48,74,${this.a*f*0.65})`:`rgba(255,255,255,${this.a*f*0.38})`;ctx.fill();this.x+=this.vx;this.y+=this.vy;if(this.life>this.max)this.reset();}
-  }
-  for(let i=0;i<90;i++)pts.push(new P());
-  (function draw(){ctx.clearRect(0,0,W,H);pts.forEach(p=>p.draw());requestAnimationFrame(draw);})();
+  if(window.matchMedia('(pointer: coarse)').matches) return;
+  const wrap  = document.getElementById('cursor-wrap');
+  const svg   = document.getElementById('cur-svg');
+  const dot   = document.getElementById('cur-dot');
+  const scan  = document.getElementById('cur-scan');
+  if(!wrap) return;
+
+  let mx=0, my=0,
+      rx=0, ry=0,   
+      cx=0, cy=0;   
+  let visible = false;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    if(!visible){ visible=true; wrap.style.opacity='1'; }
+  });
+  document.addEventListener('mouseleave', () => { wrap.style.opacity='0'; });
+  document.addEventListener('mouseenter', () => { if(visible) wrap.style.opacity='1'; });
+
+  (function loop(){
+    
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+
+    
+    rx += (mx - rx) * 0.09;
+    ry += (my - ry) * 0.09;
+    svg.style.left = rx + 'px';
+    svg.style.top  = ry + 'px';
+
+    
+    cx += (mx - cx) * 0.15;
+    cy += (my - cy) * 0.15;
+    if(scan) { scan.style.left = cx + 'px'; scan.style.top = cy + 'px'; }
+
+    requestAnimationFrame(loop);
+  })();
+
+  
+  const hovers = 'a, button, .btn-select, .btn-hero-primary, .btn-hero-ghost, .btn-primary, .game-chip, .vid-card, .tab-btn, .play-overlay';
+  document.addEventListener('mouseover', e => {
+    if(e.target.closest(hovers)) document.body.classList.add('cur-hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if(e.target.closest(hovers)) document.body.classList.remove('cur-hover');
+  });
+
+  wrap.style.opacity = '0';
+  wrap.style.transition = 'opacity 0.4s';
 })();
 
-const els=document.querySelectorAll('.reveal');
-const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-els.forEach(el=>io.observe(el));
-document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{els.forEach(el=>{if(el.getBoundingClientRect().top<innerHeight)el.classList.add('in');});},60);});
+(function(){
+  const c=document.getElementById('bg-canvas'), ctx=c.getContext('2d');
+  let W,H,pts=[];
+  function resize(){ W=c.width=innerWidth; H=c.height=innerHeight; }
+  resize(); addEventListener('resize',resize);
+  class P {
+    reset(){ this.x=Math.random()*W; this.y=Math.random()*H; this.r=Math.random()*1.3+0.2; this.a=Math.random()*0.18+0.04; this.vx=(Math.random()-.5)*0.08; this.vy=(Math.random()-.5)*0.08; this.life=0; this.max=Math.random()*600+400; this.blue=Math.random()<0.25; }
+    constructor(){ this.reset(); this.life=Math.random()*this.max; }
+    draw(){
+      this.life++;
+      const p=this.life/this.max, f=p<.12?p/.12:p>.75?(1-p)/.25:1;
+      ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      ctx.fillStyle=this.blue?`rgba(74,127,255,${this.a*f*0.6})`:`rgba(255,255,255,${this.a*f*0.28})`;
+      ctx.fill(); this.x+=this.vx; this.y+=this.vy;
+      if(this.life>this.max) this.reset();
+    }
+  }
+  for(let i=0;i<100;i++) pts.push(new P());
+  (function draw(){ ctx.clearRect(0,0,W,H); pts.forEach(p=>p.draw()); requestAnimationFrame(draw); })();
+})();
 
-function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open');}
+const els = document.querySelectorAll('.reveal');
+const io  = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+}, { threshold:.08, rootMargin:'0px 0px -40px 0px' });
+els.forEach(el => io.observe(el));
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => { els.forEach(el => { if(el.getBoundingClientRect().top<innerHeight) el.classList.add('in'); }); }, 60);
+});
 
-function showView(v){
-  const m=document.getElementById('view-main'),c=document.getElementById('view-clips');
-  if(v==='clips'){
-    m.classList.add('hidden');c.classList.remove('hidden');
+function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+
+function showView(v) {
+  const m = document.getElementById('view-main');
+  const c = document.getElementById('view-clips');
+  if(v==='clips') {
+    m.classList.add('hidden'); c.classList.remove('hidden');
     c.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
-    scrollTo({top:0,behavior:'smooth'});
+    scrollTo({top:0, behavior:'smooth'});
   } else {
-    document.querySelectorAll('.vid-lazy video').forEach(v=>{ v.pause(); });
-    c.classList.add('hidden');m.classList.remove('hidden');
+    pauseAllVideos();
+    c.classList.add('hidden'); m.classList.remove('hidden');
   }
 }
 
-function switchTab(id){
-  ['val','apex','frag','stri','ow'].forEach(t=>{
-    document.getElementById('grid-'+t).classList.toggle('hidden',t!==id);
-    document.getElementById('tab-'+t).classList.toggle('active',t===id);
+function switchTab(id) {
+  ['val','apex','frag','stri','ow'].forEach(t => {
+    document.getElementById('grid-'+t).classList.toggle('hidden', t!==id);
+    document.getElementById('tab-'+t).classList.toggle('active', t===id);
   });
-  document.querySelectorAll('.vid-lazy video').forEach(v=>{ v.pause(); });
+  pauseAllVideos();
 }
 
-function loadVid(thumb) {
-  const lazy = thumb.querySelector('.vid-lazy');
-  if (!lazy || lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
+function pauseAllVideos() {
+  document.querySelectorAll('.vid-lazy video').forEach(v => { try { v.pause(); } catch(e){} });
+}
 
-  const src = lazy.dataset.src;
+function loadVid(lazy) {
+  if(!lazy || lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
+
+  const src   = lazy.dataset.src;
   const video = lazy.querySelector('video');
-  if (!src || !video) return;
+  if(!src || !video) return;
 
   lazy.classList.add('loading');
-
-  video.src = src;
+  video.src   = src;
+  video.muted = true;            
   video.load();
 
   video.addEventListener('canplay', function onCanPlay() {
     video.removeEventListener('canplay', onCanPlay);
     lazy.classList.remove('loading');
     lazy.classList.add('loaded');
-    video.play().catch(()=>{}); 
+    video.play().catch(() => {});
   }, { once: true });
 
   video.addEventListener('error', function onErr() {
     video.removeEventListener('error', onErr);
     lazy.classList.remove('loading');
-
-    const lbl = lazy.querySelector('.play-label');
-    if (lbl) lbl.textContent = 'Failed — try direct link';
-    const circle = lazy.querySelector('.play-btn-circle');
-    if (circle) circle.style.background = '#555';
+    lazy.classList.add('error');
   }, { once: true });
+
+  
+  setTimeout(() => {
+    if(lazy.classList.contains('loading')) {
+      lazy.classList.remove('loading');
+      lazy.classList.add('error');
+    }
+  }, 15000);
 }
 
-const p1=document.getElementById('reviews-page-1'),p2=document.getElementById('reviews-page-2');
-const nxt=document.getElementById('next-btn'),prv=document.getElementById('prev-btn'),ind=document.getElementById('page-ind');
-let cur=1;
-nxt.addEventListener('click',()=>{if(cur===1){p1.classList.add('hidden');p2.classList.remove('hidden');p2.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));cur=2;prv.disabled=false;nxt.disabled=true;ind.textContent='02 / 02';}});
-prv.addEventListener('click',()=>{if(cur===2){p2.classList.add('hidden');p1.classList.remove('hidden');cur=1;prv.disabled=true;nxt.disabled=false;ind.textContent='01 / 02';}});
+function initVideoTiles() {
+  document.querySelectorAll('.vid-lazy').forEach(lazy => {
+    const handler = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      loadVid(lazy);
+    };
+    lazy.addEventListener('click',      handler, { passive: false });
+    lazy.addEventListener('touchstart', handler, { passive: false });
+  });
+}
+document.addEventListener('DOMContentLoaded', initVideoTiles);
+initVideoTiles(); 
 
+const p1=document.getElementById('reviews-page-1'), p2=document.getElementById('reviews-page-2');
+const nxt=document.getElementById('next-btn'), prv=document.getElementById('prev-btn'), ind=document.getElementById('page-ind');
+let cur=1;
+nxt.addEventListener('click',()=>{
+  if(cur===1){ p1.classList.add('hidden'); p2.classList.remove('hidden'); p2.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); cur=2; prv.disabled=false; nxt.disabled=true; ind.textContent='02 / 02'; }
+});
+prv.addEventListener('click',()=>{
+  if(cur===2){ p2.classList.add('hidden'); p1.classList.remove('hidden'); cur=1; prv.disabled=true; nxt.disabled=false; ind.textContent='01 / 02'; }
+});
 
 const items=['Valorant','Apex Legends','Marvel Rivals','FragPunk','Strinova','Overwatch 2','Colorbot','Triggerbot','Silent Aim','Flickbot','20k+ FPS','Streamproof'];
 const track=document.getElementById('marquee');
