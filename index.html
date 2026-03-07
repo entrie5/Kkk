@@ -1529,26 +1529,19 @@ function pauseAllVideos() {
   document.querySelectorAll('.vid-lazy video').forEach(v => { try { v.pause(); } catch(e){} });
 }
 
-const isMobile = window.matchMedia('(pointer: coarse)').matches;
-
 function loadVid(lazy) {
-  if(!lazy) return;
+  if(!lazy || lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
   const src = lazy.dataset.src;
-  if(!src) return;
-
-  if(isMobile) {
-    window.open(src, '_blank');
-    return;
-  }
-
-  if(lazy.classList.contains('loaded') || lazy.classList.contains('loading')) return;
-
   const video = lazy.querySelector('video');
-  if(!video) return;
+  if(!src || !video) return;
 
   lazy.classList.add('loading');
-  video.src = src;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('muted', '');
   video.muted = true;
+  video.playsInline = true;
+  video.controls = true;
+  video.src = src;
   video.load();
 
   video.addEventListener('canplay', () => {
@@ -1573,6 +1566,7 @@ function loadVid(lazy) {
 function initVideoTiles() {
   document.querySelectorAll('.vid-lazy').forEach(lazy => {
     lazy.addEventListener('click', () => loadVid(lazy));
+    lazy.addEventListener('touchend', e => { e.preventDefault(); loadVid(lazy); }, { passive: false });
   });
 }
 document.addEventListener('DOMContentLoaded', initVideoTiles);
