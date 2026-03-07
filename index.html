@@ -1216,49 +1216,7 @@ function pauseAllVideos(){
   document.querySelectorAll('.vid-lazy video').forEach(v=>{ try{v.pause();}catch(e){} });
 }
 
-function getRedirectUrl(url){
-  return new Promise(resolve=>{
-    const xhr=new XMLHttpRequest();
-    xhr.open('HEAD',url,true);
-    xhr.timeout=8000;
-    xhr.onload=function(){ resolve(this.responseURL||url); };
-    xhr.onerror=function(){ resolve(url); };
-    xhr.ontimeout=function(){ resolve(url); };
-    xhr.send();
-  });
-}
-
-function setVideoSrc(lazy,video,url,isFallback){
-  video.setAttribute('playsinline','');
-  video.setAttribute('webkit-playsinline','');
-  video.muted=true;
-  video.preload='auto';
-  video.controls=true;
-  video.src=url;
-
-  video.addEventListener('canplay',function onOk(){
-    video.removeEventListener('error',onErr);
-    lazy.classList.remove('loading');
-    lazy.classList.add('loaded');
-    video.play().catch(()=>{});
-  },{once:true});
-
-  function onErr(){
-    video.removeEventListener('canplay',()=>{});
-    if(!isFallback){
-      const proxy='https://corsproxy.io/?'+encodeURIComponent(lazy.dataset.src);
-      setVideoSrc(lazy,video,proxy,true);
-    } else {
-      lazy.classList.remove('loading');
-      lazy.classList.add('error');
-    }
-  }
-
-  video.addEventListener('error',onErr,{once:true});
-  video.load();
-}
-
-async function loadVid(lazy){
+function loadVid(lazy){
   if(!lazy||lazy.classList.contains('loaded')||lazy.classList.contains('loading')) return;
   const src=lazy.dataset.src;
   const video=lazy.querySelector('video');
@@ -1266,9 +1224,39 @@ async function loadVid(lazy){
 
   lazy.classList.add('loading');
 
-  const finalUrl=await getRedirectUrl(src);
-  setVideoSrc(lazy,video,finalUrl,false);
+  const proxied='https://corsproxy.io/?url='+encodeURIComponent(src);
+
+  video.setAttribute('playsinline','');
+  video.setAttribute('webkit-playsinline','');
+  video.setAttribute('x-webkit-airplay','allow');
+  video.muted=true;
+  video.preload='auto';
+  video.controls=true;
+  video.src=proxied;
+
+  video.addEventListener('canplay',()=>{
+    lazy.classList.remove('loading');
+    lazy.classList.add('loaded');
+    video.play().catch(()=>{});
+  },{once:true});
+
+  video.addEventListener('error',()=>{
+    video.src=src;
+    video.load();
+    video.addEventListener('canplay',()=>{
+      lazy.classList.remove('loading');
+      lazy.classList.add('loaded');
+      video.play().catch(()=>{});
+    },{once:true});
+    video.addEventListener('error',()=>{
+      lazy.classList.remove('loading');
+      lazy.classList.add('error');
+    },{once:true});
+  },{once:true});
+
+  video.load();
 }
+
 
 function initVideoTiles(){
   document.querySelectorAll('.vid-lazy').forEach(lazy=>{
