@@ -225,7 +225,7 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
   #view-main{padding:110px 16px 80px}
   #view-clips{padding:100px 16px 80px}
   .hero{margin-bottom:80px}
-  .hero-h1{font-size:clamp(60px,16vw,88px)}
+  .hero-h1{font-size:clamp(28px,10vw,52px);line-height:.9}
   .stats{padding:0;margin-bottom:80px;border-radius:12px}
   .sec-wrap{padding:0 16px;margin-bottom:90px}
   .prod-card{padding:26px 20px}
@@ -582,7 +582,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       ov.style.display='none';sp.classList.add('on');
       const mob=window.matchMedia('(pointer:coarse)').matches;
       function tryLoad(url){video.src=url;video.load();video.addEventListener('canplay',function h(){video.removeEventListener('canplay',h);sp.classList.remove('on');video.classList.add('ready');video.play().catch(()=>{})});video.addEventListener('error',function h(){video.removeEventListener('error',h);if(url!==src)tryLoad(src);else{sp.classList.remove('on');er.classList.add('on')}})}
-      mob?tryLoad(src):tryLoad('https://corsproxy.io/?url='+encodeURIComponent(src));
+      tryLoad('https://corsproxy.io/?url='+encodeURIComponent(src));
     }
     ov.addEventListener('click',e=>{e.stopPropagation();load()});
     ov.addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();load()},{passive:false});
