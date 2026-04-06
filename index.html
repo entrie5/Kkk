@@ -237,7 +237,30 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
   .prod-inner{gap:28px}
 }
 
-
+/* ── Plan selector ── */
+.plan-wrap{margin-bottom:20px}
+.plan-lbl{font-family:var(--mono);font-size:7.5px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:10px}
+.plan-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+@media(max-width:560px){.plan-opts{grid-template-columns:repeat(2,1fr)}}
+.plan-opt{position:relative;padding:18px 6px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.09);border-radius:12px;cursor:pointer;text-align:center;transition:background .2s,border-color .2s,box-shadow .22s,transform .18s;-webkit-user-select:none;user-select:none;overflow:hidden}
+.plan-opt::after{content:'';position:absolute;bottom:0;left:12px;right:12px;height:2px;background:rgba(255,255,255,0.07);border-radius:2px 2px 0 0;opacity:0;transition:opacity .2s}
+.plan-opt:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.18);transform:translateY(-2px)}
+.plan-opt:hover::after{opacity:1}
+.plan-opt.sel{background:rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.65);box-shadow:0 0 36px rgba(124,58,237,0.22),inset 0 0 0 1px rgba(124,58,237,0.1);transform:translateY(-2px)}
+.plan-opt.sel::after{display:none}
+.plan-opt.sel .plan-dur{color:var(--green)}
+.plan-dur{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--text);letter-spacing:-.02em;transition:color .18s;line-height:1}
+.plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:6px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;padding:2px 8px;border-radius:0 0 6px 6px}
+.plan-badge-pop{color:rgba(167,139,250,1);background:rgba(124,58,237,0.18);border:1px solid rgba(124,58,237,0.45);border-top:none}
+.plan-badge-val{color:rgba(255,200,50,1);background:rgba(255,200,50,0.1);border:1px solid rgba(255,200,50,0.3);border-top:none}
+/* Purchase box */
+.purchase-box{background:linear-gradient(150deg,rgba(124,58,237,0.09) 0%,rgba(0,0,0,0) 55%);border:1px solid rgba(124,58,237,0.38);border-radius:20px;padding:24px;position:relative;overflow:hidden;margin-top:4px;box-shadow:0 8px 60px rgba(124,58,237,0.1)}
+.purchase-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,rgba(124,58,237,0.8) 50%,transparent 95%)}
+.purchase-box-title{font-family:var(--disp);font-size:14px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--text);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.purchase-box-title::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);flex-shrink:0}
+.purchase-box-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent)}
+.btn-buy{display:flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 28px;background:var(--green);color:#fff;font-family:var(--sans);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:none;border-radius:13px;cursor:pointer;transition:opacity .2s,transform .22s cubic-bezier(.16,1,.3,1),box-shadow .25s;box-shadow:0 4px 44px rgba(124,58,237,0.5),0 0 0 1px rgba(124,58,237,0.3);width:100%;margin-top:16px}
+.btn-buy:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 14px 56px rgba(124,58,237,0.65),0 0 0 1px rgba(124,58,237,0.45)}
 /* See it in action */
 .action-sec{max-width:860px;margin:0 auto 100px;padding:0 24px}
 .action-thumb{display:block;position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);box-shadow:0 24px 80px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.04);background:#0a0a0a;text-decoration:none;cursor:pointer;transition:box-shadow .3s,border-color .3s}
@@ -325,7 +348,31 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
             <h3 class="prod-title">Colorbot</h3>
             <p class="prod-desc">Top-tier aim assist built with advanced humanized smoothing. Designed to look exactly like natural mouse movement while flawlessly locking onto targets.</p>
           </div>
-          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-plan">Get Access <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div>
+            <div class="purchase-box">
+              <p class="purchase-box-title">Purchase</p>
+              <div class="plan-wrap">
+                <p class="plan-lbl">Select Duration</p>
+                <div class="plan-opts" id="cb-plans">
+                  <div class="plan-opt sel" onclick="selPlan(this,'cb')" data-url="https://buy.stripe.com/8x27sL2zndzTfr4dW16sw00">
+                    <p class="plan-dur">1 Day</p>
+                  </div>
+                  <div class="plan-opt" onclick="selPlan(this,'cb')" data-url="https://buy.stripe.com/9B6fZh2zn67rceS9FL6sw01">
+                    <p class="plan-dur">1 Week</p>
+                  </div>
+                  <div class="plan-opt" onclick="selPlan(this,'cb')" data-url="https://buy.stripe.com/8x23cv8XLcvP2Ei9FL6sw02">
+                    <span class="plan-badge plan-badge-pop">Popular</span>
+                    <p class="plan-dur">1 Month</p>
+                  </div>
+                  <div class="plan-opt" onclick="selPlan(this,'cb')" data-url="https://buy.stripe.com/fZubJ1gqd3Zj5QubNT6sw03">
+                    <span class="plan-badge plan-badge-val">Forever</span>
+                    <p class="plan-dur">Lifetime</p>
+                  </div>
+                </div>
+              </div>
+              <a id="cb-buy" href="https://buy.stripe.com/8x27sL2zndzTfr4dW16sw00" target="_blank" rel="noopener" class="btn-buy"><span>Get Access — 1 Day</span> <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
         </div>
         <div class="feat-grid">
           <div><p class="fcol-title">Aim Settings</p><div class="frows"><div class="frow"><span class="fline"></span>Humanized Smoothing</div><div class="frow"><span class="fline"></span>Normal Aimbot &amp; Triggerbot</div><div class="frow"><span class="fline"></span>Advanced Recoil Control</div><div class="frow"><span class="fline"></span>Aim Humanizer</div><div class="frow"><span class="fline"></span>Silent Aim</div><div class="frow"><span class="fline"></span>Flickbot (P100)</div><div class="frow"><span class="fline"></span>Accel &amp; Magnet Aim</div><div class="frow"><span class="fline"></span>50+ More in server</div></div></div>
@@ -342,7 +389,29 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
             <h3 class="prod-title">Triggerbot</h3>
             <p class="prod-desc">The fastest reaction time available. Built perfectly for holding angles and instantly firing when a target enters your pixel view.</p>
           </div>
-          <a href="https://discord.gg/Wdghr2n5yr" target="_blank" class="btn-plan">Select Plan <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="purchase-box">
+              <p class="purchase-box-title">Purchase</p>
+              <div class="plan-wrap">
+                <p class="plan-lbl">Select Duration</p>
+                <div class="plan-opts" id="tb-plans">
+                  <div class="plan-opt sel" onclick="selPlan(this,'tb')" data-url="https://buy.stripe.com/14A5kDgqd2Vf7YC4lr6sw05">
+                    <p class="plan-dur">1 Day</p>
+                  </div>
+                  <div class="plan-opt" onclick="selPlan(this,'tb')" data-url="https://buy.stripe.com/6oUdR90rf1Rb1AebNT6sw06">
+                    <p class="plan-dur">1 Week</p>
+                  </div>
+                  <div class="plan-opt" onclick="selPlan(this,'tb')" data-url="https://buy.stripe.com/6oUcN5fm93Zj6Uy4lr6sw07">
+                    <span class="plan-badge plan-badge-pop">Popular</span>
+                    <p class="plan-dur">1 Month</p>
+                  </div>
+                  <div class="plan-opt" onclick="selPlan(this,'tb')" data-url="https://buy.stripe.com/dRmfZhei58fz4MqdW16sw08">
+                    <span class="plan-badge plan-badge-val">Forever</span>
+                    <p class="plan-dur">Lifetime</p>
+                  </div>
+                </div>
+              </div>
+              <a id="tb-buy" href="https://buy.stripe.com/14A5kDgqd2Vf7YC4lr6sw05" target="_blank" rel="noopener" class="btn-buy"><span>Get Access — 1 Day</span> <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
         </div>
         <div class="feat-grid">
           <div><p class="fcol-title">Combat Features</p><div class="frows"><div class="frow"><span class="fline"></span>Instant Fire Reaction</div><div class="frow"><span class="fline"></span>Auto Strafe &amp; Stop</div><div class="frow"><span class="fline"></span>Humanized Clicks</div><div class="frow"><span class="fline"></span>Anti Astra, Anti Clove</div><div class="frow"><span class="fline"></span>Strafe Shot</div><div class="frow"><span class="fline"></span>Multiple Humanized Modes</div><div class="frow"><span class="fline"></span>Custom Dilation View</div><div class="frow"><span class="fline"></span>50+ More in server</div></div></div>
@@ -547,7 +616,14 @@ let pg=1;
 nxt.addEventListener('click',()=>{if(pg===1){rp1.classList.add('hidden');rp2.classList.remove('hidden');rp2.querySelectorAll('.r').forEach(el=>el.classList.add('in'));pg=2;prv.disabled=false;nxt.disabled=true;pind.textContent='02 / 02'}});
 prv.addEventListener('click',()=>{if(pg===2){rp2.classList.add('hidden');rp1.classList.remove('hidden');pg=1;prv.disabled=true;nxt.disabled=false;pind.textContent='01 / 02'}});
 
-
+function selPlan(el,prefix){
+  document.getElementById(prefix+'-plans').querySelectorAll('.plan-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  const btn=document.getElementById(prefix+'-buy');
+  btn.href=el.dataset.url;
+  const lbl=btn.querySelector('span');
+  if(lbl)lbl.textContent='Get Access — '+el.querySelector('.plan-dur').textContent;
+}
 
 const items=['Valorant','Apex Legends','Marvel Rivals','FragPunk','Strinova','Overwatch 2','Colorbot','Triggerbot','Silent Aim','Flickbot','20k+ FPS','Streamproof'];
 document.getElementById('mq').innerHTML=[...items,...items].map(i=>`<span class="mi"><span class="mid"></span>${i}</span>`).join('');
