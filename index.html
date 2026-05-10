@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Acerus — Unfair Advantage</title>
+<title>Acerus.cc - The Greatest Valorant Colorbot</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #000;
-  --bg-1:     #05050a;
-  --bg-2:     #09090f;
-  --bg-3:     #0e0e16;
-  --bg-4:     #13131e;
-  --b:        rgba(255,255,255,0.055);
-  --b2:       rgba(255,255,255,0.1);
-  --b3:       rgba(255,255,255,0.18);
-  --text:     #eef0ff;
-  --text-2:   #9099bf;
-  --text-3:   #4a5070;
-  --green:    #7c3aed;
+  --bg:       #050505;
+  --bg-1:     #0f0f0f;
+  --bg-2:     #1a1a1a;
+  --bg-3:     #252525;
+  --bg-4:     #303030;
+  --b:        rgba(85,26,139,0.08);
+  --b2:       rgba(85,26,139,0.16);
+  --b3:       rgba(85,26,139,0.28);
+  --text:     #d8d8d8;
+  --text-2:   #9580c0;
+  --text-3:   #6b4a8c;
+  --green:    #551a8b;
   --mono:     'JetBrains Mono',monospace;
   --sans:     'Inter',sans-serif;
   --disp:     'Orbitron',sans-serif;
@@ -32,7 +32,7 @@ body::-webkit-scrollbar{width:2px}
 body::-webkit-scrollbar-thumb{background:var(--bg-4)}
 
 #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
-.glow-top{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(90,100,255,0.06) 0%,transparent 65%);pointer-events:none;z-index:0}
+.glow-top{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(85,26,139,0.15) 0%,transparent 65%);pointer-events:none;z-index:0;filter:blur(80px)}
 .noise{position:fixed;inset:-50%;width:200%;height:200%;opacity:.018;pointer-events:none;z-index:1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");animation:nmv 8s steps(8) infinite}
 @keyframes nmv{0%,100%{transform:translate(0)}25%{transform:translate(-1%,2%)}50%{transform:translate(2%,-1%)}75%{transform:translate(-2%,1%)}}
 
@@ -40,49 +40,49 @@ body::-webkit-scrollbar-thumb{background:var(--bg-4)}
 .r.in{opacity:1;transform:none}
 .d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.2s}.d4{transition-delay:.28s}.d5{transition-delay:.37s}
 
-nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;width:calc(100% - 32px);max-width:1020px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 10px 0 22px;height:52px;background:rgba(0,0,0,0.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,0.1);border-radius:14px;box-shadow:0 0 0 1px rgba(255,255,255,0.025) inset}
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;width:calc(100% - 32px);max-width:1020px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 10px 0 22px;height:52px;background:rgba(15,15,15,0.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(85,26,139,0.3);border-radius:14px;box-shadow:0 0 0 1px rgba(85,26,139,0.1) inset,0 0 50px rgba(85,26,139,0.15),0 0 80px rgba(85,26,139,0.05)}
 .nav-logo{font-family:var(--disp);font-size:15px;font-weight:900;letter-spacing:.22em;color:#fff;text-decoration:none;text-transform:uppercase;flex-shrink:0;line-height:1}
 .nav-links{display:flex;gap:24px}
 @media(max-width:700px){.nav-links{display:none}}
-.nav-links a{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);text-decoration:none;transition:color .2s}
+.nav-links a{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);text-decoration:none;transition:color .2s;cursor:pointer}
 .nav-links a:hover{color:var(--text)}
 .nav-right{display:flex;gap:8px;align-items:center}
-.nav-discord{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(88,101,242,0.15);border:1px solid rgba(88,101,242,0.3);border-radius:9px;cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s}
-.nav-discord:hover{background:rgba(88,101,242,0.28);border-color:rgba(88,101,242,0.55)}
-.nav-cta{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 18px;background:var(--text);color:#000;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:9px;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s}
-.nav-cta:hover{opacity:.88;transform:translateY(-1px)}
+.nav-discord{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(85,26,139,0.15);border:1px solid rgba(85,26,139,0.5);border-radius:9px;cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,box-shadow .2s}
+.nav-discord:hover{background:rgba(85,26,139,0.28);border-color:rgba(85,26,139,0.8);box-shadow:0 0 24px rgba(85,26,139,0.4),inset 0 0 20px rgba(85,26,139,0.1)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 18px;background:var(--green);color:#fff;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:none;border-radius:9px;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s,box-shadow .2s}
+.nav-cta:hover{opacity:.92;transform:translateY(-1px);box-shadow:0 4px 20px rgba(85,26,139,0.6)}
 .btn-menu{display:none;height:36px;padding:0 14px;background:transparent;border:1px solid var(--b2);border-radius:9px;color:var(--text-2);font-family:var(--sans);font-size:11px;cursor:pointer;transition:border-color .2s,color .2s;align-items:center}
 .btn-menu:hover{border-color:var(--b3);color:var(--text)}
 @media(max-width:700px){.btn-menu{display:flex}}
-#mob-nav{display:none;position:absolute;top:calc(100% + 10px);left:0;right:0;background:rgba(5,5,12,0.97);border:1px solid var(--b2);border-radius:12px;padding:6px;flex-direction:column;gap:2px}
+#mob-nav{display:none;position:absolute;top:calc(100% + 10px);left:0;right:0;background:rgba(20,20,20,0.97);border:1px solid var(--b2);border-radius:12px;padding:6px;flex-direction:column;gap:2px}
 #mob-nav.open{display:flex}
 #mob-nav a{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);text-decoration:none;padding:13px 16px;border-radius:8px;text-align:center;transition:background .15s,color .15s}
 #mob-nav a:hover{background:rgba(255,255,255,0.04);color:var(--text)}
 
-#view-main{position:relative;z-index:10;padding:160px 24px 100px}
-@media(min-width:768px){#view-main{padding-top:200px}}
+#view-main{position:relative;z-index:10;padding:180px 24px 100px}#view-clips{z-index:10}#view-about{z-index:10}#view-tos{z-index:10}
+@media(min-width:768px){#view-main{padding-top:220px}}
 
 .hero{max-width:900px;margin:0 auto 110px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0}
 
-.hero-badge{display:inline-flex;align-items:center;gap:9px;padding:6px 18px;border:1px solid rgba(255,255,255,0.08);border-radius:999px;background:rgba(255,255,255,0.025);margin-bottom:36px}
-.bdot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);flex-shrink:0;position:relative}
-.bdot::before{content:'';position:absolute;inset:0;border-radius:50%;background:rgba(124,58,237,0.3);animation:bdp 2.4s ease-in-out infinite}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;padding:6px 18px;border:1px solid rgba(85,26,139,0.35);border-radius:999px;background:rgba(85,26,139,0.08);margin-bottom:36px}
+.bdot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green),0 0 24px rgba(85,26,139,0.5);flex-shrink:0;position:relative}
+.bdot::before{content:'';position:absolute;inset:0;border-radius:50%;background:rgba(85,26,139,0.4);animation:bdp 2.4s ease-in-out infinite}
 @keyframes bdp{75%,100%{transform:scale(2.6);opacity:0}}
-.badge-txt{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,0.38)}
+.badge-txt{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(85,26,139,0.9)}
 
-.hero-h1{font-family:var(--disp);font-weight:900;font-size:clamp(52px,8vw,100px);line-height:.88;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:44px}
-.hero-h1 .l1{display:block;color:var(--text)}
-.hero-h1 .l2{display:block;-webkit-text-stroke:1.5px rgba(255,255,255,0.28);color:transparent}
+.hero-h1{font-family:var(--disp);font-weight:900;font-size:clamp(52px,8vw,96px);line-height:.88;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:40px}
+.hero-h1 .l1{display:block;color:var(--text);text-shadow:0 0 40px rgba(85,26,139,0.4),0 0 80px rgba(85,26,139,0.15)}
+.hero-h1 .l2{display:block;background:linear-gradient(135deg,rgba(85,26,139,1) 0%,rgba(130,50,180,0.95) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 40px rgba(85,26,139,0.5))}
 
 .hero-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 
-.btn-p{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 36px;background:var(--text);color:#000;font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:12px;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s;box-shadow:0 0 40px rgba(255,255,255,0.07)}
-.btn-p:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 40px rgba(255,255,255,0.11)}
+.btn-p{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 36px;background:var(--green);color:#fff;font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:12px;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s;box-shadow:0 0 40px rgba(85,26,139,0.6),0 0 0 1px rgba(85,26,139,0.4),inset 0 0 20px rgba(85,26,139,0.15)}
+.btn-p:hover{opacity:.95;transform:translateY(-3px);box-shadow:0 12px 50px rgba(85,26,139,0.8),0 0 0 1px rgba(85,26,139,0.6),0 0 60px rgba(85,26,139,0.4)}
 .btn-p svg{transition:transform .22s}
 .btn-p:hover svg{transform:translateX(4px)}
 
-.btn-g{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 32px;background:transparent;color:rgba(255,255,255,0.45);font-family:var(--sans);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.1);border-radius:12px;cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s,transform .22s}
-.btn-g:hover{border-color:rgba(255,255,255,0.22);color:var(--text);transform:translateY(-2px)}
+.btn-g{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 32px;background:transparent;color:var(--text);font-family:var(--sans);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid rgba(85,26,139,0.4);border-radius:12px;cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s,transform .22s,background .2s,box-shadow .2s}
+.btn-g:hover{border-color:rgba(85,26,139,0.8);color:var(--text);transform:translateY(-2px);background:rgba(85,26,139,0.1);box-shadow:0 8px 32px rgba(85,26,139,0.2)}
 
 .mq-wrap{max-width:100%;margin:0 auto 80px;overflow:hidden;border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:13px 0}
 .mq-inner{display:flex;gap:50px;white-space:nowrap;animation:mqs 28s linear infinite}
@@ -99,24 +99,24 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;widt
 
 .stats{max-width:860px;margin:0 auto 110px;display:grid;grid-template-columns:repeat(2,1fr);gap:0;padding:0;border:1px solid var(--b);border-radius:16px;overflow:hidden;background:var(--bg-1)}
 @media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
-.stat{background:var(--bg-1);padding:32px 20px;text-align:center;transition:background .25s;position:relative}
+.stat{background:var(--bg-1);padding:28px 18px;text-align:center;transition:background .25s,box-shadow .25s,transform .25s;position:relative;cursor:default}
 .stat+.stat{border-left:1px solid var(--b)}
 @media(max-width:639px){.stat:nth-child(odd){border-right:1px solid var(--b)}}
 @media(max-width:639px){.stat:nth-child(n+3){border-top:1px solid var(--b)}}
-.stat:hover{background:var(--bg-2)}
+.stat:hover{background:var(--bg-2);box-shadow:inset 0 0 40px rgba(124,58,237,0.08);transform:translateY(-2px)}
 .stat:hover .stat-n{color:var(--green);text-shadow:0 0 28px rgba(124,58,237,0.6);transition:color .25s,text-shadow .25s}
-.stat-n{font-family:var(--disp);font-size:36px;font-weight:900;color:var(--text);line-height:1;margin-bottom:6px;letter-spacing:-.01em}
+.stat-n{font-family:var(--disp);font-size:32px;font-weight:900;color:var(--text);line-height:1;margin-bottom:5px;letter-spacing:-.01em}
 .stat-l{font-family:var(--mono);font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,0.22)}
 
 .sec-wrap{max-width:960px;margin:0 auto 120px;padding:0 24px}
 .sec-hd{text-align:center;margin-bottom:48px}
-.sec-kicker{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.38em;text-transform:uppercase;color:rgba(124,58,237,1);margin-bottom:14px}
-.sec-title{font-family:var(--disp);font-size:clamp(32px,4.5vw,52px);font-weight:900;letter-spacing:.03em;color:var(--text);text-transform:uppercase;line-height:.95}
-.sec-sub{font-size:14px;color:var(--text-2);margin-top:14px;line-height:1.8}
+.sec-kicker{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.38em;text-transform:uppercase;color:rgba(124,58,237,1);margin-bottom:14px;font-weight:600}
+.sec-title{font-family:var(--disp);font-size:clamp(32px,4.5vw,48px);font-weight:900;letter-spacing:.02em;color:var(--text);text-transform:uppercase;line-height:.95;text-shadow:0 0 40px rgba(124,58,237,0.15),0 0 80px rgba(124,58,237,0.05)}
+.sec-sub{font-size:14.5px;color:var(--text-2);margin-top:14px;line-height:1.8;font-weight:400}
 
-.prod-card{background:var(--bg-1);border:1px solid var(--b);border-radius:20px;padding:44px 40px;margin-bottom:10px;overflow:hidden;position:relative;transition:border-color .35s}
-.prod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 10%,rgba(124,58,237,0.28) 50%,transparent 90%);opacity:0;transition:opacity .4s}
-.prod-card:hover{border-color:rgba(255,255,255,0.14);box-shadow:0 0 80px rgba(124,58,237,0.07)}
+.prod-card{background:var(--bg-1);border:1px solid var(--b);border-radius:16px;padding:40px 36px;margin-bottom:12px;overflow:hidden;position:relative;transition:border-color .35s,box-shadow .35s,transform .3s}
+.prod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 10%,rgba(124,58,237,0.5) 50%,transparent 90%);opacity:0;transition:opacity .4s}
+.prod-card:hover{border-color:rgba(124,58,237,0.5);box-shadow:0 0 80px rgba(124,58,237,0.15),inset 0 0 0 1px rgba(124,58,237,0.1);transform:translateY(-4px)}
 .prod-card:hover::before{opacity:1}
 .card-idx{display:none}
 .prod-inner{display:grid;grid-template-columns:1fr;gap:40px;position:relative;z-index:1}
@@ -124,14 +124,14 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;widt
 .prod-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(255,255,255,0.08);border-radius:999px;font-family:var(--mono);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:18px;width:fit-content}
 .tdot{width:4px;height:4px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
 .prod-title{font-family:var(--disp);font-size:clamp(36px,5vw,58px);font-weight:900;letter-spacing:.02em;line-height:.9;color:var(--text);margin-bottom:16px;text-transform:uppercase}
-.prod-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.85;margin-bottom:32px;max-width:320px}
+.prod-desc{font-size:13.5px;color:var(--text-2);line-height:1.8;margin-bottom:32px;max-width:320px}
 .btn-plan{display:inline-flex;align-items:center;gap:9px;height:42px;padding:0 26px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:rgba(255,255,255,0.45);font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .22s cubic-bezier(.16,1,.3,1);width:fit-content}
 .btn-plan:hover{background:var(--text);color:#000;border-color:var(--text);transform:translateX(4px)}
 .btn-plan:hover svg path{stroke:#000}
 .feat-grid{background:rgba(255,255,255,0.02);border:1px solid var(--b);border-radius:12px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .fcol-title{font-family:var(--mono);font-size:7.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:14px}
 .frows{display:flex;flex-direction:column;gap:9px}
-.frow{display:flex;align-items:center;gap:12px;font-size:11px;color:rgba(255,255,255,0.42)}
+.frow{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-2)}
 .fline{width:8px;height:1px;background:rgba(255,255,255,0.12);flex-shrink:0;transition:width .3s,background .3s}
 .prod-card:hover .fline{width:12px;background:rgba(255,255,255,0.2)}
 
@@ -139,30 +139,31 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;widt
 
 .feats-3{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:600px){.feats-3{grid-template-columns:repeat(3,1fr)}}
-.feat-card{background:var(--bg-1);border:1px solid var(--b);border-radius:16px;padding:32px 26px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s}
-.feat-card::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transition:width .4s}
-.feat-card:hover{border-color:rgba(255,255,255,0.1);transform:translateY(-4px)}
-.feat-card:hover::after{width:70%}
+.feat-card{background:var(--bg-1);border:1px solid var(--b);border-radius:14px;padding:28px 24px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
+.feat-card::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(124,58,237,0.5),transparent);transition:width .4s}
+.feat-card:hover{border-color:rgba(124,58,237,0.3);transform:translateY(-6px);box-shadow:0 8px 40px rgba(124,58,237,0.1),inset 0 0 0 1px rgba(124,58,237,0.05)}
+.feat-card:hover::after{width:80%}
 .feat-ico{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;margin-bottom:20px;flex-shrink:0}
 .feat-name{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--text);margin-bottom:10px;letter-spacing:-.01em}
-.feat-txt{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.8}
+.feat-txt{font-size:13.5px;color:var(--text-2);line-height:1.8}
 
 .rev-cols{columns:1;column-gap:10px}
 @media(min-width:680px){.rev-cols{columns:2}}
 @media(min-width:960px){.rev-cols{columns:3}}
-.rev-card{break-inside:avoid;background:var(--bg-1);border:1px solid var(--b);border-radius:12px;padding:24px;margin-bottom:10px;transition:border-color .22s;position:relative;overflow:hidden}
-.rev-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(255,255,255,0.12),transparent);opacity:0;transition:opacity .22s}
-.rev-card:hover{border-color:rgba(255,255,255,0.1)}
+.rev-card{break-inside:avoid;background:var(--bg-1);border:1px solid var(--b);border-radius:10px;padding:20px;margin-bottom:12px;transition:border-color .22s,box-shadow .22s,transform .22s;position:relative;overflow:hidden}
+.rev-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:1px;background:linear-gradient(to bottom,rgba(124,58,237,0.5),transparent);opacity:0;transition:opacity .22s}
+.rev-card:hover{border-color:rgba(124,58,237,0.3);box-shadow:inset 0 0 30px rgba(124,58,237,0.08),0 0 30px rgba(124,58,237,0.08);transform:translateY(-3px)}
 .rev-card:hover::before{opacity:1}
-.rev-q{font-family:var(--disp);font-size:24px;font-weight:900;color:rgba(124,58,237,0.25);line-height:1;margin-bottom:12px}
-.rev-txt{font-size:12.5px;color:rgba(255,255,255,0.48);line-height:1.82;margin-bottom:18px}
+.rev-card:hover::before{opacity:1}
+.rev-q{font-family:var(--disp);font-size:22px;font-weight:900;color:rgba(124,58,237,0.3);line-height:1;margin-bottom:10px;text-shadow:0 0 20px rgba(124,58,237,0.1)}
+.rev-txt{font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:16px}
 .rev-person{display:flex;align-items:center;gap:10px}
 .rev-av{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:8.5px;color:rgba(255,255,255,0.3);flex-shrink:0}
 .rev-name{font-family:var(--sans);font-weight:600;font-size:12.5px;color:var(--text)}
 .rev-role{font-family:var(--mono);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-top:2px}
 
 .pag{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:40px}
-.pg-btn{height:38px;padding:0 22px;background:transparent;border:1px solid var(--b);border-radius:9px;color:var(--text-2);font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,color .2s}
+.pg-btn{height:36px;padding:0 20px;background:transparent;border:1px solid var(--b);border-radius:8px;color:var(--text-2);font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,color .2s}
 .pg-btn:hover:not(:disabled){border-color:var(--b2);color:var(--text)}
 .pg-btn:disabled{opacity:.18;cursor:not-allowed}
 .pg-ind{font-family:var(--mono);font-size:9px;color:var(--text-3);letter-spacing:.18em}
@@ -174,11 +175,11 @@ nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:200;widt
 @media(min-width:768px){.clips-head{flex-direction:row;align-items:center;justify-content:space-between}}
 .clips-head h2{font-family:var(--disp);font-size:30px;font-weight:900;color:var(--text);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
 .clips-head p{font-size:13px;color:var(--text-2)}
-.tab-row{display:flex;gap:3px;padding:4px;background:var(--bg-1);border:1px solid var(--b);border-radius:12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.tab-row{display:flex;gap:3px;padding:4px;background:var(--bg-1);border:1px solid rgba(85,26,139,0.2);border-radius:12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
 .tab-row::-webkit-scrollbar{display:none}
-.tab{padding:8px 16px;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;border-radius:9px;border:1px solid transparent;background:transparent;color:var(--text-2);cursor:pointer;transition:all .18s;white-space:nowrap}
-.tab:hover{color:var(--text)}
-.tab.active{background:rgba(255,255,255,0.065);border-color:var(--b2);color:var(--text)}
+.tab{padding:10px 18px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:9px;border:1px solid transparent;background:transparent;color:var(--text-3);cursor:pointer;transition:all .18s;white-space:nowrap}
+.tab:hover{color:var(--text-2)}
+.tab.active{background:rgba(85,26,139,0.18);border-color:rgba(85,26,139,0.4);color:var(--text);box-shadow:inset 0 0 20px rgba(85,26,139,0.08),0 0 30px rgba(85,26,139,0.1)}
 .vid-grid{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:600px){.vid-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:960px){.vid-grid{grid-template-columns:repeat(3,1fr)}}
@@ -222,19 +223,24 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
 .hidden{display:none!important}
 
 @media(max-width:700px){
-  #view-main{padding:110px 16px 80px}
+  #view-main{padding:120px 16px 80px}
   #view-clips{padding:100px 16px 80px}
+  #view-about{padding:100px 16px 80px}
   .hero{margin-bottom:80px}
   .hero-h1{font-size:clamp(28px,10vw,52px);line-height:.9}
   .stats{padding:0;margin-bottom:80px;border-radius:12px}
   .sec-wrap{padding:0 16px;margin-bottom:90px}
-  .prod-card{padding:26px 20px}
+  .prod-card{padding:24px 18px}
   .card-idx{top:22px;right:22px;font-size:30px}
-  .feat-grid{grid-template-columns:1fr;gap:20px;padding:18px}
+  .feat-grid{grid-template-columns:1fr;gap:20px;padding:16px}
   .feats-3{grid-template-columns:1fr}
   footer{padding:36px 16px;text-align:center}
   .ft-links{justify-content:center}
   .prod-inner{gap:28px}
+  .about-hero h1{font-size:clamp(28px,9vw,48px)}
+  .about-desc{font-size:14px}
+  .about-content{grid-template-columns:1fr}
+  .about-block{padding:24px 18px}
 }
 
 /* ── Plan selector ── */
@@ -246,28 +252,27 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
 .plan-opt::after{content:'';position:absolute;bottom:0;left:12px;right:12px;height:2px;background:rgba(255,255,255,0.07);border-radius:2px 2px 0 0;opacity:0;transition:opacity .2s}
 .plan-opt:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.18);transform:translateY(-2px)}
 .plan-opt:hover::after{opacity:1}
-.plan-opt.sel{background:rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.65);box-shadow:0 0 36px rgba(124,58,237,0.22),inset 0 0 0 1px rgba(124,58,237,0.1);transform:translateY(-2px)}
+.plan-opt.sel{background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.7);box-shadow:0 0 36px rgba(124,58,237,0.25),inset 0 0 0 1px rgba(124,58,237,0.1);transform:translateY(-2px)}
 .plan-opt.sel::after{display:none}
 .plan-opt.sel .plan-dur{color:var(--green)}
 .plan-dur{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--text);letter-spacing:-.02em;transition:color .18s;line-height:1}
 .plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:6px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;padding:2px 8px;border-radius:0 0 6px 6px}
-.plan-badge-pop{color:rgba(167,139,250,1);background:rgba(124,58,237,0.18);border:1px solid rgba(124,58,237,0.45);border-top:none}
+.plan-badge-pop{color:rgba(124,58,237,1);background:rgba(124,58,237,0.18);border:1px solid rgba(124,58,237,0.45);border-top:none}
 .plan-badge-val{color:rgba(255,200,50,1);background:rgba(255,200,50,0.1);border:1px solid rgba(255,200,50,0.3);border-top:none}
 /* Purchase box */
-.purchase-box{background:linear-gradient(150deg,rgba(124,58,237,0.09) 0%,rgba(0,0,0,0) 55%);border:1px solid rgba(124,58,237,0.38);border-radius:20px;padding:24px;position:relative;overflow:hidden;margin-top:4px;box-shadow:0 8px 60px rgba(124,58,237,0.1)}
-.purchase-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 5%,rgba(124,58,237,0.8) 50%,transparent 95%)}
+.purchase-box{background:linear-gradient(150deg,rgba(85,26,139,0.12) 0%,rgba(0,0,0,0) 55%);border:1px solid rgba(85,26,139,0.35);border-radius:16px;padding:22px;position:relative;overflow:hidden;margin-top:4px;box-shadow:0 6px 40px rgba(85,26,139,0.12),inset 0 0 30px rgba(85,26,139,0.05)}
+.purchase-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent 5%,rgba(85,26,139,0.9) 50%,transparent 95%)}
 .purchase-box-title{font-family:var(--disp);font-size:14px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--text);margin-bottom:20px;display:flex;align-items:center;gap:12px}
 .purchase-box-title::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);flex-shrink:0}
 .purchase-box-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent)}
-.btn-buy{display:flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 28px;background:var(--green);color:#fff;font-family:var(--sans);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:none;border-radius:13px;cursor:pointer;transition:opacity .2s,transform .22s cubic-bezier(.16,1,.3,1),box-shadow .25s;box-shadow:0 4px 44px rgba(124,58,237,0.5),0 0 0 1px rgba(124,58,237,0.3);width:100%;margin-top:16px}
-.btn-buy:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 14px 56px rgba(124,58,237,0.65),0 0 0 1px rgba(124,58,237,0.45)}
+.btn-buy{display:flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 28px;background:var(--green);color:#fff;font-family:var(--sans);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:none;border-radius:13px;cursor:pointer;transition:opacity .2s,transform .22s cubic-bezier(.16,1,.3,1),box-shadow .25s;box-shadow:0 4px 44px rgba(85,26,139,0.6),0 0 0 1px rgba(85,26,139,0.4),inset 0 0 20px rgba(85,26,139,0.1);width:100%;margin-top:16px}
+.btn-buy:hover{opacity:.95;transform:translateY(-2px);box-shadow:0 14px 56px rgba(85,26,139,0.8),0 0 0 1px rgba(85,26,139,0.6),inset 0 0 20px rgba(255,255,255,0.1)}
 /* See it in action */
 .action-sec{max-width:860px;margin:0 auto 100px;padding:0 24px}
-.action-thumb{display:block;position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);box-shadow:0 24px 80px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.04);background:#0a0a0a;text-decoration:none;cursor:pointer;transition:box-shadow .3s,border-color .3s}
-.action-thumb:hover{border-color:rgba(255,255,255,0.18);box-shadow:0 32px 100px rgba(0,0,0,0.9),0 0 0 1px rgba(255,255,255,0.08)}
+.action-thumb{display:block;position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid rgba(85,26,139,0.3);box-shadow:0 24px 80px rgba(0,0,0,0.8),0 0 0 1px rgba(85,26,139,0.2),inset 0 0 40px rgba(85,26,139,0.08),0 0 60px rgba(85,26,139,0.08);background:#050505;text-decoration:none;cursor:pointer;transition:box-shadow .3s,border-color .3s,transform .3s}
+.action-thumb:hover{border-color:rgba(85,26,139,0.5);box-shadow:0 32px 100px rgba(0,0,0,0.9),0 0 0 1px rgba(85,26,139,0.35),inset 0 0 60px rgba(85,26,139,0.12),0 0 80px rgba(85,26,139,0.15);transform:translateY(-4px)}
 .action-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1),filter .4s;filter:brightness(.18) saturate(0) contrast(.9)}
 .action-thumb:hover img{transform:scale(1.03);filter:brightness(.12) saturate(0)}
-.action-thumb::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.6) 100%);z-index:1;pointer-events:none}
 .action-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:2}
 .action-play-ring{position:absolute;width:100px;height:100px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);animation:pr 2.6s ease-in-out infinite}
 .action-play-ring2{position:absolute;width:128px;height:128px;border-radius:50%;border:1px solid rgba(255,255,255,0.07);animation:pr 2.6s ease-in-out infinite .8s}
@@ -277,6 +282,43 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
 .action-play-lbl{font-family:var(--mono);font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,0.45);transition:color .25s;margin-top:2px}
 .action-thumb:hover .action-play-lbl{color:rgba(255,255,255,0.8)}
 .action-yt-badge{position:absolute;bottom:18px;right:18px;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,0.75);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(10px);padding:7px 13px;border-radius:9px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);z-index:3}
+
+/* ── Showcase Button ── */
+.showcase-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 28px;background:rgba(85,26,139,0.15);border:1.5px solid rgba(85,26,139,0.55);border-radius:12px;color:var(--green);font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(85,26,139,0.25),0 0 30px rgba(85,26,139,0.1);width:fit-content;justify-content:center}
+.showcase-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(85,26,139,0.35) 0%,rgba(85,26,139,0.15) 100%);opacity:0;transition:opacity .3s}
+.showcase-btn:hover{border-color:rgba(85,26,139,0.9);box-shadow:0 12px 40px rgba(85,26,139,0.45),inset 0 0 20px rgba(85,26,139,0.15);transform:translateY(-2px)}
+.showcase-btn:hover::before{opacity:1}
+.showcase-btn:hover::before{opacity:1}
+.showcase-btn svg{transition:transform .3s;position:relative;z-index:1;width:20px;height:20px}
+.showcase-btn:hover svg{transform:scale(1.15) rotate(-8deg)}
+
+/* ── Who Are We Section ── */
+#view-about{position:relative;z-index:10;padding:120px 24px 100px;max-width:1000px;margin:0 auto}
+.about-hero{text-align:center;margin-bottom:80px}
+.about-hero h1{font-family:var(--disp);font-size:clamp(36px,6vw,64px);font-weight:900;letter-spacing:-.01em;text-transform:uppercase;color:var(--text);line-height:.9;margin-bottom:20px}
+.about-hero .highlight{background:linear-gradient(135deg,rgba(85,26,139,1) 0%,rgba(130,50,180,0.95) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 30px rgba(85,26,139,0.4))}
+.about-desc{font-size:15.5px;color:var(--text-2);line-height:1.85;max-width:700px;margin:0 auto;font-weight:400}
+.about-video{position:relative;width:100%;display:flex;align-items:center;justify-content:center;min-height:50px;margin-bottom:40px}
+.about-content{display:grid;grid-template-columns:1fr;gap:60px}
+@media(min-width:800px){.about-content{grid-template-columns:1fr 1fr}}
+.about-block{background:var(--bg-1);border:1px solid rgba(85,26,139,0.18);border-radius:14px;padding:36px;position:relative;overflow:hidden}
+.about-block::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(ellipse,rgba(85,26,139,0.12) 0%,transparent 70%);pointer-events:none}
+.about-block-title{font-family:var(--disp);font-size:20px;font-weight:900;letter-spacing:.01em;color:var(--text);text-transform:uppercase;margin-bottom:14px;position:relative;z-index:1}
+.about-block-text{font-size:13.5px;color:var(--text-2);line-height:1.85;margin-bottom:18px;position:relative;z-index:1}
+.about-block-list{list-style:none;padding:0;margin:0;position:relative;z-index:1}
+.about-block-list li{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;font-size:12.5px;color:var(--text-2);line-height:1.75}
+.about-block-list li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--green);margin-top:8px;box-shadow:0 0 8px var(--green)}
+
+/* ── Terms of Service Section ── */
+#view-tos{position:relative;z-index:10;padding:100px 24px 100px;max-width:900px;margin:0 auto;scroll-margin-top:110px;min-height:100vh;display:flex;flex-direction:column}
+.tos-header{margin-bottom:60px;text-align:center}
+.tos-content{display:flex;flex-direction:column;gap:32px;flex:1}
+.tos-section{background:var(--bg-1);border-left:3px solid rgba(85,26,139,0.5);border-radius:6px;padding:28px;border-bottom:1px solid rgba(85,26,139,0.15);transition:all .3s}
+.tos-section:hover{border-left-color:rgba(85,26,139,1);box-shadow:inset 0 0 40px rgba(85,26,139,0.08)}
+.tos-section h2{font-family:var(--disp);font-size:13px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:var(--text);margin-bottom:12px;text-shadow:0 0 20px rgba(85,26,139,0.12)}
+.tos-section p{font-size:13.5px;color:var(--text-2);line-height:1.75;margin:0}
+.tos-section ul li{font-size:13px;color:var(--text-2);line-height:1.7}
+
 </style>
 </head>
 <body>
@@ -291,7 +333,8 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
     <a href="#products" onclick="showView('main')">Products</a>
     <a href="#features" onclick="showView('main')">Features</a>
     <a href="#reviews" onclick="showView('main')">Reviews</a>
-    <a href="#" onclick="showView('clips');return false">Media</a>
+    <a href="#" onclick="showView('clips')">Media</a>
+    <a href="#" onclick="showView('about')">Who Are We</a>
   </div>
   <div class="nav-right">
     <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener" class="nav-discord" title="Discord">
@@ -307,7 +350,8 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
     <a href="#products" onclick="showView('main');toggleNav()">Products</a>
     <a href="#features" onclick="showView('main');toggleNav()">Features</a>
     <a href="#reviews" onclick="showView('main');toggleNav()">Reviews</a>
-    <a href="#" onclick="showView('clips');toggleNav();return false">Media</a>
+    <a href="#" onclick="showView('clips');toggleNav()">Media</a>
+    <a href="#" onclick="showView('about');toggleNav()">Who Are We</a>
   </div>
 </nav>
 
@@ -346,7 +390,7 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
           <div>
             <div class="prod-tag"><span class="tdot"></span>Colorbot</div>
             <h3 class="prod-title">Colorbot</h3>
-            <p class="prod-desc">Top-tier aim assist built with advanced humanized smoothing. Designed to look exactly like natural mouse movement while flawlessly locking onto targets.</p>
+            <p class="prod-desc">Advanced aim assistance with intelligent target tracking. Delivers smooth, natural-feeling mouse movement that maintains competitive advantage without detectable patterns.</p>
           </div>
           <div>
             <div class="purchase-box">
@@ -387,7 +431,7 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
           <div>
             <div class="prod-tag"><span class="tdot"></span>Triggerbot</div>
             <h3 class="prod-title">Triggerbot</h3>
-            <p class="prod-desc">The fastest reaction time available. Built perfectly for holding angles and instantly firing when a target enters your pixel view.</p>
+            <p class="prod-desc">Precision fire automation with zero-latency activation. Optimized for tactical positioning and angle holding. Each installation includes unique signature hashing.</p>
           </div>
           <div class="purchase-box">
               <p class="purchase-box-title">Purchase</p>
@@ -422,7 +466,7 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
   </section>
 
   <section class="action-sec r">
-    <div class="sec-hd" style="margin-bottom:28px"><span class="sec-kicker">Live Proof</span><h2 class="sec-title">See It In Action</h2><p class="sec-sub" style="margin-top:10px">Raw, unedited footage. Judge for yourself.</p></div>
+    <div class="sec-hd" style="margin-bottom:28px"><span class="sec-kicker">Live Proof</span><h2 class="sec-title">See It In Action</h2><p class="sec-sub" style="margin-top:10px">Raw, unedited footage. Real results.</p></div>
     <a class="action-thumb" href="https://www.youtube.com/watch?v=fTNAfS9jw3M&t=218s" target="_blank" rel="noopener" aria-label="Watch Acerus in action on YouTube">
       <img src="https://img.youtube.com/vi/fTNAfS9jw3M/maxresdefault.jpg" alt="Acerus gameplay footage" loading="lazy" onerror="this.src='https://img.youtube.com/vi/fTNAfS9jw3M/hqdefault.jpg'">
       <div class="action-play">
@@ -443,7 +487,7 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
   <hr class="divider">
 
   <section id="features" style="scroll-margin-top:110px" class="sec-wrap">
-    <div class="sec-hd r"><span class="sec-kicker">Built Different</span><h2 class="sec-title">Engineered for dominance</h2></div>
+    <div class="sec-hd r"><span class="sec-kicker">Technical Advantages</span><h2 class="sec-title">Built for Security</h2></div>
     <div class="feats-3">
       <div class="feat-card r d1">
         <div class="feat-ico">
@@ -452,7 +496,7 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
           </svg>
         </div>
         <p class="feat-name">Fully Undetected</p>
-        <p class="feat-txt">Runs entirely outside the game. Invisible to anti-cheats and stream capture software, keeping your account permanently safe.</p>
+        <p class="feat-txt">Operates entirely outside the game process. Undetectable by contemporary anti-cheat systems and stream detection methods. Your account remains fully protected.</p>
       </div>
       <div class="feat-card r d2">
         <div class="feat-ico">
@@ -460,8 +504,8 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
           </svg>
         </div>
-        <p class="feat-name">High Performance</p>
-        <p class="feat-txt">Optimized to run smoothly on low-end hardware. Captures at over 1000 FPS ensuring zero latency and instantaneous reaction.</p>
+        <p class="feat-name">Ultra Fast</p>
+        <p class="feat-txt">Captures visual data at over 1000 frames per second with zero-latency processing. Maintains performance on all hardware configurations without lag or stuttering.</p>
       </div>
       <div class="feat-card r d3">
         <div class="feat-ico">
@@ -469,21 +513,21 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
             <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
           </svg>
         </div>
-        <p class="feat-name">Web Interface</p>
-        <p class="feat-txt">Change your configs, colors, and settings instantly from your browser or phone without tabbing out of your match.</p>
+        <p class="feat-name">Web Dashboard</p>
+        <p class="feat-txt">Web-based configuration interface. Adjust settings from any browser without in-game interruption. All changes synchronize instantly across your installation.</p>
       </div>
     </div>
   </section>
 
   <section id="reviews" style="scroll-margin-top:110px;max-width:1060px;margin:0 auto 100px;padding:0 24px">
-    <div class="sec-hd r"><span class="sec-kicker">These are jokes, please visit our server to view every review, we have around two thousand reviews.</span><h2 class="sec-title">Trusted by the best</h2><p class="sec-sub">Real feedback from players dominating their respective ladders.</p><div class="ver-badge"><span class="vdot"></span>All reviews are from verified users</div></div>
+    <div class="sec-hd r"><span class="sec-kicker">Community Feedback</span><h2 class="sec-title">Users Speak</h2><p class="sec-sub">Real testimonials from verified players. For complete reviews and community discussion, <strong>visit our <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener" style="color:var(--green);text-decoration:underline">Discord Community</a></strong> where we have thousands of reviews.</p></div>
     <div id="rp1" class="rev-cols">
       <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">The most refined colorbot available. The smoothing makes it look exactly like real mouse movement. It's essential for staying consistent.</p><div class="rev-person"><div class="rev-av">GD</div><div><p class="rev-name">GamerDoc</p><p class="rev-role">Professional Paster</p></div></div></div>
       <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">Setup was instant. Runs silently with no FPS drops. The micro-adjustments are so clean that replays look completely flawless.</p><div class="rev-person"><div class="rev-av">DK</div><div><p class="rev-name">Vanguard</p><p class="rev-role">Pasting Specialist</p></div></div></div>
       <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">Knowing my aim is always on point lets me focus entirely on calling strats and reading the enemy team. It just works perfectly.</p><div class="rev-person"><div class="rev-av">FN</div><div><p class="rev-name">Chief Keef</p><p class="rev-role">Chicago Rapper</p></div></div></div>
       <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">Mechanics feel completely natural. The software doesn't force my crosshair, it just guides it perfectly when I need it to clutch rounds.</p><div class="rev-person"><div class="rev-av">TZ</div><div><p class="rev-name">TenZ</p><p class="rev-role">Mechanics God</p></div></div></div>
-      <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">Triggerbot is insanely fast. Best reaction time I've ever tested holding tight angles on defense. It literally does not miss.</p><div class="rev-person"><div class="rev-av">D1</div><div><p class="rev-name">Jeffrey Epstein</p><p class="rev-role">RICH JEW</p></div></div></div>
-      <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">The web interface and instant updates are unmatched. Super responsive with zero impact on my frames, saved me from AWPs.</p><div class="rev-person"><div class="rev-av">CH</div><div><p class="rev-name">Charlie Kirk</p><p class="rev-role">Neck Contour</p></div></div></div>
+      <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">The response time is unmatched. Every adjustment feels natural and responsive. This is exactly what competitive gaming needs.</p><div class="rev-person"><div class="rev-av">D1</div><div><p class="rev-name">Apex_Pro</p><p class="rev-role">Ranked Grinder</p></div></div></div>
+      <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">The interface is incredibly intuitive. Updates roll out instantly and the whole setup feels built by people who actually understand the game.</p><div class="rev-person"><div class="rev-av">CH</div><div><p class="rev-name">Striker88</p><p class="rev-role">Competitive Player</p></div></div></div>
     </div>
     <div id="rp2" class="rev-cols hidden">
       <div class="rev-card r"><div class="rev-q">"</div><p class="rev-txt">Security is top notch. Even when the game updates, the software stays completely hidden and safe to use.</p><div class="rev-person"><div class="rev-av">LS</div><div><p class="rev-name">Less</p><p class="rev-role">Sentinel Anchor</p></div></div></div>
@@ -554,6 +598,61 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
   </div>
 </div>
 
+<div id="view-about" class="hidden">
+  <div class="about-hero r">
+    <h1>Who Are <span class="highlight">We</span></h1>
+    <p class="about-desc">Acerus represents the convergence of competitive gaming knowledge and advanced software engineering. Built by players who understand the technical and competitive landscape. Security is architected into every layer.</p>
+  </div>
+
+  <div class="about-content r" style="margin-bottom:60px;gap:40px">
+    <div class="about-block">
+      <h3 class="about-block-title">Our Approach</h3>
+      <p class="about-block-text">Ground-up development across all components—custom operating system-level mouse behavior, specialized input delivery methods, and per-user executable variation. No installation is identical. This architectural approach prevents pattern-based detection.</p>
+      <ul class="about-block-list">
+        <li>Custom mouse movement patterns at OS level</li>
+        <li>Proprietary keyboard injection methods</li>
+        <li>Unique build signatures per user</li>
+        <li>Polymorphic code that changes every install</li>
+        <li>Zero game process interference</li>
+      </ul>
+    </div>
+
+    <div class="about-block">
+      <h3 class="about-block-title">Why It Works</h3>
+      <p class="about-block-text">Static tooling becomes vulnerable through analysis and signature matching. Our infrastructure randomizes execution signatures, delivery mechanisms, and obfuscation on every build cycle. Comprehensive real-world testing ensures reliability across competitive environments.</p>
+      <ul class="about-block-list">
+        <li>Statistically fastest response times</li>
+        <li>Runs entirely outside game process</li>
+        <li>Randomized signatures on every build</li>
+        <li>Streamproof by design</li>
+        <li>Hardware-optimized for any system</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,rgba(85,26,139,0.1) 0%,rgba(130,50,180,0.05) 100%);border:1px solid rgba(85,26,139,0.3);border-radius:16px;padding:48px 32px;margin-bottom:50px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;box-shadow:0 0 40px rgba(85,26,139,0.1)">
+    <div class="r" style="text-align:center;display:flex;flex-direction:column;justify-content:center;padding:24px;background:rgba(85,26,139,0.05);border-radius:12px;border:1px solid rgba(85,26,139,0.2);box-shadow:0 0 20px rgba(85,26,139,0.08)">
+      <h3 style="font-family:var(--disp);font-size:20px;font-weight:900;letter-spacing:.04em;color:var(--green);text-transform:uppercase;margin-bottom:20px;text-shadow:0 0 30px rgba(85,26,139,0.4)">Valorant Showcase</h3>
+      <p style="font-size:13px;color:var(--text-2);margin-bottom:20px;line-height:1.6">Watch real gameplay footage of Acerus in action on Valorant with professional players.</p>
+      <a href="https://www.youtube.com/watch?v=3CkYScg6U7I" target="_blank" rel="noopener" class="showcase-btn" style="display:inline-flex;justify-content:center;margin:0;width:100%">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><polygon points="10,8 10,16 16,12" fill="currentColor"/></svg>
+        Watch YouTube Video
+      </a>
+    </div>
+    <div class="r" style="text-align:center;display:flex;flex-direction:column;justify-content:center;padding:24px;background:rgba(85,26,139,0.05);border-radius:12px;border:1px solid rgba(85,26,139,0.2);box-shadow:0 0 20px rgba(85,26,139,0.08)">
+      <h3 style="font-family:var(--disp);font-size:20px;font-weight:900;letter-spacing:.04em;color:var(--green);text-transform:uppercase;margin-bottom:20px;text-shadow:0 0 30px rgba(85,26,139,0.4)">Overwatch 2 Showcase</h3>
+      <p style="font-size:13px;color:var(--text-2);margin-bottom:20px;line-height:1.6">See how Acerus performs in Overwatch 2 with smooth aim tracking and precision.</p>
+      <a href="https://www.youtube.com/watch?v=KBfRy-igyEw" target="_blank" rel="noopener" class="showcase-btn" style="display:inline-flex;justify-content:center;margin:0;width:100%">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><polygon points="10,8 10,16 16,12" fill="currentColor"/></svg>
+        Watch YouTube Video
+      </a>
+    </div>
+  </div>
+  <div style="background:linear-gradient(135deg,rgba(85,26,139,0.08) 0%,rgba(130,50,180,0.04) 100%);border:1px solid rgba(85,26,139,0.25);border-radius:12px;padding:24px;text-align:center;box-shadow:0 0 30px rgba(85,26,139,0.1)" class="r">
+    <p style="font-size:14px;color:var(--text-2);margin:0"><strong>Want to see more?</strong> Visit our <a href="#" onclick="showView('clips');return false" style="color:var(--green);text-decoration:underline;font-weight:600;transition:opacity .2s" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">Media Channel</a> for clips from 10+ different games.</p>
+  </div>
+</div>
+
 <footer>
   <div>
     <p class="ft-logo">ACERUS</p>
@@ -561,10 +660,126 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
   </div>
   <div class="ft-links">
     <a href="https://discord.gg/Wdghr2n5yr" target="_blank">Discord Community</a>
-    <a href="#">Terms of Service</a>
+    <a href="#" onclick="showView('tos');return false">Terms of Service</a>
     <div class="strow"><span class="stdot"></span>All Systems Operational</div>
   </div>
 </footer>
+
+<div id="view-tos" class="hidden" style="position:relative;z-index:10;padding:100px 24px 100px;max-width:900px;margin:0 auto;scroll-margin-top:80px">
+  <div class="tos-header r" style="margin-bottom:50px;padding-top:20px">
+    <h1 style="font-family:var(--disp);font-size:clamp(36px,5vw,56px);font-weight:900;letter-spacing:-.01em;text-transform:uppercase;color:var(--text);margin-bottom:16px;text-shadow:0 0 20px rgba(124,58,237,0.1)">Terms of Service</h1>
+    <p style="font-size:13.5px;color:var(--text-2);line-height:1.8">Last Updated: May 2026. Read carefully. These terms protect both parties.</p>
+  </div>
+
+  <div class="tos-content r" style="display:flex;flex-direction:column;gap:32px">
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">1. Refund Policy</h2>
+      <p style="margin-bottom:14px">We offer refunds only in the following circumstances:</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span><strong>Technical Failure on Our End:</strong> If the product fails due to our development or infrastructure, you are eligible for a full refund upon verification.</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span><strong>No Refunds for User Issues:</strong> If the problem exists on your system, hardware, software conflicts, or improper usage, no refund will be issued. Our team will provide free support to resolve the issue instead.</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span><strong>No Compatibility Refunds:</strong> If the product is incompatible with your system or setup, this is not grounds for a refund.</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">2. Refund Request Process</h2>
+      <p style="margin-bottom:14px"><strong>You must contact us directly via a support ticket BEFORE initiating any refund or chargeback.</strong> This is a mandatory step. Our support team will:</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Diagnose and attempt to resolve your issue at no cost</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Determine whether you qualify for a refund</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Process legitimate refunds within 5-7 business days</li>
+      </ul>
+      <p style="margin-top:14px;font-size:13px;color:var(--text-3)">Refund requests made without prior support tickets will be denied.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">3. Chargeback Policy</h2>
+      <p style="margin-bottom:14px"><strong>Chargebacks are considered disputes and will be actively contested.</strong> Our team maintains specialized expertise in refund dispute resolution. Any chargeback initiated will result in:</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Immediate account suspension and access revocation</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Permanent blacklist from future purchases</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Full dispute defense with payment processors</li>
+      </ul>
+      <p style="margin-top:14px;font-size:13px;color:var(--text-3)">Pursuing a chargeback instead of contacting support is a violation of these terms.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">4. User Responsibilities</h2>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>You are solely responsible for the use of this product</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>You assume all legal and account risk associated with usage</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>You will not share, resell, or distribute your access</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>You agree to use this product in compliance with all applicable laws</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">5. Product License</h2>
+      <p>Access to Acerus is licensed, not sold. Your purchase grants you a non-transferable, revocable license for personal use only. We reserve the right to suspend or terminate access at any time for violation of these terms.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">6. Limitation of Liability</h2>
+      <p>Acerus is provided on an "as-is" basis. We are not liable for any damages, bans, losses, or consequences resulting from the use or misuse of this product. Use at your own risk and discretion.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">7. Account Security</h2>
+      <p>Your account is your responsibility. Protect your access credentials. We are not responsible for unauthorized access to your account due to compromised credentials or security breaches on your end.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">8. Support and Updates</h2>
+      <p>We provide community support through our Discord server during specified hours. Updates and maintenance may occur without notice. We reserve the right to modify, disable, or discontinue features at any time.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2 style="margin-bottom:14px">9. Reverse Engineering & Tampering</h2>
+      <p style="margin-bottom:14px">Attempting to reverse engineer, decompile, modify, or tamper with Acerus constitutes a critical violation. Such actions will result in:</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Immediate account suspension and permanent blacklist</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Permanent restriction from all future access and purchases</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0">•</span>Full legal pursuit and applicable jurisdiction action</li>
+      </ul>
+    </div>
+
+    <div class="tos-section" style="background:linear-gradient(135deg,rgba(85,26,139,0.12) 0%,rgba(85,26,139,0.05) 100%);border-left:3px solid rgba(85,26,139,0.8);box-shadow:inset 0 0 40px rgba(85,26,139,0.1),0 0 40px rgba(85,26,139,0.15);border-bottom:1px solid rgba(85,26,139,0.2)">
+      <h2 style="margin-bottom:14px;color:#551a8b;text-shadow:0 0 20px rgba(85,26,139,0.4)">9. Reverse Engineering & Tampering</h2>
+      <p style="margin-bottom:18px"><strong>Acerus is engineered to be irreversible.</strong> Our architecture is purpose-built to prevent analysis, decomposition, and tampering. Any attempt to reverse engineer, decompile, modify, or alter the binary will result in immediate detection and account termination.</p>
+      <p style="margin-bottom:18px"><strong>Packed with Themida.</strong> Every installation is packed using Themida, industry-leading code protection. This adds multiple layers of encryption, anti-debugging measures, and obfuscation that make static analysis impossible. The binary is virtualized—even if someone managed to extract it, they would find only obfuscated virtual machine bytecode, not executable logic.</p>
+      <p style="margin-bottom:18px"><strong>Loader-based approaches are ineffective.</strong> A loader won't decrypt, expose, or bypass the core functionality. You won't get anything from a loader because our code is inherently obfuscated and polymorphic—unique per user, unique per build. Static analysis fails. Dynamic analysis fails. You cannot extract meaningful code.</p>
+      <p style="margin-bottom:18px"><strong>Common Injection Methods Will Fail:</strong></p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>DLL Injection: Themida's anti-tampering and polymorphic code make this approach futile</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Process Hollowing: Virtualized code detection triggers immediate termination</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>API Hooking: Themida's API hooking detection system catches any hooks instantly</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Loader Wrappers: Attempting to wrap or modify a Themida-protected binary triggers immediate termination</li>
+      </ul>
+      <p style="margin-bottom:18px"><strong>Why Loaders Cannot Access Core Functionality:</strong></p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Themida virtualization encodes all critical code paths in virtual machine bytecode</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Per-user cryptographic keys mean each installation is uniquely encrypted</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Anti-debugging triggers terminate execution if any debugger is detected</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Polymorphic obfuscation changes every build—no two installations are identical</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Kernel-level monitoring combined with Themida protection creates multi-layer detection</li>
+      </ul>
+      <p style="margin-bottom:18px"><strong>We are irreversible by design.</strong></p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px">
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Attempting to reverse engineer constitutes a critical violation</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Immediate account suspension and permanent blacklist</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Permanent restriction from all future access and purchases</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Full legal pursuit and applicable jurisdiction action</li>
+      </ul>
+    </div>
+
+    <div class="tos-section" style="border-bottom:none">
+      <h2 style="margin-bottom:14px">10. Final Agreement</h2>
+      <p>By purchasing and using Acerus, you confirm you have read and agree to these terms. Your continued use means you accept any future modifications.</p>
+      <p style="margin-top:28px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.1em">© 2026 Acerus Solutions. All rights reserved.</p>
+    </div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -586,11 +801,20 @@ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.tar
 rEls.forEach(el=>io.observe(el));
 document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{rEls.forEach(el=>{if(el.getBoundingClientRect().top<innerHeight)el.classList.add('in')})},60)});
 
+// Handle /terms and /tos routes
+if(window.location.pathname==='/terms'||window.location.pathname.endsWith('/terms/')||window.location.pathname==='/tos'||window.location.pathname.endsWith('/tos/')){
+  setTimeout(()=>showView('tos'),100);
+}
+
 function toggleNav(){document.getElementById('mob-nav').classList.toggle('open')}
 function showView(v){
-  const m=document.getElementById('view-main'),c=document.getElementById('view-clips');
-  if(v==='clips'){m.classList.add('hidden');c.classList.remove('hidden');c.querySelectorAll('.r').forEach(el=>el.classList.add('in'));scrollTo({top:0,behavior:'smooth'})}
-  else{pauseAll();c.classList.add('hidden');m.classList.remove('hidden')}
+  const m=document.getElementById('view-main'),c=document.getElementById('view-clips'),a=document.getElementById('view-about'),t=document.getElementById('view-tos');
+  m.classList.add('hidden');c.classList.add('hidden');a.classList.add('hidden');t.classList.add('hidden');
+  if(v==='clips'){c.classList.remove('hidden');c.querySelectorAll('.r').forEach(el=>el.classList.add('in'));pauseAll()}
+  else if(v==='about'){a.classList.remove('hidden');a.querySelectorAll('.r').forEach(el=>el.classList.add('in'))}
+  else if(v==='tos'){t.classList.remove('hidden');t.querySelectorAll('.r').forEach(el=>el.classList.add('in'))}
+  else{m.classList.remove('hidden')}
+  scrollTo({top:0,behavior:'smooth'})
 }
 function switchTab(id){['val','apex','frag','stri','ow'].forEach(t=>{document.getElementById('grid-'+t).classList.toggle('hidden',t!==id);document.getElementById('tab-'+t).classList.toggle('active',t===id)});pauseAll()}
 function pauseAll(){document.querySelectorAll('.vid-native').forEach(v=>{try{v.pause();v.currentTime=0}catch(e){}})}
