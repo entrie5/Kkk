@@ -754,7 +754,9 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
         <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>DLL Injection: Themida's anti-tampering and polymorphic code make this approach futile</li>
         <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Process Hollowing: Virtualized code detection triggers immediate termination</li>
         <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>API Hooking: Themida's API hooking detection system catches any hooks instantly</li>
-        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Loader Wrappers: Attempting to wrap or modify a Themida-protected binary triggers immediate termination</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Loader Wrappers: Attempting to wrap or modify a Themida-protected and Custom encryption binary triggers immediate termination</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Debuggers: We also have another layer of protection against debugger detection, mostly any debugger will get caught</li>
+        <li style="padding-left:24px;position:relative"><span style="position:absolute;left:0;color:#551a8b">•</span>Kernel Level Hooks: Any injection even at the kernel level will be detected and blocked</li>
       </ul>
       <p style="margin-bottom:18px"><strong>Why Loaders Cannot Access Core Functionality:</strong></p>
       <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
