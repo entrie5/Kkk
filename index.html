@@ -330,11 +330,11 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
 <nav>
   <a href="#" onclick="showView('main');return false" class="nav-logo">ACERUS</a>
   <div class="nav-links">
-    <a href="#products" onclick="showView('main')">Products</a>
-    <a href="#features" onclick="showView('main')">Features</a>
-    <a href="#reviews" onclick="showView('main')">Reviews</a>
-    <a href="#" onclick="showView('clips')">Media</a>
-    <a href="#" onclick="showView('about')">Who Are We</a>
+    <a href="#" onclick="showView('main');return false">Products</a>
+    <a href="#" onclick="showView('main');return false">Features</a>
+    <a href="#" onclick="showView('main');return false">Reviews</a>
+    <a href="#" onclick="showView('clips');return false">Media</a>
+    <a href="#" onclick="showView('about');return false">Who Are We</a>
   </div>
   <div class="nav-right">
     <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener" class="nav-discord" title="Discord">
@@ -342,16 +342,16 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
         <path d="M20.317 1.492A19.825 19.825 0 0 0 15.885.1a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.296 18.296 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 1.492a.07.07 0 0 0-.032.027C.533 6.093-.32 10.555.099 14.961a.082.082 0 0 0 .031.055 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.027c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.442a.061.061 0 0 0-.031-.028ZM8.02 12.278c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.947 2.418-2.157 2.418Z" fill="rgba(114,137,218,0.9)"/>
       </svg>
     </a>
-    <a href="#products" onclick="showView('main')" class="nav-cta" style="background:var(--green);color:#fff;font-size:10px;font-weight:700;display:inline-flex">Purchase</a>
+    <a href="#" onclick="showView('main');return false" class="nav-cta" style="background:var(--green);color:#fff;font-size:10px;font-weight:700;display:inline-flex">Purchase</a>
     <button onclick="toggleNav()" class="btn-menu">Menu</button>
   </div>
   <div id="mob-nav">
-    <a href="#products" onclick="showView('main');toggleNav()" style="color:var(--green);font-weight:600">Purchase</a>
-    <a href="#products" onclick="showView('main');toggleNav()">Products</a>
-    <a href="#features" onclick="showView('main');toggleNav()">Features</a>
-    <a href="#reviews" onclick="showView('main');toggleNav()">Reviews</a>
-    <a href="#" onclick="showView('clips');toggleNav()">Media</a>
-    <a href="#" onclick="showView('about');toggleNav()">Who Are We</a>
+    <a href="#" onclick="showView('main');toggleNav();return false" style="color:var(--green);font-weight:600">Purchase</a>
+    <a href="#" onclick="showView('main');toggleNav();return false">Products</a>
+    <a href="#" onclick="showView('main');toggleNav();return false">Features</a>
+    <a href="#" onclick="showView('main');toggleNav();return false">Reviews</a>
+    <a href="#" onclick="showView('clips');toggleNav();return false">Media</a>
+    <a href="#" onclick="showView('about');toggleNav();return false">Who Are We</a>
   </div>
 </nav>
 
@@ -360,8 +360,8 @@ footer{position:relative;z-index:10;border-top:1px solid var(--b);padding:52px 2
     <div class="hero-badge r d1"><span class="bdot"></span><span class="badge-txt">All Systems Operational</span></div>
     <h1 class="hero-h1 r d2"><span class="l1">Unfair</span><span class="l2">Advantage.</span></h1>
     <div class="hero-btns r d3">
-      <a href="#products" onclick="showView('main');event.preventDefault();document.getElementById('products').scrollIntoView({behavior:'smooth',block:'start'})" class="btn-p">Get Access Now <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <button onclick="showView('clips')" class="btn-g">Watch Media</button>
+      <a href="#" onclick="showView('main');return false" class="btn-p">Get Access Now <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <button onclick="showView('clips');return false" class="btn-g">Watch Media</button>
     </div>
   </section>
 
@@ -801,11 +801,6 @@ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.tar
 rEls.forEach(el=>io.observe(el));
 document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{rEls.forEach(el=>{if(el.getBoundingClientRect().top<innerHeight)el.classList.add('in')})},60)});
 
-// Handle /terms and /tos routes
-if(window.location.pathname==='/terms'||window.location.pathname.endsWith('/terms/')||window.location.pathname==='/tos'||window.location.pathname.endsWith('/tos/')){
-  setTimeout(()=>showView('tos'),100);
-}
-
 function toggleNav(){document.getElementById('mob-nav').classList.toggle('open')}
 function showView(v){
   const m=document.getElementById('view-main'),c=document.getElementById('view-clips'),a=document.getElementById('view-about'),t=document.getElementById('view-tos');
@@ -851,6 +846,19 @@ function selPlan(el,prefix){
 
 const items=['Valorant','Apex Legends','Marvel Rivals','FragPunk','Strinova','Overwatch 2','Colorbot','Triggerbot','Silent Aim','Flickbot','20k+ FPS','Streamproof'];
 document.getElementById('mq').innerHTML=[...items,...items].map(i=>`<span class="mi"><span class="mid"></span>${i}</span>`).join('');
+
+// Handle routing for /terms and /tos paths
+window.addEventListener('load',()=>{
+  const path=window.location.pathname.toLowerCase();
+  const hash=window.location.hash.toLowerCase();
+  if(path.includes('/terms')||path.includes('/tos')||hash.includes('tos')||hash.includes('terms')){
+    setTimeout(()=>showView('tos'),200);
+  } else if(path.includes('/about')||hash.includes('about')){
+    setTimeout(()=>showView('about'),200);
+  } else if(path.includes('/media')||path.includes('/clips')||hash.includes('clips')){
+    setTimeout(()=>showView('clips'),200);
+  }
+});
 </script>
 </body>
 </html>
