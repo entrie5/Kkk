@@ -9,20 +9,20 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
         <style>
             :root {
-                --bg: #f5f5f7;
-                --bg-1: #ffffff;
-                --bg-2: #ffffff;
-                --bg-3: #ffffff;
-                --bg-4: #e8e8ed;
-                --b: rgba(0,0,0,0.09);
-                --b2: rgba(0,0,0,0.16);
-                --b3: rgba(0,113,227,0.4);
-                --text: #1d1d1f;
-                --text-2: #515154;
-                --text-3: #86868b;
-                --green: #0071e3;
-                --accent: #0071e3;
-                --accent-2: #0077ed;
+                --bg: #060608;
+                --bg-1: rgba(255,255,255,0.028);
+                --bg-2: rgba(255,255,255,0.05);
+                --bg-3: #16171b;
+                --bg-4: #232429;
+                --b: rgba(255,255,255,0.08);
+                --b2: rgba(255,255,255,0.14);
+                --b3: rgba(41,151,255,0.45);
+                --text: #f5f5f7;
+                --text-2: #a4a5ac;
+                --text-3: #6b6c72;
+                --green: #2997ff;
+                --accent: #2997ff;
+                --accent-2: #6cb6ff;
                 --warm: #f5a623;
                 --mono: 'JetBrains Mono',ui-monospace,monospace;
                 --sans: 'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
@@ -3743,80 +3743,6 @@
                 .hero-h1 { font-size: clamp(40px,13vw,60px) !important; }
                 .prod-card, .feat-card, .about-block, .tos-section { padding: 24px !important; }
             }
-
-            /* ============================================================
-               LIGHT THEME (Apple-style) — overrides the dark layer above
-               ============================================================ */
-            body {
-                background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%) !important;
-                color: var(--text-2) !important;
-                -webkit-font-smoothing: antialiased !important;
-            }
-            #stars { display: none !important; }
-            .noise { display: none !important; }
-            .glow-top { display: none !important; }
-
-            /* Nav */
-            nav {
-                background: rgba(255,255,255,0.72) !important;
-                border: 1px solid rgba(0,0,0,0.08) !important;
-                box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, 0 8px 30px rgba(0,0,0,0.08) !important;
-            }
-            .nav-logo { color: var(--text) !important; }
-            .nav-links a { color: var(--text-2) !important; }
-            .nav-links a:hover { color: var(--text) !important; background: rgba(0,0,0,0.05) !important; }
-            .nav-links a.active { color: var(--text) !important; background: rgba(0,0,0,0.07) !important; }
-            .nav-discord { background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.08) !important; }
-            .nav-discord:hover { background: rgba(0,0,0,0.08) !important; }
-            .nav-discord svg path { fill: var(--text-2) !important; }
-            .btn-menu { background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.1) !important; color: var(--text) !important; }
-            #mob-nav { background: rgba(255,255,255,0.97) !important; border-color: rgba(0,0,0,0.08) !important; }
-            #mob-nav a { color: var(--text-2) !important; }
-
-            /* White cards with soft shadows */
-            .prod-card, .feat-card, .rev-card, .vid-card, .about-block, .tos-section, .about-cta, .show-card {
-                background: #ffffff !important; border-color: rgba(0,0,0,0.08) !important;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 14px 40px rgba(0,0,0,0.06) !important;
-            }
-            .prod-card { box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 22px 55px rgba(0,0,0,0.08) !important; }
-            .prod-card:hover, .feat-card:hover, .rev-card:hover, .vid-card:hover, .show-card:hover {
-                border-color: rgba(0,0,0,0.16) !important;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.06), 0 28px 65px rgba(0,0,0,0.1) !important;
-            }
-            .purchase-box { background: #f5f5f7 !important; border-color: rgba(0,0,0,0.08) !important; box-shadow: none !important; }
-            .hero-badge { background: #fff !important; border-color: rgba(0,0,0,0.08) !important; }
-            .chip { background: #fff !important; border-color: rgba(0,0,0,0.08) !important; color: var(--text-2) !important; }
-            .chip:hover { background: #f0f0f2 !important; border-color: rgba(0,0,0,0.16) !important; color: var(--text) !important; }
-            .plan-opt { background: #fff !important; border-color: rgba(0,0,0,0.1) !important; }
-            .plan-opt:hover { background: #f5f5f7 !important; }
-            .plan-opt.sel { background: rgba(0,113,227,0.08) !important; }
-            .tab { background: #fff !important; border-color: rgba(0,0,0,0.1) !important; color: var(--text-2) !important; }
-            .tab:hover { background: #f0f0f2 !important; color: var(--text) !important; }
-            .pg-btn { background: #fff !important; border-color: rgba(0,0,0,0.1) !important; color: var(--text) !important; }
-            .pg-btn:hover:not(:disabled) { background: #f0f0f2 !important; }
-            .btn-g { background: #fff !important; border-color: rgba(0,0,0,0.12) !important; color: var(--text) !important; box-shadow: 0 1px 2px rgba(0,0,0,0.06) !important; }
-            .btn-g:hover { background: #f0f0f2 !important; border-color: rgba(0,0,0,0.2) !important; }
-            .card-idx { color: rgba(0,0,0,0.05) !important; }
-            .divider { background: rgba(0,0,0,0.09) !important; }
-            .mq-wrap { background: #fff !important; border-color: rgba(0,0,0,0.08) !important; }
-            footer { background: #fff !important; border-color: rgba(0,0,0,0.08) !important; }
-            .vid-info { border-color: rgba(0,0,0,0.08) !important; }
-            .rev-q { color: rgba(0,113,227,0.2) !important; }
-
-            /* Accent-tinted chips readable on white */
-            .prod-tag { background: rgba(0,113,227,0.08) !important; border-color: rgba(0,113,227,0.22) !important; color: #0071e3 !important; }
-            .feat-ico { background: rgba(0,113,227,0.08) !important; border-color: rgba(0,113,227,0.2) !important; }
-            .feat-ico svg { stroke: #0071e3 !important; }
-            .rev-av { background: rgba(0,113,227,0.1) !important; border-color: rgba(0,113,227,0.24) !important; color: #0071e3 !important; }
-
-            /* Gradient headline text tuned for a light background */
-            .hero-h1 .l2, .about-hero .highlight {
-                background: linear-gradient(120deg, #0071e3 0%, #42a5f5 100%) !important;
-                -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important;
-            }
-
-            /* Softer accent-button shadows on light */
-            .btn-p, .btn-buy, .nav-cta { box-shadow: 0 6px 18px rgba(0,113,227,0.26) !important; }
         </style>
     </head>
     <body>
