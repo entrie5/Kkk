@@ -1468,13 +1468,13 @@
                 position: relative;
                 z-index: 10;
                 border-top: 1px solid var(--b);
-                padding: 52px 24px;
+                padding: 52px max(24px, calc((100% - 1152px) / 2));
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 gap: 24px;
-                max-width: 1200px;
-                margin: 0 auto
+                width: 100%;
+                margin: 0
             }
 
             @media(min-width: 768px) {
@@ -3624,25 +3624,19 @@
             .feat-txt { color: var(--text-2) !important; font-size: 14px !important; line-height: 1.7 !important; }
 
             /* ---------- Reviews ---------- */
-            .rev-card {
-                background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)) !important;
-                border: 1px solid var(--b) !important; border-radius: 18px !important; box-shadow: none !important; padding: 26px !important;
-                transition: border-color .25s, transform .25s !important;
+            .vouch-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 18px !important; }
+            .vouch-card {
+                overflow: hidden !important; background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)) !important;
+                border: 1px solid var(--b) !important; border-radius: 18px !important; box-shadow: 0 18px 50px rgba(0,0,0,0.18) !important;
+                transition: border-color .25s, transform .25s, box-shadow .25s !important;
             }
-            .rev-card:hover { border-color: var(--b2) !important; transform: translateY(-3px) !important; }
-            .rev-q { color: rgba(41,151,255,0.28) !important; font-family: var(--disp) !important; }
-            .rev-txt { color: var(--text) !important; font-family: var(--sans) !important; font-size: 14.5px !important; line-height: 1.7 !important; letter-spacing: -0.01em !important; }
-            .rev-av { background: rgba(41,151,255,0.14) !important; border: 1px solid rgba(41,151,255,0.3) !important; color: var(--accent-2) !important; font-family: var(--disp) !important; font-weight: 700 !important; }
-            .rev-name { color: var(--text) !important; font-family: var(--sans) !important; font-weight: 600 !important; letter-spacing: -0.01em !important; }
-            .rev-role { color: var(--text-3) !important; font-family: var(--sans) !important; font-size: 12px !important; }
-            .pg-btn {
-                background: rgba(255,255,255,0.05) !important; border: 1px solid var(--b) !important; color: var(--text) !important;
-                font-family: var(--sans) !important; font-weight: 500 !important; font-size: 13px !important; border-radius: 10px !important; padding: 9px 16px !important;
-                transition: background .2s, border-color .2s !important;
-            }
-            .pg-btn:hover:not(:disabled) { background: rgba(255,255,255,0.09) !important; border-color: var(--b2) !important; }
-            .pg-btn:disabled { opacity: .4 !important; }
-            .pg-ind { color: var(--text-3) !important; font-family: var(--mono) !important; letter-spacing: 0.06em !important; }
+            .vouch-card:hover { border-color: rgba(41,151,255,0.38) !important; transform: translateY(-4px) !important; box-shadow: 0 26px 68px rgba(0,0,0,0.3), 0 0 0 1px rgba(41,151,255,0.08) inset !important; }
+            .vouch-frame { position: relative !important; aspect-ratio: 16 / 9 !important; background: #090a0d !important; }
+            .vouch-frame iframe { display: block !important; width: 100% !important; height: 100% !important; border: 0 !important; }
+            .vouch-info { display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 12px !important; padding: 15px 17px 16px !important; border-top: 1px solid var(--b) !important; }
+            .vouch-title { color: var(--text) !important; font-family: var(--disp) !important; font-size: 14px !important; font-weight: 700 !important; letter-spacing: -0.015em !important; }
+            .vouch-meta { color: var(--text-3) !important; font-family: var(--mono) !important; font-size: 10px !important; letter-spacing: .08em !important; text-transform: uppercase !important; white-space: nowrap !important; }
+            @media(max-width:700px) { .vouch-grid { grid-template-columns: 1fr !important; gap: 14px !important; } }
 
             /* ---------- Media / clips ---------- */
             .clips-head h2 { font-family: var(--disp) !important; font-weight: 800 !important; color: var(--text) !important; letter-spacing: -0.035em !important; text-transform: none !important; }
@@ -4147,156 +4141,27 @@
             </section>
             <section id="reviews" style="scroll-margin-top:110px;max-width:1060px;margin:0 auto 100px;padding:0 24px">
                 <div class="sec-hd r">
-                    <span class="sec-kicker">Community Feedback</span>
-                    <h2 class="sec-title">Users Speak</h2>
-                    <p class="sec-sub">
-                        Real testimonials from verified players. For complete reviews and community discussion, 
-                        <strong>
-                            visit our <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener" style="color:var(--green);text-decoration:underline">Discord Community</a>
-                        </strong>
-                        where we have thousands of reviews.
-                    </p>
+                    <span class="sec-kicker">Old Server Archives</span>
+                    <h2 class="sec-title">Real Server Vouches</h2>
+                    <p class="sec-sub">Vouches recovered from our old deleted Discord servers. The original footage, preserved here.</p>
                 </div>
-                <div id="rp1" class="rev-cols">
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">The most refined colorbot available. The smoothing makes it look exactly like real mouse movement. It's essential for staying consistent.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">GD</div>
-                            <div>
-                                <p class="rev-name">GamerDoc</p>
-                                <p class="rev-role">Professional Paster</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">Setup was instant. Runs silently with no FPS drops. The micro-adjustments are so clean that replays look completely flawless.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">DK</div>
-                            <div>
-                                <p class="rev-name">Vanguard</p>
-                                <p class="rev-role">Pasting Specialist</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">Knowing my aim is always on point lets me focus entirely on calling strats and reading the enemy team. It just works perfectly.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">FN</div>
-                            <div>
-                                <p class="rev-name">Chief Keef</p>
-                                <p class="rev-role">Chicago Rapper</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">Mechanics feel completely natural. The software doesn't force my crosshair, it just guides it perfectly when I need it to clutch rounds.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">TZ</div>
-                            <div>
-                                <p class="rev-name">TenZ</p>
-                                <p class="rev-role">Mechanics God</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">The response time is unmatched. Every adjustment feels natural and responsive. This is exactly what competitive gaming needs.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">D1</div>
-                            <div>
-                                <p class="rev-name">JE</p>
-                                <p class="rev-role">Rich Jew</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">The interface is incredibly intuitive. Updates roll out instantly and the whole setup feels built by people who actually understand the game.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">CH</div>
-                            <div>
-                                <p class="rev-name">Striker88</p>
-                                <p class="rev-role">Competitive Player</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="rp2" class="rev-cols hidden">
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">Security is top notch. Even when the game updates, the software stays completely hidden and safe to use.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">LS</div>
-                            <div>
-                                <p class="rev-name">Less</p>
-                                <p class="rev-role">Sentinel Anchor</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">Tracking targets feels amazing. It doesn't snap, it smoothly glides to the target. Best feel I've ever had.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">AS</div>
-                            <div>
-                                <p class="rev-name">Aspas</p>
-                                <p class="rev-role">Duelist Prodigy</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">Being able to use the same assist feel across different games is huge. It keeps my muscle memory consistent.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">S1</div>
-                            <div>
-                                <p class="rev-name">s1mple</p>
-                                <p class="rev-role">AWP Specialist</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">Flicking with the Operator is basically guaranteed. The magnetism stops exactly on the pixel every single time.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">KK</div>
-                            <div>
-                                <p class="rev-name">ZmjjKK</p>
-                                <p class="rev-role">Sniper God</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">Consistency is everything at a high level. This runs silently and gives me the exact same feel every match.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">AL</div>
-                            <div>
-                                <p class="rev-name">Alfajer</p>
-                                <p class="rev-role">Site Anchor</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rev-card r">
-                        <div class="rev-q">"</div>
-                        <p class="rev-txt">The recoil control alongside humanized smoothing makes spraying incredibly reliable at any range. Fantastic work.</p>
-                        <div class="rev-person">
-                            <div class="rev-av">NK</div>
-                            <div>
-                                <p class="rev-name">NiKo</p>
-                                <p class="rev-role">Rifler</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pag">
-                    <button id="prv" class="pg-btn" disabled>← Prev</button>
-                    <span class="pg-ind" id="pind">01 / 02</span>
-                    <button id="nxt" class="pg-btn">Next →</button>
+                <div class="vouch-grid">
+                    <article class="vouch-card r d1">
+                        <div class="vouch-frame"><iframe src="https://streamable.com/e/nys2nq?autoplay=0" loading="lazy" title="Real vouch clip 1" allow="fullscreen; autoplay" allowfullscreen></iframe></div>
+                        <div class="vouch-info"><p class="vouch-title">Old server</p><span class="vouch-meta">Streamable</span></div>
+                    </article>
+                    <article class="vouch-card r d2">
+                        <div class="vouch-frame"><iframe src="https://streamable.com/e/5sf2vq?autoplay=0" loading="lazy" title="Real vouch clip 2" allow="fullscreen; autoplay" allowfullscreen></iframe></div>
+                        <div class="vouch-info"><p class="vouch-title">Old server</p><span class="vouch-meta">Streamable</span></div>
+                    </article>
+                    <article class="vouch-card r d3">
+                        <div class="vouch-frame"><iframe src="https://streamable.com/e/15ybto?autoplay=0" loading="lazy" title="Real vouch clip 3" allow="fullscreen; autoplay" allowfullscreen></iframe></div>
+                        <div class="vouch-info"><p class="vouch-title">Old server</p><span class="vouch-meta">Streamable</span></div>
+                    </article>
+                    <article class="vouch-card r d4">
+                        <div class="vouch-frame"><iframe src="https://streamable.com/e/4wagqf?autoplay=0" loading="lazy" title="Real vouch clip 4" allow="fullscreen; autoplay" allowfullscreen></iframe></div>
+                        <div class="vouch-info"><p class="vouch-title">Old server</p><span class="vouch-meta">Streamable</span></div>
+                    </article>
                 </div>
             </section>
         </div>
@@ -5559,36 +5424,6 @@
                     });
                 }
                 );
-            }
-            );
-
-            const rp1 = document.getElementById('rp1')
-              , rp2 = document.getElementById('rp2')
-              , nxt = document.getElementById('nxt')
-              , prv = document.getElementById('prv')
-              , pind = document.getElementById('pind');
-            let pg = 1;
-            nxt.addEventListener('click', () => {
-                if (pg === 1) {
-                    rp1.classList.add('hidden');
-                    rp2.classList.remove('hidden');
-                    rp2.querySelectorAll('.r').forEach(el => el.classList.add('in'));
-                    pg = 2;
-                    prv.disabled = false;
-                    nxt.disabled = true;
-                    pind.textContent = '02 / 02'
-                }
-            }
-            );
-            prv.addEventListener('click', () => {
-                if (pg === 2) {
-                    rp2.classList.add('hidden');
-                    rp1.classList.remove('hidden');
-                    pg = 1;
-                    prv.disabled = true;
-                    nxt.disabled = false;
-                    pind.textContent = '01 / 02'
-                }
             }
             );
 
