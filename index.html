@@ -3747,9 +3747,9 @@
             <a href="/" data-view="main" class="nav-logo">ACERUS</a>
             <div class="nav-links">
                 <a href="/" data-view="main">Home</a>
-                <a href="/media" data-view="clips">Media</a>
-                <a href="/about" data-view="about">About</a>
-                <a href="/terms" data-view="tos">Terms</a>
+                <a href="#media" data-view="clips">Media</a>
+                <a href="#about" data-view="about">About</a>
+                <a href="#terms" data-view="tos">Terms</a>
             </div>
             <div class="nav-right">
                 <a href="https://discord.gg/Wdghr2n5yr" target="_blank" rel="noopener" class="nav-discord" title="Discord">
@@ -3763,9 +3763,9 @@
             <div id="mob-nav">
                 <a href="#colorbot-card" data-view="main" data-scroll="colorbot-card" style="color:var(--green);font-weight:600">Purchase</a>
                 <a href="/" data-view="main">Home</a>
-                <a href="/media" data-view="clips">Media</a>
-                <a href="/about" data-view="about">About</a>
-                <a href="/terms" data-view="tos">Terms</a>
+                <a href="#media" data-view="clips">Media</a>
+                <a href="#about" data-view="about">About</a>
+                <a href="#terms" data-view="tos">Terms</a>
             </div>
         </nav>
         <div id="view-main">
@@ -3786,7 +3786,7 @@
                             <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
-                    <a href="/media" data-view="clips" class="btn-g">Watch Media</a>
+                    <a href="#media" data-view="clips" class="btn-g">Watch Media</a>
                 </div>
             </section>
             <div class="mq-wrap r">
@@ -4987,7 +4987,7 @@
                 </div>
             </div>
             <div class="about-cta r">
-                <p><strong>Want to see more?</strong> Visit our <a href="/media" data-view="clips">Media Library</a> for clips from 10+ different games.</p>
+                <p><strong>Want to see more?</strong> Visit our <a href="#media" data-view="clips">Media Library</a> for clips from 10+ different games.</p>
             </div>
         </div>
         <footer>
@@ -4997,7 +4997,7 @@
             </div>
             <div class="ft-links">
                 <a href="https://discord.gg/Wdghr2n5yr" target="_blank">Discord Community</a>
-                <a href="/terms" data-view="tos">Terms of Service</a>
+                <a href="#terms" data-view="tos">Terms of Service</a>
                 <div class="strow">
                     <span class="stdot"></span>
                     All Systems Operational
@@ -5309,9 +5309,9 @@
             }
             const routes = {
                 main: '/',
-                clips: '/media',
-                about: '/about',
-                tos: '/terms'
+                clips: '#media',
+                about: '#about',
+                tos: '#terms'
             };
             function setActiveNav(v) {
                 document.querySelectorAll('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view === v))
@@ -5447,7 +5447,7 @@
                     return 'tos';
                 } else if (path.includes('/about') || hash.includes('about')) {
                     return 'about';
-                } else if (path.includes('/media') || path.includes('/clips') || hash.includes('clips')) {
+                } else if (path.includes('/media') || path.includes('/clips') || hash.includes('media') || hash.includes('clips')) {
                     return 'clips';
                 }
                 return 'main';
