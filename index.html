@@ -1651,6 +1651,20 @@
                 }
             }
 
+
+            /* Show every media preview directly in its box. */
+            .vid-native { display: block !important; }
+            .play-ov { display: none !important; }
+            .action-thumb { cursor: pointer !important; }
+            .action-thumb iframe {
+                position: absolute !important;
+                inset: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                border: 0 !important;
+                display: block !important;
+            }
+            .action-play { display: none !important; }
             .plan-opt {
                 position: relative;
                 padding: 18px 6px 16px;
@@ -3594,12 +3608,43 @@
                 transition: transform .35s cubic-bezier(.22,.61,.36,1), border-color .3s, box-shadow .3s !important;
             }
             .action-thumb:hover { transform: translateY(-4px) !important; border-color: var(--b2) !important; box-shadow: 0 42px 110px rgba(0,0,0,0.62) !important; }
-            .action-thumb img { filter: brightness(.74) saturate(1.05) contrast(1.02) !important; transition: transform .55s cubic-bezier(.16,1,.3,1), filter .35s !important; }
-            .action-thumb:hover img { transform: scale(1.04) !important; filter: brightness(.6) saturate(1.05) !important; }
-            .action-thumb::after { content: '' !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important; background: linear-gradient(180deg, rgba(6,6,8,0.06) 0%, rgba(6,6,8,0.0) 40%, rgba(6,6,8,0.70) 100%) !important; }
-            .action-play { z-index: 2 !important; }
-            .action-play-btn { width: 78px !important; height: 78px !important; background: var(--accent) !important; border: 4px solid rgba(255,255,255,0.16) !important; box-shadow: 0 14px 40px rgba(41,151,255,0.55) !important; transition: transform .25s, background .25s !important; }
-            .action-thumb:hover .action-play-btn { background: #3aa2ff !important; transform: scale(1.08) !important; }
+            .action-thumb img { filter: none !important; opacity: 1 !important; transition: transform .55s cubic-bezier(.16,1,.3,1) !important; }
+            .action-thumb:hover img { transform: scale(1.04) !important; filter: none !important; }
+            .action-thumb::after { display: none !important; }
+            .action-thumb { display: block !important; background: #08090c !important; }
+            .action-thumb img {
+                display: block !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                filter: none !important;
+                opacity: 1 !important;
+            }
+            .action-thumb::before { display: none !important; }
+            .action-play {
+                display: flex !important;
+                z-index: 2 !important;
+                gap: 12px !important;
+            }
+            .action-play-btn {
+                width: 68px !important;
+                height: 68px !important;
+                background: #ff0033 !important;
+                border: 0 !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.38) !important;
+            }
+            .action-play-lbl {
+                padding: 7px 11px !important;
+                color: #fff !important;
+                background: rgba(0,0,0,0.68) !important;
+                border-radius: 4px !important;
+                font-family: var(--sans) !important;
+                font-size: 12px !important;
+                letter-spacing: 0 !important;
+                text-transform: none !important;
+            }
+            .action-play-btn { width: 64px !important; height: 64px !important; background: rgba(12,15,20,0.78) !important; border: 1px solid rgba(255,255,255,0.72) !important; box-shadow: 0 8px 24px rgba(0,0,0,0.32) !important; transition: transform .2s, background .2s !important; }
+            .action-thumb:hover .action-play-btn { background: rgba(12,15,20,0.92) !important; transform: scale(1.06) !important; }
             .action-play-ring, .action-play-ring2 { display: none !important; }
             .action-play-lbl { color: #fff !important; font-family: var(--sans) !important; font-weight: 600 !important; font-size: 13px !important; letter-spacing: 0.01em !important; margin-top: 16px !important; text-transform: none !important; opacity: .95 !important; }
             .action-yt-badge {
@@ -3642,13 +3687,24 @@
             .clips-head h2 { font-family: var(--disp) !important; font-weight: 800 !important; color: var(--text) !important; letter-spacing: -0.035em !important; text-transform: none !important; }
             .clips-head p { color: var(--text-2) !important; font-size: 14.5px !important; }
             .tab {
-                background: rgba(255,255,255,0.04) !important; border: 1px solid var(--b) !important; color: var(--text-2) !important;
+                background: transparent !important; border: 1px solid transparent !important; color: #7f8997 !important;
                 font-family: var(--sans) !important; font-weight: 500 !important; font-size: 13px !important; letter-spacing: -0.01em !important;
-                border-radius: 100px !important; padding: 9px 18px !important; text-transform: none !important; box-shadow: none !important;
+                border-radius: 7px !important; padding: 9px 16px !important; text-transform: none !important; box-shadow: none !important;
                 transition: background .2s, border-color .2s, color .2s !important;
             }
-            .tab:hover { background: rgba(255,255,255,0.08) !important; color: var(--text) !important; }
-            .tab.active { background: var(--accent) !important; border-color: var(--accent) !important; color: #fff !important; box-shadow: 0 4px 16px rgba(41,151,255,0.3) !important; }
+            .tab-row {
+                background: rgba(4,7,11,0.92) !important;
+                border: 1px solid rgba(115,132,153,0.18) !important;
+                border-radius: 11px !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.03) !important;
+            }
+            .tab:hover { background: rgba(255,255,255,0.045) !important; color: #d7dde6 !important; }
+            .tab.active {
+                background: rgba(255,255,255,0.095) !important;
+                border-color: rgba(255,255,255,0.14) !important;
+                color: #f3f5f8 !important;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 12px rgba(0,0,0,0.22) !important;
+            }
             .vid-card { background: rgba(255,255,255,0.025) !important; border: 1px solid var(--b) !important; border-radius: 16px !important; overflow: hidden !important; box-shadow: none !important; transition: border-color .25s, transform .25s !important; }
             .vid-card:hover { border-color: var(--b2) !important; transform: translateY(-3px) !important; }
             .vid-info { border-top: 1px solid var(--b) !important; }
@@ -4079,17 +4135,13 @@
                     <h2 class="sec-title">See It In Action</h2>
                     <p class="sec-sub" style="margin-top:10px">Raw, unedited footage. Real results.</p>
                 </div>
-                <a class="action-thumb" href="https://www.youtube.com/watch?v=fTNAfS9jw3M&t=218s" target="_blank" rel="noopener" aria-label="Watch Acerus in action on YouTube">
-                    <img src="https://img.youtube.com/vi/fTNAfS9jw3M/maxresdefault.jpg" alt="Acerus gameplay footage" loading="lazy" onerror="this.src='https://img.youtube.com/vi/fTNAfS9jw3M/hqdefault.jpg'">
+                <a class="action-thumb" href="https://www.youtube.com/watch?v=fTNAfS9jw3M&t=218s" target="_blank" rel="noopener" aria-label="Watch Acerus gameplay footage on YouTube">
                     <div class="action-play">
-                        <div class="action-play-ring"></div>
-                        <div class="action-play-ring2"></div>
                         <div class="action-play-btn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M6 4.5l14 7.5-14 7.5V4.5z" fill="#fff"/>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M8 5.5v13l10-6.5-10-6.5z" fill="#fff"/>
                             </svg>
                         </div>
-                        <span class="action-play-lbl">Watch on YouTube</span>
                     </div>
                     <div class="action-yt-badge">
                         <svg width="16" height="11" viewBox="0 0 24 17" fill="none">
@@ -4097,7 +4149,6 @@
                             <path d="M9.5 12V5l6.5 3.5L9.5 12z" fill="#fff"/>
                         </svg>
                         YouTube
-      
                     </div>
                 </a>
             </section>
@@ -4186,6 +4237,78 @@
                     </div>
                     <div class="vid-info">
                         <p class="vid-name">Silent Aim</p>
+                        <p class="vid-meta">Streamable</p>
+                    </div>
+                </div>
+                <div class="vid-card">
+                    <div class="vid-thumb">
+                        <iframe src="https://streamable.com/e/kakcpm?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="vid-info">
+                        <p class="vid-name">Valorant Clip 01</p>
+                        <p class="vid-meta">Streamable</p>
+                    </div>
+                </div>
+                <div class="vid-card">
+                    <div class="vid-thumb">
+                        <iframe src="https://streamable.com/e/i383ku?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="vid-info">
+                        <p class="vid-name">Valorant Clip 02</p>
+                        <p class="vid-meta">Streamable</p>
+                    </div>
+                </div>
+                <div class="vid-card">
+                    <div class="vid-thumb">
+                        <iframe src="https://streamable.com/e/8f3p29?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="vid-info">
+                        <p class="vid-name">Valorant Clip 03</p>
+                        <p class="vid-meta">Streamable</p>
+                    </div>
+                </div>
+                <div class="vid-card">
+                    <div class="vid-thumb">
+                        <iframe src="https://streamable.com/e/ijsagx?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="vid-info">
+                        <p class="vid-name">Valorant Clip 04</p>
+                        <p class="vid-meta">Streamable</p>
+                    </div>
+                </div>
+                <div class="vid-card">
+                    <div class="vid-thumb">
+                        <iframe src="https://streamable.com/e/ks90mw?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="vid-info">
+                        <p class="vid-name">Warden (blatant)</p>
+                        <p class="vid-meta">Streamable</p>
+                    </div>
+                </div>
+                <div class="vid-card">
+                    <div class="vid-thumb">
+                        <iframe src="https://streamable.com/e/x6c2zk?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="vid-info">
+                        <p class="vid-name">Long range aim test (blatant)</p>
+                        <p class="vid-meta">Streamable</p>
+                    </div>
+                </div>
+                <div class="vid-card">
+                    <div class="vid-thumb">
+                        <iframe src="https://streamable.com/e/3t2w93?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="vid-info">
+                        <p class="vid-name">Silent aim (September 24th 2026)</p>
+                        <p class="vid-meta">Streamable</p>
+                    </div>
+                </div>
+                <div class="vid-card">
+                    <div class="vid-thumb">
+                        <iframe src="https://streamable.com/e/rpo9rr?autoplay=0" loading="lazy" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="vid-info">
+                        <p class="vid-name">Filtering</p>
                         <p class="vid-meta">Streamable</p>
                     </div>
                 </div>
@@ -5394,8 +5517,6 @@
                                 video.removeEventListener('canplay', h);
                                 sp.classList.remove('on');
                                 video.classList.add('ready');
-                                video.play().catch( () => {}
-                                )
                             });
                             video.addEventListener('error', function h() {
                                 video.removeEventListener('error', h);
@@ -5422,6 +5543,7 @@
                     , {
                         passive: false
                     });
+                    load();
                 }
                 );
             }
@@ -5474,7 +5596,7 @@
                     } else if (routes[link.dataset.view]) {
                         history.pushState({
                             view: link.dataset.view
-                        }, '', routes[link.dataset.view]);
+                        }, '', link.dataset.view === 'main' ? window.location.pathname : routes[link.dataset.view]);
                     }
                     document.getElementById('mob-nav').classList.remove('open');
                 }
