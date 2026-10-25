@@ -1624,8 +1624,6 @@
                     padding: 24px 18px
                 }
             }
-
-            /* ── Plan selector ── */
             .plan-wrap {
                 margin-bottom: 20px
             }
@@ -1650,9 +1648,6 @@
                     grid-template-columns:repeat(2,1fr)
                 }
             }
-
-
-            /* Show every media preview directly in its box. */
             .vid-native { display: block !important; }
             .play-ov { display: none !important; }
             .action-thumb { cursor: pointer !important; }
@@ -1754,8 +1749,6 @@
                 border: 1px solid rgba(255,200,50,0.3);
                 border-top: none
             }
-
-            /* Purchase box */
             .purchase-box {
                 background: linear-gradient(150deg,rgba(85,26,139,0.12) 0%,rgba(0,0,0,0) 55%);
                 border: 1px solid rgba(85,26,139,0.35);
@@ -1836,8 +1829,6 @@
                 transform: translateY(-2px);
                 box-shadow: 0 14px 56px rgba(85,26,139,0.8),0 0 0 1px rgba(85,26,139,0.6),inset 0 0 20px rgba(255,255,255,0.1)
             }
-
-            /* See it in action */
             .action-sec {
                 max-width: 860px;
                 margin: 0 auto 100px;
@@ -1970,8 +1961,6 @@
                 color: rgba(255,255,255,0.5);
                 z-index: 3
             }
-
-            /* ── Showcase Button ── */
             .showcase-btn {
                 display: inline-flex;
                 align-items: center;
@@ -2031,8 +2020,6 @@
             .showcase-btn:hover svg {
                 transform: scale(1.15) rotate(-8deg)
             }
-
-            /* ── Who Are We Section ── */
             #view-about {
                 position: relative;
                 z-index: 10;
@@ -2166,8 +2153,6 @@
                 margin-top: 8px;
                 box-shadow: 0 0 8px var(--green)
             }
-
-            /* ── Terms of Service Section ── */
             #view-tos {
                 position: relative;
                 z-index: 10;
@@ -3401,11 +3386,6 @@
             .stats {
                 margin-top: 82px!important
             }
-            /* ============================================================
-               ACERUS — REFINED DESIGN SYSTEM (2026)
-               Clean, professional dark theme. Single blue accent,
-               restrained motion, generous spacing, precise typography.
-               ============================================================ */
             body {
                 font-family: var(--sans) !important;
                 color: var(--text-2) !important;
@@ -3419,14 +3399,10 @@
                 font-family: var(--disp) !important;
                 text-shadow: none !important;
             }
-
-            /* ---------- Reveal ---------- */
             .r { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
             .r.in { opacity: 1; transform: none; }
             .d1{transition-delay:.05s}.d2{transition-delay:.12s}.d3{transition-delay:.19s}.d4{transition-delay:.26s}.d5{transition-delay:.33s}
             .hidden { display: none !important; }
-
-            /* ---------- Nav ---------- */
             nav {
                 height: 62px !important;
                 max-width: 1180px !important;
@@ -3491,13 +3467,9 @@
                 border-radius: 16px !important; backdrop-filter: blur(22px) !important;
             }
             #mob-nav a { color: var(--text-2) !important; font-family: var(--sans) !important; font-weight: 500 !important; letter-spacing: -0.01em !important; }
-
-            /* ---------- View paddings ---------- */
             #view-main { padding: 168px 24px 110px !important; }
             @media(min-width:768px){ #view-main { padding-top: 196px !important; } }
             @media(max-width:700px){ #view-main { padding: 128px 18px 80px !important; } }
-
-            /* ---------- Hero ---------- */
             .hero-badge {
                 background: rgba(255,255,255,0.04) !important; border: 1px solid var(--b) !important;
                 border-radius: 100px !important; padding: 7px 15px !important; box-shadow: none !important;
@@ -3532,13 +3504,9 @@
                 box-shadow: none !important; transition: background .2s, border-color .2s, transform .18s !important;
             }
             .btn-g:hover { background: rgba(255,255,255,0.09) !important; border-color: var(--b2) !important; transform: translateY(-2px) !important; }
-
-            /* ---------- Marquee ---------- */
             .mq-wrap { border-top: 1px solid var(--b) !important; border-bottom: 1px solid var(--b) !important; background: rgba(255,255,255,0.012) !important; -webkit-mask-image: linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent) !important; mask-image: linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent) !important; }
             .mi { color: var(--text-3) !important; font-family: var(--mono) !important; font-size: 12px !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; }
             .mid { background: var(--accent) !important; box-shadow: 0 0 8px rgba(41,151,255,0.6) !important; }
-
-            /* ---------- Games chips ---------- */
             .games-lbl { color: var(--text-3) !important; font-family: var(--mono) !important; font-size: 12px !important; letter-spacing: 0.02em !important; text-transform: none !important; }
             .chip {
                 background: rgba(255,255,255,0.04) !important; border: 1px solid var(--b) !important;
@@ -3547,17 +3515,11 @@
                 box-shadow: none !important; transition: background .2s, border-color .2s, color .2s !important;
             }
             .chip:hover { background: rgba(255,255,255,0.08) !important; border-color: var(--b2) !important; color: var(--text) !important; }
-
-            /* ---------- Stats ---------- */
             .stat-n { font-family: var(--disp) !important; font-weight: 800 !important; color: var(--text) !important; letter-spacing: -0.03em !important; font-size: clamp(30px,4vw,44px) !important; }
             .stat-l { color: var(--text-3) !important; font-family: var(--sans) !important; font-weight: 500 !important; font-size: 12.5px !important; letter-spacing: 0 !important; text-transform: none !important; }
-
-            /* ---------- Section headings ---------- */
             .sec-kicker { color: var(--accent) !important; font-family: var(--mono) !important; font-size: 12px !important; letter-spacing: 0.14em !important; text-transform: uppercase !important; background: none !important; -webkit-text-fill-color: initial !important; }
             .sec-title { font-family: var(--disp) !important; font-weight: 800 !important; color: var(--text) !important; letter-spacing: -0.035em !important; font-size: clamp(30px,4.4vw,52px) !important; text-transform: none !important; }
             .sec-sub { color: var(--text-2) !important; font-size: 15px !important; line-height: 1.65 !important; }
-
-            /* ---------- Product cards ---------- */
             .prod-card {
                 background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012)) !important;
                 border: 1px solid var(--b) !important; border-radius: 22px !important;
@@ -3577,8 +3539,6 @@
             .fcol-title { color: var(--text) !important; font-family: var(--sans) !important; font-weight: 600 !important; font-size: 13px !important; letter-spacing: 0.02em !important; text-transform: uppercase !important; }
             .frow { color: var(--text-2) !important; font-family: var(--sans) !important; font-size: 13.5px !important; letter-spacing: -0.01em !important; }
             .fline { background: var(--accent) !important; }
-
-            /* ---------- Purchase box ---------- */
             .purchase-box { background: rgba(255,255,255,0.025) !important; border: 1px solid var(--b) !important; border-radius: 16px !important; padding: 22px !important; box-shadow: none !important; }
             .purchase-box-title { color: var(--text) !important; font-family: var(--disp) !important; font-weight: 700 !important; letter-spacing: -0.02em !important; text-transform: none !important; }
             .plan-lbl { color: var(--text-3) !important; font-family: var(--mono) !important; font-size: 11px !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
@@ -3599,8 +3559,6 @@
                 box-shadow: 0 8px 24px rgba(41,151,255,0.3) !important; transition: background .2s, transform .18s, box-shadow .2s !important;
             }
             .btn-buy:hover { background: #3aa2ff !important; transform: translateY(-2px) !important; box-shadow: 0 14px 32px rgba(41,151,255,0.4) !important; }
-
-            /* ---------- See It In Action ---------- */
             .action-sec { max-width: 980px !important; margin: 0 auto 110px !important; }
             .action-thumb {
                 border-radius: 24px !important; border: 1px solid var(--b) !important;
@@ -3655,8 +3613,6 @@
             }
 
             .divider { border: none !important; height: 1px !important; background: var(--b) !important; }
-
-            /* ---------- Feature cards ---------- */
             .feat-card {
                 background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)) !important;
                 border: 1px solid var(--b) !important; border-radius: 18px !important; box-shadow: none !important; padding: 30px !important;
@@ -3667,8 +3623,6 @@
             .feat-ico svg { stroke: var(--accent-2) !important; }
             .feat-name { font-family: var(--disp) !important; font-weight: 700 !important; color: var(--text) !important; letter-spacing: -0.02em !important; font-size: 18px !important; }
             .feat-txt { color: var(--text-2) !important; font-size: 14px !important; line-height: 1.7 !important; }
-
-            /* ---------- Reviews ---------- */
             .vouch-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 18px !important; }
             .vouch-card {
                 overflow: hidden !important; background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)) !important;
@@ -3682,8 +3636,6 @@
             .vouch-title { color: var(--text) !important; font-family: var(--disp) !important; font-size: 14px !important; font-weight: 700 !important; letter-spacing: -0.015em !important; }
             .vouch-meta { color: var(--text-3) !important; font-family: var(--mono) !important; font-size: 10px !important; letter-spacing: .08em !important; text-transform: uppercase !important; white-space: nowrap !important; }
             @media(max-width:700px) { .vouch-grid { grid-template-columns: 1fr !important; gap: 14px !important; } }
-
-            /* ---------- Media / clips ---------- */
             .clips-head h2 { font-family: var(--disp) !important; font-weight: 800 !important; color: var(--text) !important; letter-spacing: -0.035em !important; text-transform: none !important; }
             .clips-head p { color: var(--text-2) !important; font-size: 14.5px !important; }
             .tab {
@@ -3722,8 +3674,6 @@
             .plbl { color: #fff !important; font-family: var(--sans) !important; font-weight: 600 !important; font-size: 12px !important; letter-spacing: 0 !important; text-transform: none !important; opacity: .92 !important; }
             .spin { border-top-color: var(--accent) !important; }
             .verr span { color: #ff6b6b !important; font-family: var(--sans) !important; font-weight: 500 !important; letter-spacing: 0 !important; text-transform: none !important; font-size: 12px !important; }
-
-            /* ---------- About ---------- */
             #view-about { max-width: 1100px !important; margin: 0 auto !important; padding: 148px 24px 90px !important; }
             @media(min-width:768px){ #view-about { padding-top: 184px !important; } }
             @media(max-width:700px){ #view-about { padding-top: 120px !important; } }
@@ -3743,8 +3693,6 @@
             .about-block-text { color: var(--text-2) !important; font-size: 14px !important; line-height: 1.7 !important; }
             .about-block-list li { color: var(--text-2) !important; font-size: 13.5px !important; }
             .about-block-list li::before { color: var(--accent) !important; background: var(--accent) !important; }
-
-            /* Showcases */
             .about-showcases { margin-bottom: 66px !important; }
             .show-head { text-align: center !important; margin-bottom: 34px !important; }
             .show-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 22px !important; }
@@ -3762,15 +3710,11 @@
             .show-body { padding: 16px 18px 18px !important; }
             .show-game { font-family: var(--disp) !important; font-weight: 700 !important; color: var(--text) !important; letter-spacing: -0.02em !important; font-size: 16px !important; margin: 0 0 4px !important; }
             .show-sub { color: var(--text-3) !important; font-size: 12.5px !important; margin: 0 !important; line-height: 1.5 !important; }
-
-            /* About CTA */
             .about-cta { background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012)) !important; border: 1px solid var(--b) !important; border-radius: 18px !important; padding: 26px !important; text-align: center !important; }
             .about-cta p { color: var(--text-2) !important; font-size: 14.5px !important; margin: 0 !important; }
             .about-cta strong { color: var(--text) !important; }
             .about-cta a { color: var(--accent) !important; text-decoration: none !important; font-weight: 600 !important; }
             .about-cta a:hover { text-decoration: underline !important; }
-
-            /* ---------- Footer ---------- */
             footer { border-top: 1px solid var(--b) !important; background: rgba(255,255,255,0.012) !important; }
             .ft-logo { font-family: var(--disp) !important; font-weight: 800 !important; color: var(--text) !important; letter-spacing: -0.01em !important; }
             .ft-copy { color: var(--text-3) !important; font-family: var(--sans) !important; }
@@ -3778,8 +3722,6 @@
             .ft-links a:hover { color: var(--text) !important; }
             .stdot { background: #30d158 !important; box-shadow: 0 0 10px rgba(48,209,88,0.7) !important; }
             .strow { color: var(--text-3) !important; font-family: var(--mono) !important; font-size: 11px !important; letter-spacing: 0.04em !important; }
-
-            /* ---------- Terms of Service ---------- */
             #view-tos h1 { font-family: var(--disp) !important; font-weight: 800 !important; color: var(--text) !important; letter-spacing: -0.03em !important; text-transform: none !important; text-shadow: none !important; }
             .tos-section {
                 background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.008)) !important;
@@ -5121,6 +5063,7 @@
             <div class="ft-links">
                 <a href="https://discord.gg/Wdghr2n5yr" target="_blank">Discord Community</a>
                 <a href="#terms" data-view="tos">Terms of Service</a>
+                <a href="/dashboard" data-view="dashboard" style="color:var(--text-3)">Dashboard</a>
                 <div class="strow">
                     <span class="stdot"></span>
                     All Systems Operational
@@ -5350,6 +5293,105 @@
                 </div>
             </div>
         </div>
+
+        <div id="view-dashboard" class="hidden" style="position:relative;z-index:10;padding:140px 24px 100px;max-width:520px;margin:0 auto">
+            <div id="dash-login">
+                <div class="r" style="text-align:center;margin-bottom:44px;padding-top:20px">
+                    <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(85,26,139,0.12));border:1px solid rgba(124,58,237,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 24px">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(124,58,237,0.85)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+                    </div>
+                    <h1 style="font-family:var(--disp);font-size:clamp(28px,5vw,40px);font-weight:900;letter-spacing:.02em;text-transform:uppercase;color:var(--text);margin-bottom:10px">Dashboard</h1>
+                    <p style="font-size:13.5px;color:var(--text-2);line-height:1.7">Enter your license key to continue.</p>
+                </div>
+                <div class="r d1" style="display:flex;flex-direction:column;gap:14px">
+                    <div style="position:relative">
+                        <input id="dash-key" type="text" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" spellcheck="false" autocomplete="off" style="width:100%;height:50px;padding:0 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:var(--text);font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;outline:none;transition:border-color .25s,box-shadow .25s" onfocus="this.style.borderColor='rgba(124,58,237,0.5)';this.style.boxShadow='0 0 20px rgba(124,58,237,0.08)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'" onkeydown="if(event.key==='Enter')dashLogin()">
+                    </div>
+                    <div id="dash-error" style="display:none;padding:12px 16px;background:rgba(255,60,60,0.06);border:1px solid rgba(255,60,60,0.15);border-radius:10px;font-size:12px;color:#ff6b6b;font-family:var(--sans)"></div>
+                    <button id="dash-login-btn" onclick="dashLogin()" class="dash-submit-btn">
+                        <span id="dash-login-text">Continue</span>
+                        <svg id="dash-login-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div id="dash-login-spinner" style="display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:sp .6s linear infinite"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div id="dash-panel" style="display:none">
+                <div class="r" style="text-align:center;margin-bottom:32px;padding-top:20px">
+                    <h1 style="font-family:var(--disp);font-size:clamp(22px,4vw,32px);font-weight:900;letter-spacing:.02em;text-transform:uppercase;color:var(--text);margin-bottom:6px" id="dash-panel-title">Welcome back</h1>
+                    <p style="font-size:13px;color:var(--text-2)" id="dash-panel-sub">Your subscription is active.</p>
+                </div>
+
+                <div class="r d1" style="display:flex;flex-direction:column;gap:10px">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                        <div class="dash-info-card">
+                            <div class="dash-info-label">Status</div>
+                            <div id="dash-status" class="dash-info-value" style="color:#22c55e">Active</div>
+                        </div>
+                        <div class="dash-info-card">
+                            <div class="dash-info-label">Time Left</div>
+                            <div id="dash-time-left" class="dash-info-value">—</div>
+                        </div>
+                    </div>
+
+                    <div class="dash-info-card">
+                        <div class="dash-info-label">Product</div>
+                        <div id="dash-product-name" class="dash-info-value">—</div>
+                    </div>
+
+                    <div id="dash-downloads" style="display:flex;flex-direction:column;gap:8px;margin-top:6px"></div>
+
+                    <button onclick="dashLogout()" class="dash-logout-btn">Sign Out</button>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            #view-dashboard { min-height: 80vh; }
+            .dash-submit-btn {
+                height: 50px; background: linear-gradient(135deg, rgba(124,58,237,1), rgba(85,26,139,0.95));
+                color: #fff; border: none; border-radius: 12px; font-family: var(--sans); font-weight: 700;
+                font-size: 12px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+                transition: opacity .2s, transform .25s, box-shadow .25s; display: flex; align-items: center;
+                justify-content: center; gap: 10px;
+                box-shadow: 0 0 30px rgba(124,58,237,0.3), 0 0 0 1px rgba(124,58,237,0.3);
+            }
+            .dash-submit-btn:hover { opacity: .92; transform: translateY(-2px); box-shadow: 0 8px 40px rgba(124,58,237,0.5), 0 0 0 1px rgba(124,58,237,0.4); }
+            .dash-submit-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+            .dash-info-card {
+                background: rgba(255,255,255,0.028); border: 1px solid rgba(255,255,255,0.07);
+                border-radius: 12px; padding: 18px 20px; transition: border-color .2s;
+            }
+            .dash-info-card:hover { border-color: rgba(255,255,255,0.12); }
+            .dash-info-label {
+                font-family: var(--mono); font-size: 7.5px; letter-spacing: .28em;
+                text-transform: uppercase; color: var(--text-3); margin-bottom: 6px;
+            }
+            .dash-info-value { font-family: var(--sans); font-weight: 600; font-size: 15px; color: var(--text); }
+            .dash-dl-btn {
+                height: 48px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 12px; color: var(--text); font-family: var(--sans); font-weight: 600;
+                font-size: 12px; letter-spacing: .04em; cursor: pointer; display: flex; align-items: center;
+                justify-content: center; gap: 10px; transition: all .22s; text-decoration: none;
+            }
+            .dash-dl-btn:hover {
+                background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.35);
+                box-shadow: 0 0 24px rgba(124,58,237,0.12); transform: translateY(-2px);
+            }
+            .dash-dl-btn svg { opacity: .5; transition: opacity .2s; }
+            .dash-dl-btn:hover svg { opacity: 1; }
+            .dash-logout-btn {
+                height: 38px; background: transparent; border: 1px solid rgba(255,255,255,0.06);
+                border-radius: 10px; color: var(--text-3); font-family: var(--sans); font-weight: 500;
+                font-size: 10px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+                transition: border-color .2s, color .2s; margin-top: 8px;
+            }
+            .dash-logout-btn:hover { border-color: rgba(255,60,60,0.2); color: #ff6b6b; }
+            @media(max-width:700px) {
+                #view-dashboard { padding: 120px 16px 80px !important; }
+            }
+        </style>
+
         <script>
             (function() {
                 const c = document.getElementById('stars')
@@ -5434,24 +5476,27 @@
                 main: '/',
                 clips: '#media',
                 about: '#about',
-                tos: '#terms'
+                tos: '#terms',
+                dashboard: '/dashboard'
             };
             function setActiveNav(v) {
                 document.querySelectorAll('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view === v))
             }
             function setBodyView(v) {
-                document.body.classList.remove('view-main', 'view-clips', 'view-about', 'view-tos');
+                document.body.classList.remove('view-main', 'view-clips', 'view-about', 'view-tos', 'view-dashboard');
                 document.body.classList.add('view-' + v)
             }
             function showView(v, push=true, scrollTop=true) {
                 const m = document.getElementById('view-main')
                   , c = document.getElementById('view-clips')
                   , a = document.getElementById('view-about')
-                  , t = document.getElementById('view-tos');
+                  , t = document.getElementById('view-tos')
+                  , d = document.getElementById('view-dashboard');
                 m.classList.add('hidden');
                 c.classList.add('hidden');
                 a.classList.add('hidden');
                 t.classList.add('hidden');
+                d.classList.add('hidden');
                 if (v === 'clips') {
                     c.classList.remove('hidden');
                     c.querySelectorAll('.r').forEach(el => el.classList.add('in'));
@@ -5462,6 +5507,10 @@
                 } else if (v === 'tos') {
                     t.classList.remove('hidden');
                     t.querySelectorAll('.r').forEach(el => el.classList.add('in'))
+                } else if (v === 'dashboard') {
+                    d.classList.remove('hidden');
+                    d.querySelectorAll('.r').forEach(el => el.classList.add('in'));
+                    dashCheckSession()
                 } else {
                     m.classList.remove('hidden')
                 }
@@ -5565,7 +5614,9 @@
             function viewFromPath() {
                 const path = window.location.pathname.toLowerCase();
                 const hash = window.location.hash.toLowerCase();
-                if (path.includes('/terms') || path.includes('/tos') || hash.includes('tos') || hash.includes('terms')) {
+                if (path.includes('/dashboard') || hash.includes('dashboard')) {
+                    return 'dashboard';
+                } else if (path.includes('/terms') || path.includes('/tos') || hash.includes('tos') || hash.includes('terms')) {
                     return 'tos';
                 } else if (path.includes('/about') || hash.includes('about')) {
                     return 'about';
@@ -5620,6 +5671,137 @@
                 , 120);
             }
             );
+            const DASH_WORKER = ''; // SET THIS after deploy
+            let dashSession = null;
+            let dashTimerInterval = null;
+
+            async function dashFingerprint() {
+                const parts = [
+                    navigator.userAgent, navigator.language,
+                    screen.width + 'x' + screen.height + 'x' + screen.colorDepth,
+                    Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    navigator.hardwareConcurrency || 0,
+                ];
+                try {
+                    const c = document.createElement('canvas'), x = c.getContext('2d');
+                    c.width = 200; c.height = 50; x.textBaseline = 'top';
+                    x.font = '14px Arial'; x.fillStyle = '#f60'; x.fillRect(40,0,62,20);
+                    x.fillStyle = '#069'; x.fillText('acerus.cc', 2, 15);
+                    parts.push(c.toDataURL());
+                } catch(e) {}
+                const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(parts.join('|||')));
+                return [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2,'0')).join('');
+            }
+
+            function dashShowError(msg) { const el = document.getElementById('dash-error'); el.textContent = msg; el.style.display = 'block'; }
+            function dashHideError() { document.getElementById('dash-error').style.display = 'none'; }
+            function dashShowLogin() { document.getElementById('dash-login').style.display = 'block'; document.getElementById('dash-panel').style.display = 'none'; }
+
+            function dashShowPanel(data) {
+                document.getElementById('dash-login').style.display = 'none';
+                document.getElementById('dash-panel').style.display = 'block';
+                document.getElementById('dash-product-name').textContent = data.product || '—';
+
+                if (dashTimerInterval) clearInterval(dashTimerInterval);
+                const el = document.getElementById('dash-time-left');
+                function tick() {
+                    const left = data.expiry - Math.floor(Date.now() / 1000);
+                    if (left <= 0) { el.textContent = 'Expired'; el.style.color = '#ff6b6b'; document.getElementById('dash-status').textContent = 'Expired'; document.getElementById('dash-status').style.color = '#ff6b6b'; return; }
+                    const d = Math.floor(left/86400), h = Math.floor((left%86400)/3600), m = Math.floor((left%3600)/60), s = left%60;
+                    el.textContent = d > 0 ? d+'d '+h+'h '+m+'m' : h > 0 ? h+'h '+m+'m '+s+'s' : m+'m '+s+'s';
+                }
+                tick(); dashTimerInterval = setInterval(tick, 1000);
+
+                document.getElementById('dash-status').textContent = 'Active';
+                document.getElementById('dash-status').style.color = '#22c55e';
+
+                const dlContainer = document.getElementById('dash-downloads');
+                dlContainer.innerHTML = '';
+                const dlIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+                if (data.downloads && data.downloads.length) {
+                    data.downloads.forEach(dl => {
+                        const a = document.createElement('a');
+                        a.href = '#'; a.className = 'dash-dl-btn';
+                        a.innerHTML = dlIcon + ' ' + dl.name;
+                        a.addEventListener('click', async function(e) {
+                            e.preventDefault();
+                            if (a.classList.contains('downloading')) return;
+                            a.classList.add('downloading'); a.innerHTML = dlIcon + ' Downloading...';
+                            try {
+                                const r = await fetch(DASH_WORKER + '/download?id=' + encodeURIComponent(dl.id), { headers: { 'Authorization': 'Bearer ' + dashSession.token } });
+                                if (!r.ok) throw new Error();
+                                const blob = await r.blob();
+                                const u = URL.createObjectURL(blob);
+                                const tmp = document.createElement('a'); tmp.href = u; tmp.download = dl.name.replace(/[^a-zA-Z0-9._-]/g,'_') + '.exe'; tmp.click();
+                                URL.revokeObjectURL(u);
+                            } catch { dashShowError('Download failed. Try again.'); }
+                            a.classList.remove('downloading'); a.innerHTML = dlIcon + ' ' + dl.name;
+                        });
+                        dlContainer.appendChild(a);
+                    });
+                }
+            }
+
+            async function dashLogin() {
+                dashHideError();
+                const key = document.getElementById('dash-key').value.trim();
+                if (!key) { dashShowError('Please enter your license key.'); return; }
+                if (!DASH_WORKER) { dashShowError('Dashboard is not configured.'); return; }
+
+                const btn = document.getElementById('dash-login-btn');
+                btn.disabled = true;
+                document.getElementById('dash-login-text').textContent = 'Verifying';
+                document.getElementById('dash-login-arrow').style.display = 'none';
+                document.getElementById('dash-login-spinner').style.display = 'block';
+
+                try {
+                    const fp = await dashFingerprint();
+                    const res = await fetch(DASH_WORKER + '/login', {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify({ key, fingerprint: fp }),
+                    });
+                    const data = await res.json();
+                    if (!res.ok) { dashShowError(data.error || 'Authentication failed.'); return; }
+                    dashSession = { token: data.token, product: data.product, expiry: data.expiry, downloads: data.downloads, fp };
+                    localStorage.setItem('dash_session', JSON.stringify(dashSession));
+                    dashShowPanel(dashSession);
+                } catch(e) {
+                    dashShowError('Connection error. Please try again.');
+                } finally {
+                    btn.disabled = false;
+                    document.getElementById('dash-login-text').textContent = 'Continue';
+                    document.getElementById('dash-login-arrow').style.display = '';
+                    document.getElementById('dash-login-spinner').style.display = 'none';
+                }
+            }
+
+            async function dashCheckSession() {
+                try {
+                    const saved = localStorage.getItem('dash_session');
+                    if (!saved || !DASH_WORKER) { dashShowLogin(); return; }
+                    dashSession = JSON.parse(saved);
+                    const fp = await dashFingerprint();
+                    if (fp !== dashSession.fp) { dashLogout(); return; }
+                    const res = await fetch(DASH_WORKER + '/verify', {
+                        method: 'POST',
+                        headers: { 'authorization': 'Bearer ' + dashSession.token },
+                    });
+                    if (!res.ok) { dashLogout(); return; }
+                    const data = await res.json();
+                    if (data.expiry) dashSession.expiry = data.expiry;
+                    if (data.downloads) dashSession.downloads = data.downloads;
+                    dashShowPanel(dashSession);
+                } catch(e) { dashShowLogin(); }
+            }
+
+            function dashLogout() {
+                dashSession = null;
+                if (dashTimerInterval) clearInterval(dashTimerInterval);
+                localStorage.removeItem('dash_session');
+                dashShowLogin();
+                document.getElementById('dash-key').value = '';
+            }
         </script>
     </body>
 </html>
